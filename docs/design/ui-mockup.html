@@ -1,0 +1,859 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מסלול · אב־טיפוס ממשק</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ─────────────────────────────────────────────────────────────
+   מסלול — design tokens
+   Surface depth comes from one hairline and two tones.
+   No shadows. No gradients. Anywhere.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --paper:#F4F6F4;  --surface:#FFFFFF;  --surface-sunk:#EDF0EE;
+  --ink:#16211F;    --ink-soft:#5C6A66; --ink-faint:#8A9793;
+  --petrol:#0D5C55; --petrol-wash:#E4EFEC;
+  --clay:#8E3B2F;   --clay-wash:#F6E9E6;
+  --line:#DCE2DE;   --line-strong:#C3CCC7;
+
+  --pt-ice:#B4762A; --pt-hybrid:#4E8A5A; --pt-phev:#2E7D8C; --pt-bev:#2C5FA8;
+
+  --r:6px;
+  --display:"Heebo","Segoe UI",system-ui,sans-serif;
+  --ui:"Heebo","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+:root[data-theme="dark"]{
+  --paper:#0E1513;  --surface:#16201E;  --surface-sunk:#111A18;
+  --ink:#E8EDEA;    --ink-soft:#94A39E; --ink-faint:#6D7C77;
+  --petrol:#4FB3A5; --petrol-wash:#14302C;
+  --clay:#D97A63;   --clay-wash:#33201C;
+  --line:#26332F;   --line-strong:#35443F;
+  --pt-ice:#D2A05B; --pt-hybrid:#7CBE88; --pt-phev:#5FB4C4; --pt-bev:#6C9CE0;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper); color:var(--ink);
+  font-family:var(--ui); font-size:16px; line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--petrol);outline-offset:2px;border-radius:3px}
+
+/* ── chrome ─────────────────────────────────────────────── */
+.topbar{
+  border-block-end:1px solid var(--line); background:var(--surface);
+  position:sticky; top:0; z-index:20;
+}
+.topbar .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.brand{font-family:var(--display);font-weight:700;font-size:22px;letter-spacing:-.01em}
+.brand span{color:var(--petrol)}
+.brand small{
+  font-family:var(--ui);font-weight:600;font-size:11px;color:var(--ink-faint);
+  letter-spacing:.08em;margin-inline-start:10px;
+}
+.tabs{display:flex;gap:2px;margin-inline-start:auto}
+.tab{
+  background:none;border:0;padding:7px 14px;border-radius:var(--r);
+  font-weight:600;font-size:14px;color:var(--ink-soft);cursor:pointer;
+}
+.tab:hover{background:var(--surface-sunk);color:var(--ink)}
+.tab[aria-selected="true"]{background:var(--petrol);color:#fff}
+:root[data-theme="dark"] .tab[aria-selected="true"]{color:#08130F}
+.icon-btn{
+  background:none;border:1px solid var(--line);border-radius:var(--r);
+  width:34px;height:34px;cursor:pointer;display:grid;place-items:center;font-size:15px;
+}
+.icon-btn:hover{border-color:var(--line-strong)}
+
+/* ── hero thesis ────────────────────────────────────────── */
+.thesis{padding:56px 0 36px}
+.thesis h1{
+  font-family:var(--display);font-weight:700;font-size:clamp(32px,4.4vw,50px);
+  line-height:1.12;letter-spacing:-.015em;margin:0 0 18px;max-width:16ch;
+}
+.thesis p{
+  margin:0;max-width:60ch;color:var(--ink-soft);font-size:17px;line-height:1.62;
+}
+.thesis .basis{
+  margin-top:22px;padding-top:18px;border-top:1px solid var(--line);
+  font-size:14px;color:var(--ink-faint);max-width:none;
+}
+/* inline editable profile — the signature interaction */
+.pv{
+  font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink);
+  background:var(--petrol-wash);border:0;border-bottom:1px dashed var(--petrol);
+  border-radius:3px 3px 0 0;padding:2px 5px;cursor:text;
+  width:var(--w,7ch);text-align:center;
+}
+.pv:hover{background:var(--surface-sunk)}
+.pv::-webkit-outer-spin-button,.pv::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.pv{-moz-appearance:textfield}
+
+/* ── filters ────────────────────────────────────────────── */
+.filters{display:flex;gap:8px;flex-wrap:wrap;padding-bottom:22px}
+.chip{
+  border:1px solid var(--line);background:var(--surface);border-radius:100px;
+  padding:6px 15px;font-size:14px;font-weight:600;color:var(--ink-soft);cursor:pointer;
+  display:inline-flex;align-items:center;gap:7px;
+}
+.chip:hover{border-color:var(--line-strong);color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.dot{width:7px;height:7px;border-radius:50%;background:currentColor;flex:none}
+
+/* ── catalog ────────────────────────────────────────────── */
+.grid{
+  display:grid;grid-template-columns:repeat(auto-fill,minmax(272px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;margin-bottom:64px;
+}
+.card{
+  background:var(--surface);padding:0;border:0;text-align:start;cursor:pointer;
+  display:flex;flex-direction:column;
+}
+.card:hover{background:var(--surface-sunk)}
+.card-art{
+  background:var(--surface-sunk);padding:14px 16px 0;position:relative;
+  border-block-end:1px solid var(--line);
+}
+.card:hover .card-art{background:var(--surface)}
+.card-art svg{width:100%;height:auto;display:block}
+.pt-flag{
+  position:absolute;inset-block-start:14px;inset-inline-start:16px;
+  font-size:11px;font-weight:700;letter-spacing:.04em;
+  display:inline-flex;align-items:center;gap:6px;
+}
+.card-body{padding:16px}
+.card h3{margin:0;font-size:17px;font-weight:700;letter-spacing:-.01em}
+/* Latin trim names must not be reordered by the RTL base direction */
+.card .sub{margin:2px 0 16px;font-size:13px;color:var(--ink-faint);
+  direction:ltr;text-align:right}
+.card .price{
+  font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1;
+}
+.card .price-lbl{font-size:12.5px;color:var(--ink-soft);margin-top:5px}
+.card .terms{
+  margin-top:14px;padding-top:12px;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;font-size:12.5px;color:var(--ink-faint);
+}
+.card .terms b{font-weight:600;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+
+/* ── detail ─────────────────────────────────────────────── */
+.detail{display:grid;grid-template-columns:1fr 460px;gap:1px;
+  background:var(--line);border:1px solid var(--line);border-radius:var(--r);
+  overflow:hidden;margin-bottom:20px}
+.detail-art{background:var(--surface);padding:32px}
+.detail-art .hero-svg{width:100%;height:auto;max-width:520px;margin:0 auto;display:block}
+.gallery{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:24px}
+.gallery figure{
+  margin:0;border:1px dashed var(--line-strong);border-radius:4px;
+  aspect-ratio:4/3;display:grid;place-items:center;font-size:11px;color:var(--ink-faint);
+  text-align:center;padding:8px;line-height:1.4;
+  background:repeating-linear-gradient(135deg,
+    transparent 0 7px, var(--surface-sunk) 7px 14px);
+}
+.gallery figure b{display:block;color:var(--ink-soft);font-size:12px;margin-bottom:2px}
+.spec{display:grid;grid-template-columns:repeat(2,1fr);gap:0 28px;margin-top:28px}
+.spec div{
+  display:flex;justify-content:space-between;padding:9px 0;
+  border-block-end:1px solid var(--line);font-size:13.5px;
+}
+.spec dt{color:var(--ink-soft)}
+.spec dd{margin:0;font-weight:600;font-variant-numeric:tabular-nums}
+
+.detail-calc{background:var(--surface);padding:28px}
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.1em;color:var(--ink-faint);
+  margin:0 0 8px;
+}
+.total{font-size:52px;font-weight:800;letter-spacing:-.03em;line-height:1;margin:0}
+.total-lbl{font-size:14px;color:var(--ink-soft);margin:7px 0 20px}
+.seg{display:flex;background:var(--surface-sunk);border-radius:var(--r);padding:3px;gap:3px}
+.seg button{
+  flex:1;border:0;background:none;padding:7px 0;border-radius:4px;
+  font-size:13.5px;font-weight:600;color:var(--ink-soft);cursor:pointer;
+}
+.seg button[aria-selected="true"]{background:var(--surface);color:var(--ink);
+  box-shadow:inset 0 0 0 1px var(--line)}
+
+/* the signature: ledger + spine */
+.ledger{margin-top:24px;display:grid;grid-template-columns:10px 1fr;gap:16px}
+.spine{display:flex;flex-direction:column;gap:2px;padding-top:4px}
+.spine i{display:block;border-radius:2px;background:var(--ink);opacity:.82;transition:opacity .12s}
+.spine i.neg{background:var(--petrol)}
+.spine i.dim{opacity:.18}
+.lines{border:0;padding:0;margin:0}
+.line{border-block-end:1px solid var(--line)}
+.line:first-child{border-block-start:1px solid var(--line)}
+.line > button{
+  width:100%;background:none;border:0;padding:11px 0;cursor:pointer;
+  display:flex;align-items:baseline;gap:12px;text-align:start;
+}
+.line > button:hover .lbl{color:var(--petrol)}
+.lbl{font-size:14.5px;flex:1}
+.amt{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:-.01em}
+.amt.neg{color:var(--petrol)}
+.caret{font-size:10px;color:var(--ink-faint);width:9px}
+.trace{
+  display:none;padding:0 0 13px;margin-block-start:-2px;
+}
+.line.open .trace{display:block}
+.line.open .caret{transform:rotate(180deg);display:inline-block}
+.trace code{
+  display:block;font-family:var(--mono);font-size:12px;line-height:1.75;
+  color:var(--ink-soft);background:var(--surface-sunk);
+  border-inline-start:2px solid var(--line-strong);
+  padding:9px 12px;border-radius:0 4px 4px 0;white-space:pre-wrap;
+}
+.trace .src{font-size:11px;color:var(--ink-faint);margin-top:7px;font-family:var(--mono)}
+.sumline{
+  display:flex;align-items:baseline;gap:12px;padding:16px 0 0;margin-top:2px;
+  border-top:2px solid var(--ink);
+}
+.sumline .lbl{font-weight:700;font-size:15px}
+.sumline .amt{font-size:21px;font-weight:800}
+
+.notice{
+  margin-top:20px;border:1px solid var(--clay);background:var(--clay-wash);
+  border-radius:var(--r);padding:13px 15px;font-size:13.5px;line-height:1.6;
+}
+.notice b{color:var(--clay)}
+.notice.ok{border-color:var(--petrol);background:var(--petrol-wash)}
+.notice.ok b{color:var(--petrol)}
+
+/* PHEV slider — the assumption we refuse to hide */
+.assump{margin-top:20px;padding:16px;border:1px dashed var(--line-strong);border-radius:var(--r)}
+.assump label{display:flex;justify-content:space-between;font-size:13.5px;font-weight:600;margin-bottom:10px}
+.assump output{font-family:var(--mono);color:var(--petrol)}
+.assump input[type=range]{width:100%;accent-color:var(--petrol)}
+.assump p{margin:9px 0 0;font-size:12.5px;color:var(--ink-faint);line-height:1.55}
+
+/* ── compare ────────────────────────────────────────────── */
+.axis{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r);
+  padding:28px;margin-bottom:20px;
+}
+.axis h2{font-family:var(--display);font-size:22px;margin:0 0 4px;font-weight:700}
+.axis .cap{margin:0 0 26px;color:var(--ink-soft);font-size:14px}
+/* Absolute cost and the delta over the cheapest option, in one bar.
+   Pale segment = what every car in the list costs anyway.
+   Solid segment = what this one costs on top of that. */
+.track{display:grid;grid-template-columns:126px 1fr 96px;align-items:center;
+  gap:16px;padding:9px 0}
+.track + .track{border-block-start:1px solid var(--line)}
+.track .name{font-size:13.5px;font-weight:600;white-space:nowrap;
+  overflow:hidden;text-overflow:ellipsis;direction:ltr;text-align:right}
+.track .bar{position:relative;height:13px;background:var(--surface-sunk);
+  border-radius:100px;display:flex;overflow:hidden}
+.track .bar i{display:block;height:100%}
+.track .bar .base{opacity:.3}
+.track .bar .fill{border-inline-start:1px solid var(--surface)}
+.track .val{display:flex;flex-direction:column;line-height:1.3;
+  direction:ltr;text-align:right;font-variant-numeric:tabular-nums}
+.track .val b{font-size:14.5px;font-weight:700}
+.track .val em{font-size:11.5px;font-style:normal;font-weight:600;color:var(--ink-faint)}
+.track .val em.zero{color:var(--petrol)}
+.cmp{width:100%;border-collapse:collapse;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:64px}
+.cmp th,.cmp td{padding:12px 16px;text-align:start;font-size:14px;border-block-end:1px solid var(--line)}
+.cmp thead th{background:var(--surface-sunk);font-size:12px;letter-spacing:.04em;color:var(--ink-soft)}
+.cmp tbody th{font-weight:600;color:var(--ink-soft);font-size:13.5px}
+.cmp td{font-variant-numeric:tabular-nums;font-weight:600}
+.cmp td.best{color:var(--petrol)}
+.cmp tr:last-child th,.cmp tr:last-child td{border-block-end:0}
+.cmp tr.total-row td,.cmp tr.total-row th{background:var(--surface-sunk);font-weight:800;font-size:15px}
+
+/* ── system strip ───────────────────────────────────────── */
+.system{border-top:1px solid var(--line);padding:48px 0 72px}
+.system h2{font-family:var(--display);font-size:20px;margin:0 0 22px;font-weight:700}
+.swatches{display:flex;flex-wrap:wrap;gap:1px;background:var(--line);
+  border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-bottom:26px}
+.sw{background:var(--surface);padding:12px 14px;min-width:132px;flex:1}
+.sw i{display:block;height:34px;border-radius:3px;margin-bottom:9px;border:1px solid rgba(0,0,0,.06)}
+.sw b{display:block;font-size:12.5px}
+.sw span{display:block;font-family:var(--mono);font-size:11px;color:var(--ink-faint);
+  direction:ltr;text-align:start}
+.typerow{border-block-start:1px solid var(--line);padding:16px 0;display:grid;
+  grid-template-columns:150px 1fr;gap:20px;align-items:baseline}
+.typerow em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--ink-faint);line-height:1.7}
+
+footer{border-top:1px solid var(--line);padding:26px 0 60px;font-size:12.5px;color:var(--ink-faint);line-height:1.7}
+[hidden]{display:none !important}
+
+@media (max-width:960px){
+  .detail{grid-template-columns:1fr}
+  .thesis{padding:38px 0 28px}
+  .total{font-size:44px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <div class="brand">מס<span>לול</span><small>אב־טיפוס · נתוני דוגמה</small></div>
+    <nav class="tabs" role="tablist">
+      <button class="tab" role="tab" aria-selected="true"  data-screen="catalog">הצי</button>
+      <button class="tab" role="tab" aria-selected="false" data-screen="detail">דף רכב</button>
+      <button class="tab" role="tab" aria-selected="false" data-screen="compare">השוואה</button>
+    </nav>
+    <button class="icon-btn" id="theme" aria-label="החלפת ערכת צבעים">◐</button>
+  </div>
+</header>
+
+<!-- ══ CATALOG ══════════════════════════════════════════ -->
+<section id="s-catalog">
+<div class="wrap">
+  <div class="thesis">
+    <h1>הצי שלך,<br>במחירים שלך.</h1>
+    <p>כל סכום כאן הוא מה שיירד לך מהתלוש בפועל — אחרי השתתפות המעסיק, אחרי זקיפת שווי השימוש למס, ואחרי דלק או חשמל. לא מחיר מחירון ולא &rlm;"החל מ&rlm;".</p>
+    <p class="basis">
+      מחושב לפי ברוטו של
+      <input class="pv num" id="p-salary" type="number" step="500" value="28400" style="--w:8ch" aria-label="שכר ברוטו חודשי">
+      ש&rlm;"ח,
+      <input class="pv num" id="p-dist" type="number" value="34" style="--w:5ch" aria-label="מרחק חד־כיווני מהבית לעבודה">
+      ק&rlm;"מ לכיוון,
+      <input class="pv num" id="p-annual" type="number" step="1000" value="26000" style="--w:7ch" aria-label="נסועה שנתית">
+      ק&rlm;"מ בשנה ו־<input class="pv num" id="p-points" type="number" step="0.25" value="2.25" style="--w:5ch" aria-label="נקודות זיכוי"> נקודות זיכוי.
+      אפשר לערוך כל מספר כאן.
+    </p>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="chip" aria-pressed="true"  data-pt="all">הכל</button>
+    <button class="chip" aria-pressed="false" data-pt="ice"><i class="dot" style="color:var(--pt-ice)"></i>דלק</button>
+    <button class="chip" aria-pressed="false" data-pt="hybrid"><i class="dot" style="color:var(--pt-hybrid)"></i>היברידי</button>
+    <button class="chip" aria-pressed="false" data-pt="phev"><i class="dot" style="color:var(--pt-phev)"></i>פלאג־אין</button>
+    <button class="chip" aria-pressed="false" data-pt="bev"><i class="dot" style="color:var(--pt-bev)"></i>חשמלי</button>
+  </div>
+
+  <div class="grid" id="grid"></div>
+</div>
+</section>
+
+<!-- ══ DETAIL ═══════════════════════════════════════════ -->
+<section id="s-detail" hidden>
+<div class="wrap">
+  <div class="thesis" style="padding-bottom:24px">
+    <h1 id="d-name" style="max-width:none">—</h1>
+    <p id="d-tag">—</p>
+  </div>
+
+  <div class="detail">
+    <div class="detail-art">
+      <div id="d-art"></div>
+      <div class="gallery">
+        <figure><b>חזית ¾</b>ממתין לערכת<br>תמונות מהיבואן</figure>
+        <figure><b>תא נהג</b>ממתין לערכת<br>תמונות מהיבואן</figure>
+        <figure><b>תא מטען</b>ממתין לערכת<br>תמונות מהיבואן</figure>
+      </div>
+      <dl class="spec" id="d-spec"></dl>
+    </div>
+
+    <div class="detail-calc">
+      <p class="eyebrow">העלות שלך</p>
+      <p class="total num" id="d-total">—</p>
+      <p class="total-lbl" id="d-total-lbl">לחודש, נטו לכיס</p>
+
+      <div class="seg" role="tablist">
+        <button role="tab" aria-selected="true"  data-h="1">חודש</button>
+        <button role="tab" aria-selected="false" data-h="12">שנה</button>
+        <button role="tab" aria-selected="false" data-h="36">3 שנים</button>
+      </div>
+
+      <div class="ledger">
+        <div class="spine" id="d-spine"></div>
+        <div class="lines" id="d-lines"></div>
+      </div>
+      <div class="sumline">
+        <span class="lbl" id="d-sumlbl">סה&rlm;"כ לחודש</span>
+        <span class="amt num" id="d-sum">—</span>
+      </div>
+
+      <div id="d-assump"></div>
+      <div id="d-notice"></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- ══ COMPARE ══════════════════════════════════════════ -->
+<section id="s-compare" hidden>
+<div class="wrap">
+  <div class="thesis" style="padding-bottom:24px">
+    <h1>ארבעה רכבים,<br>ציר אחד.</h1>
+    <p>אותה נסועה, אותו שכר, אותם מחירי אנרגיה. ההפרש שנשאר הוא ההפרש האמיתי.</p>
+  </div>
+
+  <div class="axis">
+    <h2>עלות חודשית נטו</h2>
+    <p class="cap">הרצועה הבהירה היא העלות שכל הרכבים ברשימה עולים ממילא.
+      הרצועה המלאה היא מה שהרכב הזה עולה מעבר לזול שבהם.</p>
+    <div id="c-tracks"></div>
+  </div>
+
+  <table class="cmp" id="c-table"></table>
+</div>
+</section>
+
+<!-- ══ SYSTEM ═══════════════════════════════════════════ -->
+<section class="system">
+<div class="wrap">
+  <h2>שפת העיצוב</h2>
+  <div class="swatches">
+    <div class="sw"><i style="background:#F4F6F4"></i><b>Paper</b><span>#F4F6F4</span></div>
+    <div class="sw"><i style="background:#16211F"></i><b>Ink</b><span>#16211F</span></div>
+    <div class="sw"><i style="background:#0D5C55"></i><b>Petrol · accent</b><span>#0D5C55</span></div>
+    <div class="sw"><i style="background:#8E3B2F"></i><b>Clay · אזהרה</b><span>#8E3B2F</span></div>
+    <div class="sw"><i style="background:#B4762A"></i><b>דלק</b><span>#B4762A</span></div>
+    <div class="sw"><i style="background:#4E8A5A"></i><b>היברידי</b><span>#4E8A5A</span></div>
+    <div class="sw"><i style="background:#2E7D8C"></i><b>פלאג־אין</b><span>#2E7D8C</span></div>
+    <div class="sw"><i style="background:#2C5FA8"></i><b>חשמלי</b><span>#2C5FA8</span></div>
+  </div>
+
+  <div class="typerow">
+    <em>Frank Ruhl Libre<br>display · 500/700</em>
+    <div style="font-family:var(--display);font-size:30px;font-weight:700;letter-spacing:-.015em">הצי שלך, במחירים שלך</div>
+  </div>
+  <div class="typerow">
+    <em>Assistant<br>ממשק · 400/600/700/800</em>
+    <div style="font-size:17px">כל סכום כאן הוא מה שיירד לך מהתלוש בפועל, אחרי מס ואחרי דלק.</div>
+  </div>
+  <div class="typerow">
+    <em>Assistant 800 · tnum<br>סכומים</em>
+    <div class="num" style="font-size:38px;font-weight:800;letter-spacing:-.03em">₪1,847 · ₪22,164 · ₪66,492</div>
+  </div>
+  <div class="typerow">
+    <em>IBM Plex Mono<br>מקור החישוב</em>
+    <div dir="ltr" style="font-family:var(--mono);font-size:13px;color:var(--ink-soft);text-align:start">169,000 × 2.48% − 560 = 3,631 ₪ → Δtax @ 47% = 1,706 ₪</div>
+  </div>
+</div>
+</section>
+
+<footer><div class="wrap">
+  נתוני הרכבים, המחירונים ותנאי הליסינג במסך זה הם <b>נתוני דוגמה</b> שנועדו להדגים את הממשק בלבד.
+  מדרגות המס וההפחתות לשווי שימוש מבוססות על פרסומי 2026 וטעונות אימות מול רשות המסים לפני שימוש אמיתי.
+  האיורים מקוריים; תצלומי רכבים יוחלפו בערכות תמונות רשמיות מהיבואן.
+</div></footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   מנוע חישוב מוקטן — אותו מבנה שמתואר במסמך הארכיטקטורה:
+   פונקציות טהורות, כל שורה נושאת trace.
+   ═══════════════════════════════════════════════════════════ */
+
+const TAX_2026 = {
+  usageValueRate: 0.0248,
+  listPriceCeiling: 596860,
+  usageValueDeduction: { ice:0, hybrid:560, phev:1130, bev:1350 },
+  brackets: [ // חודשי — טעון אימות
+    {upTo:7010,  rate:.10},{upTo:10060,rate:.14},{upTo:19000,rate:.20},
+    {upTo:25100, rate:.31},{upTo:46690,rate:.35},{upTo:58190,rate:.47},
+    {upTo:Infinity,rate:.50}
+  ],
+  creditPointValue: 242,
+  ni: [{upTo:7522,rate:.035},{upTo:50695,rate:.12},{upTo:Infinity,rate:0}]
+};
+
+const ENERGY = { petrol95: 7.41, homeKwh: 0.62 };
+
+const POLICY = {
+  fuelTiers:[{maxKm:15,share:.40},{maxKm:40,share:.25},{maxKm:Infinity,share:.10}],
+  rebate:{ice:0,hybrid:150,phev:300,bev:400},
+  chargeRefundPerKwh:0.55, chargeRefundCapKwh:250
+};
+
+const PT = {ice:'דלק',hybrid:'היברידי',phev:'פלאג־אין',bev:'חשמלי'};
+
+const CARS = [
+  {id:'octavia', make:'Škoda', model:'Octavia', trim:'1.5 TSI Ambition', pt:'ice',
+   list:178000, body:'sedan', lease:2480, share:1290, quota:24000, excess:0.42,
+   cons:{kmPerLiter:14.5}},
+  {id:'mazda3', make:'Mazda', model:'3', trim:'2.0 Skyactiv-G', pt:'ice',
+   list:165000, body:'hatch', lease:2350, share:1180, quota:24000, excess:0.40,
+   cons:{kmPerLiter:15.2}},
+  {id:'corolla', make:'Toyota', model:'Corolla', trim:'1.8 Hybrid Premium', pt:'hybrid',
+   list:169000, body:'sedan', lease:2410, share:1240, quota:24000, excess:0.39,
+   cons:{kmPerLiter:21.0}},
+  {id:'niro', make:'Kia', model:'Niro', trim:'1.6 PHEV', pt:'phev',
+   list:195000, body:'suv', lease:2690, share:1390, quota:24000, excess:0.44,
+   cons:{evRangeKm:58, kwhPer100:16.5, kmPerLiterHybrid:19.5}},
+  {id:'model3', make:'Tesla', model:'Model 3', trim:'RWD', pt:'bev',
+   list:215000, body:'sedan', lease:2820, share:1450, quota:24000, excess:0.36,
+   cons:{kwhPer100:14.8}},
+  {id:'ioniq5', make:'Hyundai', model:'Ioniq 5', trim:'73kWh', pt:'bev',
+   list:245000, body:'suv', lease:3140, share:1680, quota:24000, excess:0.38,
+   cons:{kwhPer100:17.6}}
+];
+
+const ils  = n => '₪' + Math.round(Math.abs(n)).toLocaleString('en-US');
+// dir="ltr" isolates the sum so the leading minus doesn't get flung to the far side in RTL
+const sgn  = n => `<span dir="ltr">${n < 0 ? '−' : ''}${ils(n)}</span>`;
+const nfx  = (n,d=1) => n.toLocaleString('he-IL',{maximumFractionDigits:d});
+
+function incomeTax(monthly, points){
+  let t=0, prev=0;
+  for(const b of TAX_2026.brackets){
+    if(monthly<=prev) break;
+    t += (Math.min(monthly,b.upTo)-prev)*b.rate; prev=b.upTo;
+  }
+  return Math.max(0, t - points*TAX_2026.creditPointValue);
+}
+function nationalIns(monthly){
+  let t=0, prev=0;
+  for(const b of TAX_2026.ni){
+    if(monthly<=prev) break;
+    t += (Math.min(monthly,b.upTo)-prev)*b.rate; prev=b.upTo;
+  }
+  return t;
+}
+
+/* ─── ① usage ─────────────────────────────────────────── */
+function usage(profile, car, evShare){
+  const commuteMonthly = profile.dist*2*profile.workDays;
+  const annual = profile.annualKm;
+  const monthly = annual/12;
+  let evKm=0, iceKm=monthly;
+  if(car.pt==='bev'){ evKm=monthly; iceKm=0; }
+  else if(car.pt==='phev'){ evKm=monthly*evShare; iceKm=monthly-evKm; }
+  return {monthlyKm:monthly, commuteMonthly, annual, evKm, iceKm};
+}
+
+/* ─── ② energy ────────────────────────────────────────── */
+function energyLines(car,u){
+  const out=[];
+  if(u.iceKm>0){
+    const kpl = car.pt==='phev' ? car.cons.kmPerLiterHybrid : car.cons.kmPerLiter;
+    const liters=u.iceKm/kpl, cost=liters*ENERGY.petrol95;
+    out.push({id:'fuel',label:'דלק',cat:'energy',amount:cost,
+      formula:`${nfx(u.iceKm,0)} ק"מ ÷ ${kpl} קמ"ל × ${ENERGY.petrol95} ₪/ליטר\n= ${nfx(liters,0)} ליטר`,
+      src:'מחיר בנזין 95 · אוגוסט 2026'});
+  }
+  if(u.evKm>0){
+    const kwh=u.evKm*car.cons.kwhPer100/100, cost=kwh*ENERGY.homeKwh;
+    out.push({id:'elec',label:'חשמל (טעינה ביתית)',cat:'energy',amount:cost,
+      formula:`${nfx(u.evKm,0)} ק"מ × ${car.cons.kwhPer100} kWh/100 ק"מ × ${ENERGY.homeKwh} ₪\n= ${nfx(kwh,0)} kWh`,
+      src:'תעריף חח"י ביתי · תעו"ז שפל'});
+    const refKwh=Math.min(kwh,POLICY.chargeRefundCapKwh);
+    out.push({id:'chargeref',label:'החזר טעינה ביתית',cat:'subsidy',
+      amount:-refKwh*POLICY.chargeRefundPerKwh,
+      formula:`${nfx(refKwh,0)} kWh × ${POLICY.chargeRefundPerKwh} ₪ (תקרה ${POLICY.chargeRefundCapKwh} kWh)`,
+      src:'policy/org.json · homeChargingReimbursement'});
+  }
+  return out;
+}
+
+/* ─── ③④⑤⑥ the rest of the pipeline ──────────────────── */
+function calculate(car, profile, evShare){
+  const u = usage(profile,car,evShare);
+  const L = [];
+
+  L.push({id:'lease',label:'השתתפות עובד בליסינג',cat:'lease',amount:car.share,
+    formula:`דמי ליסינג ${ils(car.lease)} · השתתפות עובד לפי דרגה\n= ${ils(car.share)}`,
+    src:`catalog/2026-q3.json · ${car.id}`});
+
+  const uvBase = Math.min(car.list, TAX_2026.listPriceCeiling)*TAX_2026.usageValueRate;
+  const uvDed  = TAX_2026.usageValueDeduction[car.pt];
+  const uv     = Math.max(0, uvBase-uvDed);
+
+  const base   = profile.salary;
+  const taxNow = incomeTax(base,profile.points)+nationalIns(base);
+  const taxNew = incomeTax(base+uv,profile.points)+nationalIns(base+uv);
+  const dTax   = taxNew-taxNow;
+  const margin = uv>0 ? dTax/uv : 0;
+
+  L.push({id:'tax',label:'מס על שווי שימוש',cat:'tax',amount:dTax,
+    formula:`שווי שימוש: ${nfx(Math.min(car.list,TAX_2026.listPriceCeiling),0)} × 2.48%`
+      + (uvDed?` − ${uvDed} (הפחתת ${PT[car.pt]})`:'')
+      + `\n= ${ils(uv)} נזקף לשכר\n\nΔמס = מס(${nfx(base,0)}+${nfx(uv,0)}) − מס(${nfx(base,0)})`
+      + `\n= ${ils(dTax)}  ·  שיעור שולי בפועל ${(margin*100).toFixed(1)}%`,
+    src:'tax-rules/2026.json · מודל ליניארי + מדרגות'});
+
+  energyLines(car,u).forEach(l=>L.push(l));
+
+  // השתתפות מעסיק בדלק/אנרגיה לפי מרחק
+  const tier = POLICY.fuelTiers.find(t=>profile.dist<=t.maxKm);
+  const energyGross = L.filter(l=>l.cat==='energy').reduce((s,l)=>s+l.amount,0);
+  const employerPart = -energyGross*(1-tier.share);
+  if(energyGross>0) L.push({id:'fuelsub',label:'השתתפות מעסיק באנרגיה',cat:'subsidy',amount:employerPart,
+    formula:`מרחק ${profile.dist} ק"מ לכיוון → מדרגה "עד ${tier.maxKm===Infinity?'∞':tier.maxKm} ק"מ"`
+      +`\nחלק העובד ${tier.share*100}% · חלק המעסיק ${(1-tier.share)*100}%`
+      +`\n${ils(energyGross)} × ${(1-tier.share)*100}% = ${ils(-employerPart)}`,
+    src:'policy/org.json · fuelParticipation'});
+
+  const reb = POLICY.rebate[car.pt];
+  if(reb) L.push({id:'rebate',label:`החזר ${PT[car.pt]}`,cat:'subsidy',amount:-reb,
+    formula:`החזר חודשי קבוע לרכב ${PT[car.pt]}`, src:'policy/org.json · powertrainRebate'});
+
+  const over = Math.max(0, u.annual-car.quota);
+  if(over>0) L.push({id:'excess',label:'חריגה ממכסת ק"מ',cat:'mileage',amount:over*car.excess/12,
+    formula:`${nfx(u.annual,0)} − ${nfx(car.quota,0)} = ${nfx(over,0)} ק"מ חריגה\n× ${car.excess} ₪/ק"מ ÷ 12 חודשים`,
+    src:`catalog/2026-q3.json · ${car.id}.excessKmRate`});
+
+  const monthly = L.reduce((s,l)=>s+l.amount,0);
+  return {lines:L, monthly, usageValue:uv, marginal:margin, over, u};
+}
+
+/* ═══ art ══════════════════════════════════════════════
+   איורים מקוריים. שלושה מבני גוף נבדלים באמת — לא אותו צללית
+   בשלושה גדלים. משמשים כברירת מחדל עד שיתקבלו תמונות היבואן.
+   ══════════════════════════════════════════════════════ */
+const BODIES = {
+  sedan:{
+    hull:`M 12 104 L 12 88 C 12 80,17 74,26 72 L 62 62 L 96 36
+          C 102 30,110 27,119 27 L 178 27 C 188 27,196 30,202 36
+          L 224 58 L 272 64 C 282 66,288 72,288 82 L 288 104
+          L 250 104 A 26 26 0 0 0 198 104 L 102 104 A 26 26 0 0 0 50 104 Z`,
+    glass:`M 88 56 L 106 38 C 110 34,116 32,123 32 L 173 32
+           C 180 32,186 34,190 38 L 208 56 Z`,
+    pillar:140, crease:`M 30 74 L 268 70`, wr:23, fx:76, rx:224, cy:104
+  },
+  hatch:{
+    hull:`M 12 104 L 12 88 C 12 80,17 74,26 72 L 62 62 L 96 36
+          C 102 30,110 27,119 27 L 190 27 C 198 27,204 29,208 34
+          L 238 68 C 243 73,248 75,255 76 C 266 78,272 84,272 92
+          L 272 104 L 240 104 A 26 26 0 0 0 188 104 L 102 104 A 26 26 0 0 0 50 104 Z`,
+    glass:`M 88 56 L 106 38 C 110 34,116 32,123 32 L 186 32
+           C 191 32,195 34,198 38 L 213 56 Z`,
+    pillar:142, crease:`M 30 74 L 252 72`, wr:23, fx:76, rx:214, cy:104
+  },
+  suv:{
+    hull:`M 12 100 L 12 78 C 12 70,17 64,26 62 L 60 54 L 88 28
+          C 94 22,102 19,111 19 L 186 19 C 195 19,202 22,207 28
+          L 232 54 L 268 60 C 278 62,284 68,284 78 L 284 100
+          L 252 100 A 30 30 0 0 0 192 100 L 108 100 A 30 30 0 0 0 48 100 Z`,
+    glass:`M 82 50 L 98 30 C 102 25,108 23,115 23 L 182 23
+           C 189 23,194 25,198 30 L 214 50 Z`,
+    pillar:140, crease:`M 28 70 L 266 66`, wr:28, fx:78, rx:222, cy:100
+  }
+};
+function wheel(cx,cy,r,color){
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="var(--surface)"/>
+          <circle cx="${cx}" cy="${cy}" r="${r}"/>
+          <circle cx="${cx}" cy="${cy}" r="${r*.62}" opacity=".38" stroke-width="1.6"/>
+          <circle cx="${cx}" cy="${cy}" r="${r*.22}" fill="${color}" fill-opacity=".5" stroke="none"/>`;
+}
+function carSVG(body, color){
+  const b = BODIES[body] || BODIES.sedan;
+  return `<svg viewBox="0 0 300 138" role="img" aria-label="איור צללית רכב">
+    <line x1="18" y1="128" x2="282" y2="128" stroke="${color}" stroke-width="1.5" opacity=".22"/>
+    <g fill="none" stroke="${color}" stroke-width="2.3" stroke-linejoin="round" stroke-linecap="round">
+      <path d="${b.hull}" fill="${color}" fill-opacity=".08"/>
+      <path d="${b.glass}" fill="${color}" fill-opacity=".16" stroke-width="1.7"/>
+      <path d="M ${b.pillar} ${body==='suv'?23:32} L ${b.pillar} ${body==='suv'?50:56}"
+            stroke-width="1.5" opacity=".6"/>
+      <path d="${b.crease}" stroke-width="1.3" opacity=".35"/>
+      ${wheel(b.fx,b.cy,b.wr,color)}
+      ${wheel(b.rx,b.cy,b.wr,color)}
+    </g></svg>`;
+}
+const ptColor = pt => getComputedStyle(document.documentElement).getPropertyValue('--pt-'+pt).trim();
+
+/* ═══ state + render ═══════════════════════════════════ */
+const S = {
+  profile:{salary:28400, dist:34, annualKm:26000, points:2.25, workDays:21},
+  filter:'all', selected:'corolla', horizon:1, evShare:0.62, openLine:null
+};
+
+function renderCatalog(){
+  const g = document.getElementById('grid');
+  const list = CARS.filter(c=>S.filter==='all'||c.pt===S.filter);
+  g.innerHTML = list.map(c=>{
+    const r = calculate(c,S.profile,S.evShare), col = ptColor(c.pt);
+    return `<button class="card" data-id="${c.id}">
+      <div class="card-art">
+        <span class="pt-flag" style="color:${col}"><i class="dot"></i>${PT[c.pt]}</span>
+        ${carSVG(c.body,col,116)}
+      </div>
+      <div class="card-body">
+        <h3>${c.make} ${c.model}</h3>
+        <p class="sub">${c.trim}</p>
+        <div class="price num">${ils(r.monthly)}</div>
+        <div class="price-lbl">לחודש, נטו לכיס</div>
+        <div class="terms">
+          <span>שנה <b>${ils(r.monthly*12)}</b></span>
+          <span>3 שנים <b>${ils(r.monthly*36)}</b></span>
+        </div>
+      </div></button>`;
+  }).join('');
+  g.querySelectorAll('.card').forEach(b=>b.onclick=()=>{
+    S.selected=b.dataset.id; S.openLine=null; show('detail');
+  });
+}
+
+function renderDetail(){
+  const c = CARS.find(x=>x.id===S.selected);
+  const r = calculate(c,S.profile,S.evShare);
+  const col = ptColor(c.pt), H = S.horizon;
+  const hLbl = H===1?'לחודש':H===12?'לשנה':'ל־3 שנים';
+
+  document.getElementById('d-name').textContent = `${c.make} ${c.model}`;
+  document.getElementById('d-tag').innerHTML =
+    `<span dir="ltr">${c.trim}</span> · ${PT[c.pt]} · מחיר מחירון ${ils(c.list)}`;
+  document.getElementById('d-art').innerHTML    = carSVG(c.body,col,150).replace('<svg','<svg class="hero-svg"');
+
+  const cons = c.pt==='bev' ? `${c.cons.kwhPer100} kWh/100 ק"מ`
+    : c.pt==='phev' ? `${c.cons.kwhPer100} kWh/100 · ${c.cons.kmPerLiterHybrid} קמ"ל`
+    : `${c.cons.kmPerLiter} קמ"ל`;
+  document.getElementById('d-spec').innerHTML = [
+    ['סוג הנעה',PT[c.pt]],['צריכה',cons],
+    ['מחיר מחירון',ils(c.list)],['שווי שימוש חודשי',ils(r.usageValue)],
+    ['מכסת ק"מ שנתית',nfx(c.quota,0)],['תעריף חריגה',`${c.excess} ₪/ק"מ`],
+    ['דמי ליסינג לארגון',ils(c.lease)],['שיעור מס שולי בפועל',`${(r.marginal*100).toFixed(1)}%`]
+  ].map(([k,v])=>`<div><dt>${k}</dt><dd class="num">${v}</dd></div>`).join('');
+
+  document.getElementById('d-total').textContent    = ils(r.monthly*H);
+  document.getElementById('d-total-lbl').textContent= `${hLbl}, נטו לכיס`;
+  document.getElementById('d-sumlbl').textContent   = `סה"כ ${hLbl}`;
+  document.getElementById('d-sum').textContent      = ils(r.monthly*H);
+
+  const max = Math.max(...r.lines.map(l=>Math.abs(l.amount)));
+  document.getElementById('d-spine').innerHTML = r.lines.map(l=>{
+    const hgt = 6 + Math.abs(l.amount)/max*46;
+    const dim = S.openLine && S.openLine!==l.id ? ' dim' : '';
+    return `<i class="${l.amount<0?'neg':''}${dim}" style="height:${hgt}px"></i>`;
+  }).join('');
+
+  document.getElementById('d-lines').innerHTML = r.lines.map(l=>`
+    <div class="line ${S.openLine===l.id?'open':''}" data-id="${l.id}">
+      <button aria-expanded="${S.openLine===l.id}">
+        <span class="caret">▾</span>
+        <span class="lbl">${l.label}</span>
+        <span class="amt num ${l.amount<0?'neg':''}">${sgn(l.amount*H)}</span>
+      </button>
+      <div class="trace"><code>${l.formula}</code><div class="src">${l.src}</div></div>
+    </div>`).join('');
+  document.querySelectorAll('#d-lines .line > button').forEach(b=>b.onclick=()=>{
+    const id=b.parentElement.dataset.id;
+    S.openLine = S.openLine===id ? null : id; renderDetail();
+  });
+
+  // ההנחה שאנחנו מסרבים להסתיר
+  document.getElementById('d-assump').innerHTML = c.pt!=='phev' ? '' : `
+    <div class="assump">
+      <label for="ev">כמה מהנסועה תיסע על חשמל?
+        <output class="num">${Math.round(S.evShare*100)}%</output></label>
+      <input id="ev" type="range" min="0" max="100" value="${Math.round(S.evShare*100)}">
+      <p>ברירת המחדל נגזרה מטווח חשמלי של ${c.cons.evRangeKm} ק"מ מול נסיעה של
+         ${S.profile.dist*2} ק"מ ביום. זו ההנחה שמזיזה את העלות של פלאג־אין יותר מכל דבר אחר,
+         ולכן היא גלויה ולא מוסתרת.</p>
+    </div>`;
+  const ev = document.getElementById('ev');
+  if(ev) ev.oninput = e => { S.evShare = +e.target.value/100; renderDetail(); };
+
+  const n = document.getElementById('d-notice');
+  if(r.over>0){
+    const save = r.over*c.excess/12;
+    n.innerHTML = `<div class="notice"><b>אתה חורג ב־${nfx(r.over,0)} ק"מ בשנה.</b>
+      החריגה מוסיפה ${ils(save)} לחודש. מכסה של ${nfx(c.quota+6000,0)} ק"מ תעלה בערך
+      ${ils(58)} לחודש — כדאית מעל ${nfx(Math.round(58*12/c.excess+c.quota),0)} ק"מ בשנה.</div>`;
+  } else {
+    n.innerHTML = `<div class="notice ok"><b>הנסועה שלך בתוך המכסה.</b>
+      נשארו ${nfx(c.quota-r.u.annual,0)} ק"מ מרווח בשנה.</div>`;
+  }
+}
+
+function renderCompare(){
+  const picked = ['corolla','niro','model3','octavia'].map(id=>{
+    const c=CARS.find(x=>x.id===id); return {c, r:calculate(c,S.profile,S.evShare)};
+  }).sort((a,b)=>a.r.monthly-b.r.monthly);
+  const max = Math.max(...picked.map(p=>p.r.monthly));
+  const min = Math.min(...picked.map(p=>p.r.monthly));
+
+  document.getElementById('c-tracks').innerHTML = picked.map(p=>{
+    const col = ptColor(p.c.pt);
+    const basePct  = min/max*100;
+    const deltaPct = (p.r.monthly-min)/max*100;
+    const d = p.r.monthly-min;
+    return `<div class="track">
+      <span class="name">${p.c.make} ${p.c.model}</span>
+      <span class="bar">
+        <i class="base"  style="width:${basePct}%;background:${col}"></i>
+        <i class="fill"  style="width:${deltaPct}%;background:${col}"></i>
+      </span>
+      <span class="val"><b>${ils(p.r.monthly)}</b>
+        <em class="${d?'':'zero'}">${d ? '+'+ils(d) : 'הזול ביותר'}</em></span>
+    </div>`;
+  }).join('');
+
+  const rows = [
+    ['השתתפות בליסינג', p=>p.r.lines.find(l=>l.id==='lease')?.amount||0, 'min'],
+    ['מס על שווי שימוש', p=>p.r.lines.find(l=>l.id==='tax')?.amount||0, 'min'],
+    ['אנרגיה, נטו', p=>p.r.lines.filter(l=>l.cat==='energy'||l.id==='chargeref'||l.id==='fuelsub')
+                          .reduce((s,l)=>s+l.amount,0), 'min'],
+    ['החזרים ארגוניים', p=>p.r.lines.find(l=>l.id==='rebate')?.amount||0, 'min'],
+    ['חריגת ק"מ', p=>p.r.lines.find(l=>l.id==='excess')?.amount||0, 'min']
+  ];
+  document.getElementById('c-table').innerHTML =
+    `<thead><tr><th>לחודש</th>${picked.map(p=>`<th>${p.c.make} ${p.c.model}</th>`).join('')}</tr></thead>
+     <tbody>${rows.map(([lbl,fn])=>{
+       const vals=picked.map(fn), best=Math.min(...vals);
+       return `<tr><th>${lbl}</th>${vals.map(v=>
+         `<td class="${v===best&&vals.some(x=>x!==best)?'best':''}">${v?sgn(v):'—'}</td>`).join('')}</tr>`;
+     }).join('')}
+     <tr class="total-row"><th>נטו לכיס</th>${picked.map((p,i)=>
+       `<td class="${i===0?'best':''}">${ils(p.r.monthly)}</td>`).join('')}</tr>
+     <tr class="total-row"><th>סה"כ ל־3 שנים</th>${picked.map((p,i)=>
+       `<td class="${i===0?'best':''}">${ils(p.r.monthly*36)}</td>`).join('')}</tr>
+     </tbody>`;
+}
+
+function renderAll(){ renderCatalog(); renderDetail(); renderCompare(); }
+
+/* ═══ wiring ═══════════════════════════════════════════ */
+function show(name){
+  ['catalog','detail','compare'].forEach(n=>
+    document.getElementById('s-'+n).hidden = n!==name);
+  document.querySelectorAll('.tab').forEach(t=>
+    t.setAttribute('aria-selected', t.dataset.screen===name));
+  window.scrollTo({top:0,behavior:'instant'});
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>show(t.dataset.screen));
+
+document.getElementById('filters').onclick = e=>{
+  const b=e.target.closest('.chip'); if(!b) return;
+  S.filter=b.dataset.pt;
+  document.querySelectorAll('#filters .chip').forEach(c=>
+    c.setAttribute('aria-pressed', c===b));
+  renderCatalog();
+};
+
+['salary','dist','annual','points'].forEach(k=>{
+  const el=document.getElementById('p-'+k);
+  el.oninput = ()=>{
+    const v=+el.value||0;
+    if(k==='salary') S.profile.salary=v;
+    if(k==='dist')   S.profile.dist=v;
+    if(k==='annual') S.profile.annualKm=v;
+    if(k==='points') S.profile.points=v;
+    renderAll();
+  };
+});
+
+document.querySelectorAll('.seg button').forEach(b=>b.onclick=()=>{
+  S.horizon=+b.dataset.h;
+  document.querySelectorAll('.seg button').forEach(x=>
+    x.setAttribute('aria-selected', x===b));
+  renderDetail();
+});
+
+document.getElementById('theme').onclick = ()=>{
+  const r=document.documentElement;
+  r.dataset.theme = r.dataset.theme==='dark' ? 'light' : 'dark';
+  renderAll();
+};
+if(window.matchMedia('(prefers-color-scheme: dark)').matches)
+  document.documentElement.dataset.theme='dark';
+
+renderAll();
+</script>
+</body>
+</html>

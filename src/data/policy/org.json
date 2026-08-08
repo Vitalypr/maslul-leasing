@@ -1,0 +1,76 @@
+{
+  "version": "2026-08-08",
+  "adminPasscode": "0000",
+
+  "supplement": {
+    "budgetByTier": { "C": 135000, "D": 155000 },
+    "defaultRate": 0.0215,
+    "highRate": 0.0232,
+    "highRateThreshold": null,
+    "rambiDiscount": 0.50,
+    "verified": true,
+    "note": "הנוסחה אומתה מול 43/43 שורות המחירון. סף השיעור הגבוה לא הוכרע — כל עוד highRateThreshold הוא null, נעשה שימוש בשיעור שרשום בקטלוג לכל רכב."
+  },
+
+  "gradesToTier": { "verified": false, "map": {} },
+
+  "mileage": {
+    "annualQuotaKm": 24000,
+    "excessRatePerKm": 0.40,
+    "creditForUnusedKm": false,
+    "verified": false
+  },
+
+  "contract": { "termMonths": 36, "verified": false },
+
+  "fuel": {
+    "employeeEntersBudget": true,
+    "defaultMonthlyBudgetIce": 0,
+    "defaultMonthlyBudgetElectrified": 0,
+    "unusedCreditEnabled": true,
+    "unusedCreditCappedAtSupplement": true,
+    "verified": true
+  },
+
+  "phev": { "realWorldRangeFactor": 0.70, "verified": false },
+
+  "forgone": {
+    "licenseFeeAnnual":       { "annual": 0,    "enabled": true, "verified": false,
+                                "labelHe": "החזר אגרת רישוי" },
+    "privateInsuranceAnnual": { "annual": 7000, "enabled": true, "verified": true,
+                                "labelHe": "השתתפות בביטוח רכב פרטי",
+                                "note": "ההצעה הזולה מבין שתיים או 7,000 ₪, הנמוך מביניהם" },
+    "serviceVehicleTierC":    { "monthly": 0,   "enabled": true, "verified": false,
+                                "labelHe": "רכב שירות ג'" },
+    "fixedNetAllowance":      { "monthly": 0,   "enabled": true, "verified": false,
+                                "labelHe": "קבועות נטו" },
+    "variableNetAllowance":   { "monthly": 0,   "enabled": true, "verified": false,
+                                "labelHe": "משת.רגי.נטו" }
+  },
+
+  "taxTreatment": {
+    "upgradeSupplement":          "net",
+    "excessKm":                   "net",
+    "fuelOverage":                "net",
+    "unusedFuelCredit":           "net",
+    "homeChargingRefund":         "net",
+    "usageValue":                 "taxableBenefit",
+    "oneTime":                    "net",
+    "forgoneLicenseFee":          "grossedUp",
+    "forgoneInsurance":           "grossedUp",
+    "forgoneServiceVehicleTierC": "gross",
+    "forgoneFixedNet":            "grossedUp",
+    "forgoneVariableNet":         "grossedUp",
+    "verified": {
+      "upgradeSupplement": true,
+      "excessKm": true,
+      "fuelOverage": true,
+      "forgoneLicenseFee": false,
+      "forgoneInsurance": false,
+      "forgoneServiceVehicleTierC": true,
+      "forgoneFixedNet": true,
+      "forgoneVariableNet": true
+    },
+    "sourceRef": "חוזר ביקורת ניכויים 16 של הביטוח הלאומי, 26.9.2023, בעקבות פס\"ד אלביט מערכות. פיצול רכיבי הרכב הפרטי נגזר מתלוש אמיתי: 'רכב שירות ג'' הוא רכיב ברוטו, 'קבועות נטו' ו'משת.רגי.נטו' הם רכיבי נטו מגולמים. אגרת רישוי וביטוח מגולמים לפי תכ\"ם — לא אומת ספציפית לכנסת."
+  }
+}

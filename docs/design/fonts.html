@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="he" dir="rtl" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>בחירת גופן · מסלול</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300..800&family=Heebo:wght@300..800&family=Rubik:wght@300..800&family=Noto+Sans+Hebrew:wght@300..800&family=Noto+Serif+Hebrew:wght@300..800&family=Playpen+Sans+Hebrew:wght@300..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300..900&family=Noto+Rashi+Hebrew:wght@300..800&family=Open+Sans:wght@300..800&family=Fredoka:wght@300..600&family=M+PLUS+Rounded+1c:wght@300;400;500;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Alef:wght@400;700&family=Arimo:wght@400;700&family=Tinos:wght@400;700&family=Cousine:wght@400;700&family=David+Libre:wght@400;500;700&family=Karantina:wght@300;400;700&family=Miriam+Libre:wght@400;700&family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Varela+Round&family=Bellefair&family=Secular+One&family=Suez+One&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F4; --surface:#FFF; --sunk:#EDF0EE;
+  --ink:#16211F; --soft:#5C6A66; --faint:#8A9793;
+  --petrol:#0D5C55; --wash:#E4EFEC; --line:#DCE2DE; --strong:#C3CCC7;
+  --ui:-apple-system,"Segoe UI",system-ui,sans-serif;
+}
+:root[data-theme=dark]{
+  --paper:#0E1513; --surface:#16201E; --sunk:#111A18;
+  --ink:#E8EDEA; --soft:#94A39E; --faint:#6D7C77;
+  --petrol:#4FB3A5; --wash:#14302C; --line:#26332F; --strong:#35443F;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--ui);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1000px;margin:0 auto;padding:0 18px}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--petrol);outline-offset:2px;border-radius:4px}
+.num{font-variant-numeric:tabular-nums}
+
+/* ── head ─────────────────────────────────────────── */
+header{border-bottom:1px solid var(--line);background:var(--surface)}
+.htop{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:16px 0}
+h1{font-size:19px;margin:0;font-weight:700;letter-spacing:-.01em}
+h1 small{display:block;font-size:12.5px;font-weight:400;color:var(--faint);margin-top:2px}
+.ctrls{display:flex;gap:8px;align-items:center;margin-inline-start:auto;flex-wrap:wrap}
+.ctrl{display:flex;align-items:center;gap:7px;font-size:12.5px;color:var(--soft);
+  border:1px solid var(--line);border-radius:100px;padding:5px 12px;background:var(--surface)}
+.ctrl input[type=range]{width:90px;accent-color:var(--petrol)}
+.tgl{border:1px solid var(--line);background:var(--surface);border-radius:100px;
+  padding:6px 14px;cursor:pointer;font-size:12.5px;font-weight:600}
+.tgl:hover{border-color:var(--strong)}
+
+/* ── sticky live preview ──────────────────────────── */
+.live{position:sticky;top:0;z-index:30;background:var(--surface);
+  border-bottom:1px solid var(--line)}
+.live-in{display:grid;grid-template-columns:1fr 300px;gap:22px;padding:18px 0}
+.live-tag{font-size:10.5px;font-weight:700;letter-spacing:.1em;color:var(--faint);
+  margin:0 0 9px;font-family:var(--ui)}
+.pv-name{font-size:15px;font-weight:700;margin:0 0 10px}
+.pv-name span{color:var(--petrol)}
+.pv-h{font-size:clamp(22px,3.4vw,32px);font-weight:700;line-height:1.15;
+  letter-spacing:-.015em;margin:0 0 6px}
+.pv-b{font-size:14px;color:var(--soft);margin:0;line-height:1.55}
+.pv-card{border:1px solid var(--line);border-radius:6px;padding:14px;background:var(--sunk)}
+.pv-card .t{font-size:14px;font-weight:700}
+.pv-card .s{font-size:11.5px;color:var(--faint);margin-bottom:9px;direction:ltr;text-align:right}
+.pv-card .p{font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1;
+  font-variant-numeric:tabular-nums}
+.pv-card .l{font-size:11.5px;color:var(--soft);margin-top:3px}
+.pv-row{display:flex;justify-content:space-between;font-size:12.5px;
+  border-top:1px solid var(--line);margin-top:10px;padding-top:8px;
+  font-variant-numeric:tabular-nums;color:var(--soft)}
+
+/* ── group + specimen ─────────────────────────────── */
+.grp{margin:38px 0 14px;display:flex;align-items:baseline;gap:12px}
+.grp h2{font-size:15px;margin:0;font-weight:700}
+.grp span{font-size:12.5px;color:var(--faint)}
+.grp i{flex:1;height:1px;background:var(--line)}
+
+.sp{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:20px;margin-bottom:10px;cursor:pointer;position:relative;
+  transition:border-color .12s}
+.sp:hover{border-color:var(--strong)}
+.sp[aria-current=true]{border-color:var(--petrol);box-shadow:inset 0 0 0 1px var(--petrol)}
+.sp-head{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;
+  padding-bottom:14px;margin-bottom:14px;border-bottom:1px solid var(--line)}
+.sp-name{font-size:17px;font-weight:700;direction:ltr}
+.sp-chip{font-size:10.5px;font-weight:700;letter-spacing:.05em;padding:2px 8px;
+  border-radius:100px;background:var(--sunk);color:var(--soft);font-family:var(--ui)}
+.sp-chip.rec{background:var(--wash);color:var(--petrol)}
+.sp-note{font-size:12.5px;color:var(--soft);margin-inline-start:auto;
+  font-family:var(--ui);flex-basis:100%;line-height:1.5}
+.sp-h{font-size:var(--sz,30px);font-weight:700;line-height:1.2;letter-spacing:-.01em;margin:0 0 14px}
+.sp-money{font-size:calc(var(--sz,30px) * 1.05);font-weight:800;letter-spacing:-.02em;
+  line-height:1;margin-bottom:6px;direction:ltr;text-align:right;
+  font-variant-numeric:tabular-nums}
+.sp-digits{font-size:17px;color:var(--soft);direction:ltr;text-align:right;
+  letter-spacing:.08em;margin-bottom:14px;font-variant-numeric:tabular-nums}
+.sp-body{font-size:15px;line-height:1.65;color:var(--soft);margin:0 0 14px;max-width:62ch}
+.sp-w{display:flex;gap:16px;flex-wrap:wrap;align-items:baseline;
+  border-top:1px solid var(--line);padding-top:12px}
+.sp-w b{font-size:19px}
+.sp-w em{font-style:normal;font-size:10px;color:var(--faint);font-family:var(--ui);
+  display:block;text-align:center;margin-top:2px}
+.sp-pick{position:absolute;inset-block-start:18px;inset-inline-start:18px;
+  border:1px solid var(--line);background:var(--surface);border-radius:100px;
+  padding:5px 13px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--ui)}
+.sp[aria-current=true] .sp-pick{background:var(--petrol);color:#fff;border-color:var(--petrol)}
+:root[data-theme=dark] .sp[aria-current=true] .sp-pick{color:#08130F}
+
+footer{border-top:1px solid var(--line);margin-top:48px;padding:26px 0 60px;
+  font-size:13px;color:var(--soft);line-height:1.75}
+footer b{color:var(--ink)}
+footer h3{font-size:14px;margin:0 0 8px;color:var(--ink)}
+
+@media(max-width:760px){
+  .live-in{grid-template-columns:1fr;gap:14px;padding:14px 0}
+  .pv-card{display:none}
+  .sp{padding:16px}
+  .sp-pick{position:static;margin-top:12px;width:100%}
+  .sp-head{padding-inline-end:0}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header><div class="wrap"><div class="htop">
+  <h1>בחירת גופן<small>23 המשפחות היחידות ב־Google Fonts שיש להן באמת אותיות עבריות</small></h1>
+  <div class="ctrls">
+    <label class="ctrl">גודל <input type="range" id="sz" min="20" max="52" value="30"></label>
+    <button class="tgl" id="theme">מצב כהה</button>
+  </div>
+</div></div></header>
+
+<div class="live"><div class="wrap"><div class="live-in">
+  <div>
+    <p class="live-tag">כך זה ייראה באפליקציה</p>
+    <p class="pv-name">נבחר כעת: <span id="pv-name">Assistant</span></p>
+    <p class="pv-h" id="pv-h">הצי שלך, במחירים שלך.</p>
+    <p class="pv-b" id="pv-b">כל סכום כאן הוא מה שיירד לך מהתלוש בפועל — אחרי מס ואחרי דלק.</p>
+  </div>
+  <div class="pv-card" id="pv-card">
+    <div class="t">Toyota Corolla Cross</div>
+    <div class="s">1.8 Hybrid active</div>
+    <div class="p">₪3,053</div>
+    <div class="l">לחודש, נטו לכיס</div>
+    <div class="pv-row"><span>שנה</span><span>₪36,636</span></div>
+    <div class="pv-row"><span>3 שנים</span><span>₪109,908</span></div>
+  </div>
+</div></div></div>
+
+<main class="wrap" id="list"></main>
+
+<footer><div class="wrap">
+  <h3>מה שמצאתי כשבדקתי אתרים ישראליים אמיתיים</h3>
+  קראתי את ה־CSS של שמונה אתרים ישראליים גדולים. <b>וואלה</b> משתמש ב־<b>Almoni</b> על כל
+  ששת המשקלים. <b>ONE</b> משתמש בגופן מותאם בשם <b>MosesText</b> עם Heebo כגיבוי.
+  <b>ynet</b> משתמש ב־<b>נרקיס</b>. <b>Moovit</b> רץ על Montserrat ו־Public Sans.
+  <br><br>
+  התבנית ברורה: מותגים ישראליים גדולים <b>קונים</b> גופן עברי מבית יציקה — אלמוני, פלוני, נרקיס,
+  סימפלר, אסימון. Google Fonts היא השכבה החינמית, ושם Heebo, Rubik ו־Assistant הם ברירת המחדל.
+  <br><br>
+  אם תרצה מראה שאי אפשר לבלבל עם אף אתר אחר, גופן מסחרי מ־<b>אאא</b> או מ־<b>HaTypo</b> הוא הדרך,
+  ועולה כמה מאות שקלים לרישיון ווב. כל 23 שלמטה הם חינמיים לשימוש מסחרי.
+</div></footer>
+
+<script>
+const FONTS=[
+{g:'core',n:'Assistant',d:'הומניסטי ישראלי, מאוזן וקריא. הגופן הנפוץ ביותר באתרים ישראליים — בטוח, וגם צפוי מאוד.',w:[300,400,600,700,800]},
+{g:'core',n:'Heebo',d:'האח העברי של Roboto, מאת עודד עזר. גרוטסק ניטרלי, יעיל, בלי דעה משלו.',w:[300,400,500,700,800]},
+{g:'core',n:'Rubik',d:'גיאומטרי עם פינות מעוגלות קלות. ידידותי בלי להיות ילדותי, וספרות בעלות נוכחות.',w:[300,400,500,700,800],rec:1},
+{g:'core',n:'Noto Sans Hebrew',d:'ניטרלי ומדויק, טווח משקלים מ־100 עד 900. הכי גמיש שיש — ובדיוק לכן גם הכי פחות בעל אופי.',w:[300,400,600,700,800],rec:1},
+{g:'core',n:'Open Sans',d:'הומניסטי רחב עם אותיות פתוחות. קריא במיוחד בגדלים קטנים, ולכן טוב לטבלאות צפופות.',w:[300,400,600,700,800]},
+{g:'core',n:'Alef',d:'פשוט, פתוח ונקי — אבל שני משקלים בלבד, וזה מגביל בניית היררכיה.',w:[400,700]},
+{g:'core',n:'Arimo',d:'תואם מטרית ל־Arial. שימושי כשצריך תאימות מדויקת למסמכי אופיס, לא כשצריך אישיות.',w:[400,700]},
+
+{g:'round',n:'Varela Round',d:'מעוגל לחלוטין, משקל אחד בלבד. רך ונעים — אבל בלי מדרג משקלים קשה לבנות מסך פיננסי.',w:[400]},
+{g:'round',n:'Fredoka',d:'עגול ושמנמן. חם וקליל — אולי קליל מדי כשמוצגים סכומים של מאה אלף שקל.',w:[300,400,500,600]},
+{g:'round',n:'M PLUS Rounded 1c',d:'מעוגל ממקור יפני עם עברית טובה להפתיע. שקט, אחיד, ונדיר בישראל — כלומר לא ייראה כמו אף אחד.',w:[300,400,500,700,800]},
+
+{g:'display',n:'Miriam Libre',d:'מבוסס על מרים הקלאסי. צר יחסית ובעל אופי ברור. חזק מאוד בכותרות, עמוס קצת בטקסט רץ.',w:[400,700],rec:1},
+{g:'display',n:'Secular One',d:'משקל אחד, גיאומטרי, נוכחות חזקה מאוד. לכותרות בלבד — אין לו משקל טקסט.',w:[400]},
+{g:'display',n:'Suez One',d:'סלאב כבד ובלתי נשכח. אגרסיבי. לכותרת ראשית בלבד, ולעולם לא לגוף הטקסט.',w:[400]},
+{g:'display',n:'Karantina',d:'צר, מחודד, הרבה אופי. מצוין לכותרת קצרה, קשה מאוד לקריאה ברצף.',w:[300,400,700]},
+
+{g:'serif',n:'Frank Ruhl Libre',d:'פרנק־רויל, הסריף העברי הקנוני. נושא סמכות של ספר ושל מסמך רשמי — מתאים למסמך כספי.',w:[300,400,500,700,900],rec:1},
+{g:'serif',n:'Noto Serif Hebrew',d:'סריף מודרני עם טווח משקלים מלא. רציני בלי להיראות עתיק, וקריא גם בגדלים קטנים.',w:[300,400,600,700,800]},
+{g:'serif',n:'David Libre',d:'דוד — הגופן שכל ישראלי מזהה מספרי לימוד ומהתנ״ך. מוכר עד כדי שקיפות.',w:[400,500,700]},
+{g:'serif',n:'Bellefair',d:'סריף דק ואלגנטי, משקל אחד. יפהפה בכותרת גדולה, כמעט נעלם בגודל קטן.',w:[400]},
+{g:'serif',n:'Tinos',d:'תואם מטרית ל־Times New Roman. פונקציונלי לגמרי, מרגש בכלל לא.',w:[400,700]},
+
+{g:'hand',n:'Playpen Sans Hebrew',d:'כתב יד קליל ואישי. מקסים במקומו — ומעביר בדיוק את המסר ההפוך ממה שמסמך כספי צריך.',w:[300,400,600,700]},
+{g:'hand',n:'Amatic SC',d:'דק, צר, כתוב ביד. דקורטיבי בלבד. כאן כדי שתראה את קצה הטווח.',w:[400,700]},
+
+{g:'special',n:'Noto Rashi Hebrew',d:'כתב רש״י. יפהפה, ובלתי קריא כמעט לכל אדם מתחת לגיל שמונים. כאן להשלמת התמונה.',w:[300,400,600,700]},
+{g:'special',n:'Cousine',d:'מונוספייס עם עברית. כל תו באותו רוחב — מצוין לעמודות מספרים, בעייתי לטקסט.',w:[400,700]}
+];
+
+const GROUPS={
+  core:   ['עמודי תווך','גופנים שאפשר לבנות עליהם אפליקציה שלמה'],
+  round:  ['עגול ורך','אופי ידידותי, פינות מעוגלות'],
+  display:['אופי חזק','לכותרות — לא לטקסט רץ'],
+  serif:  ['סריף','סמכות של מסמך מודפס'],
+  hand:   ['כתב יד','אישי ולא רשמי'],
+  special:['מיוחדים','לא לממשק, אבל כדאי שתראה']
+};
+
+const HEAD='הצי שלך, במחירים שלך.';
+const BODY='כל סכום כאן הוא מה שיירד לך מהתלוש בפועל — אחרי השתתפות המעסיק, אחרי זקיפת שווי השימוש למס, ואחרי דלק או חשמל.';
+const MONEY='₪1,847 · ₪22,164 · ₪66,492';
+const DIGITS='0 1 2 3 4 5 6 7 8 9   ₪ % ‎−';
+
+const list=document.getElementById('list');
+let html='';
+for(const key of Object.keys(GROUPS)){
+  const [title,sub]=GROUPS[key];
+  html+=`<div class="grp"><h2>${title}</h2><span>${sub}</span><i></i></div>`;
+  for(const f of FONTS.filter(x=>x.g===key)){
+    const ff=`'${f.n}', sans-serif`;
+    const heavy=f.w[f.w.length-1], mid=f.w.length>2?f.w[1]:f.w[0];
+    html+=`<article class="sp" data-font="${f.n}" tabindex="0" aria-current="false" style="font-family:${ff}">
+      <button class="sp-pick">בחר</button>
+      <div class="sp-head">
+        <span class="sp-name">${f.n}</span>
+        <span class="sp-chip${f.rec?' rec':''}">${f.rec?'מתאים לאפליקציה':f.w.length+' משקלים'}</span>
+        <span class="sp-note">${f.d}</span>
+      </div>
+      <p class="sp-h" style="font-weight:${heavy}">${HEAD}</p>
+      <div class="sp-money" style="font-weight:${heavy}">${MONEY}</div>
+      <div class="sp-digits">${DIGITS}</div>
+      <p class="sp-body" style="font-weight:${mid}">${BODY}</p>
+      <div class="sp-w">${f.w.map(w=>
+        `<span><b style="font-weight:${w}">ליסינג 1,847</b><em>${w}</em></span>`).join('')}</div>
+    </article>`;
+  }
+}
+list.innerHTML=html;
+
+/* ── live preview ───────────────────────────────── */
+const pv=['pv-h','pv-b','pv-card'].map(i=>document.getElementById(i));
+function apply(name,persist){
+  pv.forEach(el=>el.style.fontFamily=`'${name}', sans-serif`);
+  document.getElementById('pv-name').textContent=name;
+  if(persist){
+    document.querySelectorAll('.sp').forEach(s=>
+      s.setAttribute('aria-current', s.dataset.font===name));
+    current=name;
+  }
+}
+let current='Assistant';
+apply(current,true);
+
+list.addEventListener('click',e=>{
+  const c=e.target.closest('.sp'); if(c) apply(c.dataset.font,true);
+});
+list.addEventListener('keydown',e=>{
+  if(e.key==='Enter'||e.key===' '){
+    const c=e.target.closest('.sp'); if(c){ e.preventDefault(); apply(c.dataset.font,true); }
+  }
+});
+// hover-preview on pointer devices only; never strands the user on mobile
+if(matchMedia('(hover:hover)').matches){
+  list.addEventListener('mouseover',e=>{
+    const c=e.target.closest('.sp'); if(c) apply(c.dataset.font,false);
+  });
+  list.addEventListener('mouseleave',()=>apply(current,false));
+}
+
+document.getElementById('sz').oninput=e=>
+  document.documentElement.style.setProperty('--sz',e.target.value+'px');
+
+const tbtn=document.getElementById('theme');
+tbtn.onclick=()=>{
+  const r=document.documentElement;
+  r.dataset.theme = r.dataset.theme==='dark'?'light':'dark';
+  tbtn.textContent = r.dataset.theme==='dark'?'מצב בהיר':'מצב כהה';
+};
+if(matchMedia('(prefers-color-scheme: dark)').matches) tbtn.click();
+</script>
+</body>
+</html>

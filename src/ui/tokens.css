@@ -1,0 +1,70 @@
+/* ─────────────────────────────────────────────────────────────
+   מסלול — design tokens
+   Lifted from docs/design/ui-mockup.html, the approved prototype.
+
+   Depth comes from one hairline (--line) and two surface tones
+   (--surface, --surface-sunk). No shadows. No gradients. Anywhere.
+
+   Every colour is declared in both themes. The theme is chosen by
+   data-theme on <html>; nothing here reads the media query, so a
+   reader who overrides the system preference always wins.
+   ───────────────────────────────────────────────────────────── */
+:root{
+  --paper:#F4F6F4;
+  --surface:#FFFFFF;
+  --surface-sunk:#EDF0EE;
+
+  --ink:#16211F;
+  --ink-soft:#5C6A66;
+  --ink-faint:#8A9793;
+
+  /* accent */
+  --petrol:#0D5C55;
+  --petrol-wash:#E4EFEC;
+  /* warning, and the mark on anything unverified */
+  --clay:#8E3B2F;
+  --clay-wash:#F6E9E6;
+
+  --line:#DCE2DE;
+  --line-strong:#C3CCC7;
+
+  /* text laid on --petrol or --ink */
+  --on-accent:#FFFFFF;
+
+  /* powertrain identity */
+  --pt-ice:#B4762A;
+  --pt-hybrid:#4E8A5A;
+  --pt-phev:#2E7D8C;
+  --pt-bev:#2C5FA8;
+
+  --r:6px;
+
+  --display:"Heebo","Segoe UI",system-ui,sans-serif;
+  --ui:"Heebo","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+
+:root[data-theme="dark"]{
+  --paper:#0E1513;
+  --surface:#16201E;
+  --surface-sunk:#111A18;
+
+  --ink:#E8EDEA;
+  --ink-soft:#94A39E;
+  --ink-faint:#6D7C77;
+
+  --petrol:#4FB3A5;
+  --petrol-wash:#14302C;
+  --clay:#D97A63;
+  --clay-wash:#33201C;
+
+  --line:#26332F;
+  --line-strong:#35443F;
+
+  --on-accent:#08130F;
+
+  --pt-ice:#D2A05B;
+  --pt-hybrid:#7CBE88;
+  --pt-phev:#5FB4C4;
+  --pt-bev:#6C9CE0;
+}

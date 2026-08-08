@@ -1,0 +1,244 @@
+{
+  "$schema": "../schema/catalog.schema.json",
+  "version": "2026-08-08",
+  "source": "vech_list.pptx",
+  "currency": "ILS",
+  "vatIncluded": true,
+  "vatRate": 0.18,
+  "notes": {
+    "supplement": "supplementTierC/D are the values printed in the source table. They reproduce exactly as rate x max(0, listPrice - budget), with budgets of 135000 (tier C) and 155000 (tier D). See docs/data/DATA-SPEC.md section 2.",
+    "consumption": "Every consumption figure below is marked with its source. 'estimate' means I supplied a realistic figure so the engine runs; replace with importer data before any real use.",
+    "images": "angle codes follow the uniform contract: 23 = front 3/4, 09 = side, 29 = rear 3/4, int = cabin. See DATA-SPEC.md section 5."
+  },
+
+  "vehicles": [
+    { "id": "kia-picanto-lxplus", "nameHe": "קיה פיקנטו", "make": "kia", "modelFamily": "picanto",
+      "trim": "LX+", "powertrain": "ice", "bodyStyle": "hatch", "listPrice": 109900,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 17.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "skoda-fabia-selection", "nameHe": "סקודה פאביה", "make": "skoda", "modelFamily": "fabia",
+      "trim": "סלקשן", "powertrain": "ice", "bodyStyle": "hatch", "listPrice": 120990,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 16.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "mg3-hybrid-luxury", "nameHe": "MG3 היבריד", "make": "mg", "modelFamily": "mg3",
+      "trim": "luxury", "powertrain": "hybrid", "bodyStyle": "hatch", "listPrice": 127888,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 22.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "hyundai-venue-prime", "nameHe": "יונדאי Venue 1.6 פריים בנזין אוטו'", "make": "hyundai",
+      "modelFamily": "venue", "trim": "פריים", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 129900,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 14.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "hyundai-venue-prime-plus", "nameHe": "יונדאי Venue 1.6 פריים (+) בנזין אוטו'", "make": "hyundai",
+      "modelFamily": "venue", "trim": "פריים +", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 130900,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 14.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "seat-arona-style", "nameHe": "סיאט ארונה", "make": "seat", "modelFamily": "arona",
+      "trim": "style", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 132900,
+      "supplementRate": 0.0215, "supplementTierC": 0, "supplementTierD": 0,
+      "colorsNote": "צבעים ייפתחו בהמשך לפי היבואן",
+      "consumption": { "kmPerLiter": 16.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "chery-tiggo4-hybrid-comfort", "nameHe": "צ'רי TIGGO 4 Hybrid", "make": "chery",
+      "modelFamily": "tiggo 4", "trim": "comfort", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 135990,
+      "supplementRate": 0.0215, "supplementTierC": 21.29, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 20.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "skoda-scala-selection", "nameHe": "סקודה סקאלה", "make": "skoda", "modelFamily": "scala",
+      "trim": "selection", "powertrain": "ice", "bodyStyle": "hatch", "listPrice": 138490,
+      "supplementRate": 0.0215, "supplementTierC": 75.04, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 16.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "skoda-kamiq-selection", "nameHe": "סקודה קאמיק 1.0", "make": "skoda", "modelFamily": "kamiq",
+      "trim": "סלקשן", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 139990,
+      "supplementRate": 0.0215, "supplementTierC": 107.29, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 16.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "peugeot-2008-active", "nameHe": "פיג'ו 2008 Active 1.2 בנזין", "make": "peugeot",
+      "modelFamily": "2008", "trim": "Active", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 147990,
+      "supplementRate": 0.0215, "supplementTierC": 279.29, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 15.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "opel-mokka-mhev-gsline", "nameHe": "אופל מוקה 1.2L MHEV GS Line", "make": "opel",
+      "modelFamily": "mokka", "trim": "GS LINE MHEV", "powertrain": "mhev", "treatAsIce": true,
+      "bodyStyle": "suv", "listPrice": 150990,
+      "supplementRate": 0.0215, "supplementTierC": 343.79, "supplementTierD": 0,
+      "warningHe": "הרכב לא מוכר לעניין זקיפת ההטבה ומכסת הדלק כרכב היברידי",
+      "consumption": { "kmPerLiter": 17.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "chery-fx-hev-comfort", "nameHe": "צ'רי FX HEV", "make": "chery", "modelFamily": "fulwin",
+      "trim": "comfort", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 152990,
+      "supplementRate": 0.0215, "supplementTierC": 386.79, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 21.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "jaecoo5-hev-premium", "nameHe": "JAECOO 5 hev", "make": "jaecoo", "modelFamily": "5",
+      "trim": "premium", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 154900,
+      "supplementRate": 0.0215, "supplementTierC": 427.85, "supplementTierD": 0,
+      "consumption": { "kmPerLiter": 19.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "byd-atto2-boost", "nameHe": "BYD ATTO2", "make": "byd", "modelFamily": "atto 2",
+      "trim": "בוסט", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 154990,
+      "supplementRate": 0.0215, "supplementTierC": 429.79, "supplementTierD": 0,
+      "dataQueryHe": "בטבלה מסווג כפלאג־אין. ה־ATTO 2 משווק ברוב השווקים כחשמלי מלא — הסיווג משנה את הפחתת שווי השימוש ב־220 ₪ לחודש. טעון אימות.",
+      "consumption": { "kwhPer100km": 15.5, "evRangeKm": 90, "kmPerLiterHybridMode": 20.0, "source": "estimate" } },
+
+    { "id": "mg-zs-hybrid-luxury", "nameHe": "MG ZS היבריד", "make": "mg", "modelFamily": "zs",
+      "trim": "luxury", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 155888,
+      "supplementRate": 0.0215, "supplementTierC": 449.09, "supplementTierD": 19.09,
+      "consumption": { "kmPerLiter": 20.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "opel-frontera-gs-7", "nameHe": "אופל פרונטרה 7 מושבים", "make": "opel", "modelFamily": "frontera",
+      "trim": "GS", "powertrain": "ice", "bodyStyle": "suv", "seats": 7, "listPrice": 156990,
+      "supplementRate": 0.0215, "supplementTierC": 472.79, "supplementTierD": 42.79,
+      "consumption": { "kmPerLiter": 15.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "toyota-yaris-cross-eco", "nameHe": "טויוטה יאריס קרוס היבריד", "make": "toyota",
+      "modelFamily": "yaris cross", "trim": "eco", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 158990,
+      "supplementRate": 0.0215, "supplementTierC": 515.79, "supplementTierD": 85.79,
+      "consumption": { "kmPerLiter": 25.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "jaecoo5-hev-luxury", "nameHe": "JAECOO 5 hev", "make": "jaecoo", "modelFamily": "5",
+      "trim": "לקשרי", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 163900,
+      "supplementRate": 0.0215, "supplementTierC": 621.35, "supplementTierD": 191.35,
+      "consumption": { "kmPerLiter": 19.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "kia-seltos-lxplus", "nameHe": "קיה סלטוס 2.0 בנזין LX PLUS אוטו'", "make": "kia",
+      "modelFamily": "seltos", "trim": "LX", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 164900,
+      "supplementRate": 0.0215, "supplementTierC": 642.85, "supplementTierD": 212.85,
+      "consumption": { "kmPerLiter": 13.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "skoda-octavia-selection", "nameHe": "סקודה אוקטביה", "make": "skoda", "modelFamily": "octavia",
+      "trim": "סלקשן", "powertrain": "ice", "bodyStyle": "sedan", "listPrice": 164990,
+      "supplementRate": 0.0215, "supplementTierC": 644.79, "supplementTierD": 214.79,
+      "consumption": { "kmPerLiter": 15.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "byd-sealion5-comfort", "nameHe": "BYD Sealion 5 DM-i", "make": "byd", "modelFamily": "sealion 5",
+      "trim": "Comfort", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 166990,
+      "supplementRate": 0.0215, "supplementTierC": 687.79, "supplementTierD": 257.79,
+      "consumption": { "kwhPer100km": 16.5, "evRangeKm": 80, "kmPerLiterHybridMode": 20.0, "source": "estimate" } },
+
+    { "id": "byd-sealion5-design", "nameHe": "BYD Sealion 5 DM-i", "make": "byd", "modelFamily": "sealion 5",
+      "trim": "Design", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 171990,
+      "supplementRate": 0.0215, "supplementTierC": 795.29, "supplementTierD": 365.29,
+      "dataQueryHe": "שורה זו מופיעה פעמיים בטבלת המקור באותו מחיר ובאותה גרסה. כפילות?",
+      "consumption": { "kwhPer100km": 16.5, "evRangeKm": 80, "kmPerLiterHybridMode": 20.0, "source": "estimate" } },
+
+    { "id": "skoda-karoq-selection", "nameHe": "סקודה קארוק", "make": "skoda", "modelFamily": "karoq",
+      "trim": "סלקשן", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 169490,
+      "supplementRate": 0.0215, "supplementTierC": 741.54, "supplementTierD": 311.54,
+      "consumption": { "kmPerLiter": 14.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "hyundai-elantra-hybrid-prime", "nameHe": "יונדאי אלנטרה היבריד", "make": "hyundai",
+      "modelFamily": "elantra", "trim": "PRIME", "powertrain": "hybrid", "bodyStyle": "sedan", "listPrice": 169990,
+      "supplementRate": 0.0215, "supplementTierC": 752.29, "supplementTierD": 322.29,
+      "consumption": { "kmPerLiter": 22.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "chery-tiggo7-phev-comfort", "nameHe": "צ'רי TIGGO 7 PHEV", "make": "chery", "modelFamily": "tiggo 7",
+      "trim": "comfort", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 169990,
+      "supplementRate": 0.0215, "supplementTierC": 752.29, "supplementTierD": 322.29,
+      "consumption": { "kwhPer100km": 17.0, "evRangeKm": 85, "kmPerLiterHybridMode": 18.0, "source": "estimate" } },
+
+    { "id": "byd-seal5-dmi-comfort", "nameHe": "BYD Seal 5 DM-i", "make": "byd", "modelFamily": "seal 5",
+      "trim": "comfort", "powertrain": "phev", "bodyStyle": "sedan", "listPrice": 174990,
+      "supplementRate": 0.0215, "supplementTierC": 859.79, "supplementTierD": 429.79,
+      "consumption": { "kwhPer100km": 16.0, "evRangeKm": 80, "kmPerLiterHybridMode": 20.0, "source": "estimate" } },
+
+    { "id": "chery-arrizo8-phev-comfort", "nameHe": "צ'רי אריזו 8 PHEV", "make": "chery", "modelFamily": "arrizo 8",
+      "trim": "comfort", "powertrain": "phev", "bodyStyle": "sedan", "listPrice": 175990,
+      "supplementRate": 0.0215, "supplementTierC": 881.29, "supplementTierD": 451.29,
+      "noteHe": "נשארו בודדים",
+      "consumption": { "kwhPer100km": 16.0, "evRangeKm": 90, "kmPerLiterHybridMode": 19.0, "source": "estimate" } },
+
+    { "id": "mg-hs-hybrid-luxury", "nameHe": "MG HS היבריד", "make": "mg", "modelFamily": "hs",
+      "trim": "luxury", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 176888,
+      "supplementRate": 0.0215, "supplementTierC": 900.59, "supplementTierD": 470.59,
+      "consumption": { "kmPerLiter": 18.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "subaru-crosstrek-luxury", "nameHe": "סובארו Crosstrek Luxury 2.5", "make": "subaru",
+      "modelFamily": "crosstrek", "trim": "Luxury", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 176900,
+      "supplementRate": 0.0215, "supplementTierC": 900.85, "supplementTierD": 470.85,
+      "badgeHe": "דגם חדש",
+      "noteHe": "עלות צבע מטאלי סובארו 2,900 ₪ לא כלולה במעמ",
+      "consumption": { "kmPerLiter": 12.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "hyundai-kona-hybrid-premium", "nameHe": "יונדאי קונה היבריד", "make": "hyundai",
+      "modelFamily": "kona", "trim": "premium", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 176990,
+      "supplementRate": 0.0215, "supplementTierC": 902.79, "supplementTierD": 472.79,
+      "consumption": { "kmPerLiter": 21.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "hyundai-elantra-hybrid-premium", "nameHe": "יונדאי אלנטרה היבריד", "make": "hyundai",
+      "modelFamily": "elantra", "trim": "פרמיום", "powertrain": "hybrid", "bodyStyle": "sedan", "listPrice": 177990,
+      "supplementRate": 0.0215, "supplementTierC": 924.29, "supplementTierD": 494.29,
+      "consumption": { "kmPerLiter": 22.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "kia-niro-hybrid-lx", "nameHe": "קיה נירו היבריד", "make": "kia", "modelFamily": "niro",
+      "trim": "LX", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 178900,
+      "supplementRate": 0.0215, "supplementTierC": 943.85, "supplementTierD": 513.85,
+      "consumption": { "kmPerLiter": 22.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "lynkco-01-pro", "nameHe": "Lynk & Co 01", "make": "lynk&co", "modelFamily": "01",
+      "trim": "pro", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 179900,
+      "supplementRate": 0.0215, "supplementTierC": 965.35, "supplementTierD": 535.35,
+      "consumption": { "kwhPer100km": 18.0, "evRangeKm": 70, "kmPerLiterHybridMode": 16.0, "source": "estimate" } },
+
+    { "id": "jaecoo7-phev-elegance", "nameHe": "JAECOO 7 PHEV", "make": "jaecoo", "modelFamily": "7",
+      "trim": "אלגנס", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 179990,
+      "supplementRate": 0.0215, "supplementTierC": 967.29, "supplementTierD": 537.29,
+      "consumption": { "kwhPer100km": 17.5, "evRangeKm": 90, "kmPerLiterHybridMode": 17.0, "source": "estimate" } },
+
+    { "id": "kgm-torres-hybrid", "nameHe": "KGM טורס היברידי", "make": "kgm", "modelFamily": "torres",
+      "trim": "", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 179990,
+      "supplementRate": 0.0215, "supplementTierC": 967.29, "supplementTierD": 537.29,
+      "consumption": { "kmPerLiter": 17.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "chery-tiggo7-phev-luxury", "nameHe": "צ'רי טיגו 7 PHEV", "make": "chery", "modelFamily": "tiggo 7",
+      "trim": "לקשרי", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 179990,
+      "supplementRate": 0.0215, "supplementTierC": 967.29, "supplementTierD": 537.29,
+      "consumption": { "kwhPer100km": 17.0, "evRangeKm": 85, "kmPerLiterHybridMode": 18.0, "source": "estimate" } },
+
+    { "id": "toyota-corolla-cross-active", "nameHe": "קורולה קרוס היבריד", "make": "toyota",
+      "modelFamily": "corolla cross", "trim": "active", "powertrain": "hybrid", "bodyStyle": "suv", "listPrice": 179990,
+      "supplementRate": 0.0215, "supplementTierC": 967.29, "supplementTierD": 537.29,
+      "consumption": { "kmPerLiter": 23.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "city-5", "nameHe": "CITY 5", "make": "", "modelFamily": "city 5",
+      "trim": "", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 180990,
+      "supplementRate": 0.0215, "supplementTierC": 988.79, "supplementTierD": 558.79,
+      "dataQueryHe": "שם היצרן חסר בטבלת המקור.",
+      "noteHe": "רק לבן",
+      "consumption": { "kmPerLiter": 15.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "kia-sportage-urban", "nameHe": "קיה ספורטג' Urban 1.6 טורבו בנזין", "make": "kia",
+      "modelFamily": "sportage", "trim": "Urban", "powertrain": "ice", "bodyStyle": "suv", "listPrice": 184990,
+      "supplementRate": 0.0215, "supplementTierC": 1074.79, "supplementTierD": 644.79,
+      "consumption": { "kmPerLiter": 13.5, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "omoda7-phev-elevate", "nameHe": "OMODA 7 PHEV Elevate", "make": "omoda", "modelFamily": "7",
+      "trim": "Elevate", "powertrain": "phev", "bodyStyle": "suv", "listPrice": 184900,
+      "supplementRate": 0.0215, "supplementTierC": 1072.85, "supplementTierD": 642.85,
+      "consumption": { "kwhPer100km": 17.0, "evRangeKm": 90, "kmPerLiterHybridMode": 17.5, "source": "estimate" } },
+
+    { "id": "chery-tiggo8-phev-comfort", "nameHe": "צ'רי TIGGO 8 PHEV", "make": "chery", "modelFamily": "tiggo 8",
+      "trim": "comfort", "powertrain": "phev", "bodyStyle": "suv", "seats": 7, "listPrice": 189990,
+      "supplementRate": 0.0232, "supplementTierC": 1505.27, "supplementTierD": 1075.27,
+      "rambiTierC": 752.63, "rambiTierD": 537.63,
+      "consumption": { "kwhPer100km": 18.0, "evRangeKm": 80, "kmPerLiterHybridMode": 16.5, "source": "estimate" } },
+
+    { "id": "mitsubishi-outlander-intense-7", "nameHe": "מיצובישי אאוטלנדר 7 מקומות", "make": "mitsubishi",
+      "modelFamily": "outlander", "trim": "intense", "powertrain": "ice", "bodyStyle": "suv", "seats": 7,
+      "listPrice": 191990,
+      "supplementRate": 0.0232, "supplementTierC": 1551.67, "supplementTierD": 1121.67,
+      "rambiTierC": 775.83, "rambiTierD": 560.83,
+      "consumption": { "kmPerLiter": 12.0, "fuel": "petrol95", "source": "estimate" } },
+
+    { "id": "skoda-kodiaq-adv", "nameHe": "סקודה קודיאק ADV 1.5", "make": "skoda", "modelFamily": "kodiaq",
+      "trim": "ADV", "powertrain": "ice", "bodyStyle": "suv", "seats": 7, "listPrice": 229990,
+      "supplementRate": 0.0232, "supplementTierC": 2433.27, "supplementTierD": 2003.27,
+      "rambiTierC": 1216.63, "rambiTierD": 1001.63,
+      "consumption": { "kmPerLiter": 14.0, "fuel": "petrol95", "source": "estimate" } }
+  ]
+}

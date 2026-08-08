@@ -1,0 +1,253 @@
+@import "tailwindcss";
+@import "./ui/tokens.css";
+
+/* ─────────────────────────────────────────────────────────────
+   Breakpoints: 390 · 768 · 1180.
+
+   390 is the base — every rule outside a media query is written
+   for a phone, and the two queries below add to it. Tailwind's
+   own scale is moved onto the same two numbers, so a `sm:` or
+   `lg:` utility in a component lands where this file does and
+   there is one set of breakpoints in the project rather than two.
+   ───────────────────────────────────────────────────────────── */
+@theme {
+  --breakpoint-sm: 768px;
+  --breakpoint-lg: 1180px;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   Base and primitives.
+
+   The visual system is the one in docs/design/ui-mockup.html:
+   flat surfaces, one hairline, two tones, logical properties only.
+   Component classes here are the ones src/ui/* emits; feature
+   screens compose them rather than restyling them.
+   ───────────────────────────────────────────────────────────── */
+
+*{box-sizing:border-box}
+/* clip, not hidden: hidden would make the document a scroll container and the
+   sticky top bar would stop sticking. Nothing may pan the page sideways —
+   anything wider than the screen scrolls inside .scroll-x instead. */
+html,body{margin:0;padding:0;overflow-x:clip}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--ui);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--petrol);outline-offset:2px;border-radius:3px}
+[hidden]{display:none !important}
+
+/* Sums line up in a column only with tabular figures. */
+.num{font-variant-numeric:tabular-nums;font-feature-settings:"tnum" 1}
+.wrap{max-width:1180px;margin:0 auto;padding:0 24px}
+/* The one escape from the rule above: content that is genuinely wider than a
+   phone — the comparison table, a long formula — carries its own scroller. */
+.scroll-x{overflow-x:auto;max-inline-size:100%;overscroll-behavior-x:contain}
+.eyebrow{
+  font-size:11px;font-weight:700;letter-spacing:.1em;
+  color:var(--ink-faint);margin:0 0 8px;
+}
+
+/* ── chrome ─────────────────────────────────────────────── */
+.topbar{
+  border-block-end:1px solid var(--line);
+  background:var(--surface);
+  position:sticky;
+  inset-block-start:0;
+  z-index:20;
+}
+.topbar .wrap{display:flex;align-items:center;gap:20px;height:60px}
+.brand{
+  font-family:var(--display);font-weight:700;font-size:22px;
+  letter-spacing:-.01em;margin-inline-end:auto;
+}
+.brand span{color:var(--petrol)}
+/* 44px, here and on every other control: a thumb misses anything smaller. */
+.icon-btn{
+  background:none;border:1px solid var(--line);border-radius:var(--r);
+  width:44px;height:44px;cursor:pointer;display:grid;place-items:center;
+  font-size:15px;
+}
+.icon-btn:hover{border-color:var(--line-strong)}
+
+/* ── chip · the powertrain filter ───────────────────────── */
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  min-height:44px;padding:0 15px;cursor:pointer;
+  border:1px solid var(--line);border-radius:999px;
+  background:var(--surface);color:var(--ink-soft);
+  font-size:14px;font-weight:600;
+}
+.chip:hover{border-color:var(--line-strong)}
+.chip[aria-pressed="true"]{
+  border-color:var(--ink);background:var(--ink);color:var(--paper);
+}
+.chip i{inline-size:7px;block-size:7px;flex:none;border-radius:50%}
+
+/* ── segmented control · the horizon tabs ───────────────── */
+.seg{
+  display:flex;gap:3px;padding:3px;
+  background:var(--surface-sunk);border-radius:var(--r);
+}
+.seg-btn{
+  flex:1;min-height:44px;cursor:pointer;
+  border:1px solid transparent;border-radius:4px;background:transparent;
+  color:var(--ink-soft);font-size:13.5px;font-weight:600;
+}
+.seg-btn[aria-selected="true"]{
+  border-color:var(--line);background:var(--surface);color:var(--ink);
+}
+
+/* ── Money ──────────────────────────────────────────────── */
+/* The dir="ltr" that keeps a leading minus in place lives on the
+   element itself, in Money.tsx — it is behaviour, not decoration. */
+.money{white-space:nowrap}
+
+/* ── Sheet ──────────────────────────────────────────────── */
+.sheet{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:28px;
+  margin-block-end:20px;
+}
+.sheet-title{
+  font-family:var(--display);font-size:22px;font-weight:700;
+  margin:0 0 18px;letter-spacing:-.01em;
+}
+
+/* ── Field ──────────────────────────────────────────────── */
+.field{display:flex;flex-direction:column;gap:6px;margin-block-end:16px}
+.field-label{
+  font-size:13.5px;font-weight:600;color:var(--ink-soft);
+  display:flex;align-items:baseline;gap:8px;
+}
+.field-unverified{
+  font-size:11px;font-weight:700;letter-spacing:.04em;
+  color:var(--clay);background:var(--clay-wash);
+  border-radius:3px;padding:1px 6px;
+}
+.field-input,.field-select{
+  font:inherit;font-size:15px;color:var(--ink);
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:var(--r);
+  padding:9px 12px;
+  min-height:44px;
+  width:100%;
+  font-variant-numeric:tabular-nums;
+}
+.field-input:hover,.field-select:hover{border-color:var(--line-strong)}
+.field-input::-webkit-outer-spin-button,
+.field-input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.field-input[type="number"]{-moz-appearance:textfield;appearance:textfield}
+
+/* Inline editable figure inside a sentence — the prototype's
+   signature interaction. */
+.pv{
+  font-family:var(--mono);font-size:13px;font-weight:500;color:var(--ink);
+  background:var(--petrol-wash);border:0;
+  border-block-end:1px dashed var(--petrol);
+  border-radius:3px 3px 0 0;padding:2px 5px;cursor:text;
+  width:var(--w,7ch);text-align:center;
+}
+.pv:hover{background:var(--surface-sunk)}
+
+/* ── Ledger ─────────────────────────────────────────────── */
+.ledger{margin-block-start:24px;display:grid;grid-template-columns:10px 1fr;gap:16px}
+.spine{display:flex;flex-direction:column;gap:2px;padding-block-start:4px}
+.spine i{
+  display:block;border-radius:2px;background:var(--ink);
+  opacity:.82;transition:opacity .12s;
+}
+/* A negative line is money reaching the employee, so it reads in the accent. */
+.spine i.neg{background:var(--petrol)}
+.spine i.dim{opacity:.18}
+
+.lines{border:0;padding:0;margin:0}
+.line{border-block-end:1px solid var(--line)}
+.line:first-child{border-block-start:1px solid var(--line)}
+.line-btn{
+  width:100%;min-height:44px;background:none;border:0;padding:11px 0;
+  cursor:pointer;display:flex;align-items:baseline;gap:12px;text-align:start;
+}
+.line-btn:hover .lbl{color:var(--petrol)}
+.lbl{font-size:14.5px;flex:1}
+.amt{
+  font-size:15px;font-weight:700;letter-spacing:-.01em;
+  font-variant-numeric:tabular-nums;
+}
+.amt.neg{color:var(--petrol)}
+.caret{font-size:10px;color:var(--ink-faint);width:9px}
+.line.open .caret{display:inline-block;transform:rotate(180deg)}
+
+.trace{padding:0 0 13px}
+/* A formula keeps its line breaks and scrolls itself rather than stretching
+   the page: breaking mid-number would make the arithmetic unreadable. */
+.trace code{
+  display:block;font-family:var(--mono);font-size:12px;line-height:1.75;
+  color:var(--ink-soft);background:var(--surface-sunk);
+  border-inline-start:2px solid var(--line-strong);
+  padding:9px 12px;border-radius:var(--r);white-space:pre-wrap;
+  overflow-x:auto;max-inline-size:100%;
+}
+.trace-src{
+  font-family:var(--mono);font-size:11px;color:var(--ink-faint);
+  margin:7px 0 0;text-align:start;
+}
+.sumline{
+  display:flex;align-items:baseline;gap:12px;
+  padding-block-start:16px;margin-block-start:2px;
+  border-block-start:2px solid var(--ink);
+}
+.sumline .lbl{font-weight:700;font-size:15px}
+.sumline .amt{font-size:21px;font-weight:800}
+
+/* ── bottom bar ─────────────────────────────────────────── */
+/* On a phone the headline figure scrolls away while the reader is still
+   reading the ledger that explains it, so it is pinned. Above 768px the whole
+   sheet fits beside the ledger and the bar has nothing to add. */
+.bottombar{
+  position:fixed;
+  inset-inline:0;
+  inset-block-end:0;
+  z-index:30;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding-block:10px;
+  padding-inline:16px;
+  padding-block-end:calc(10px + env(safe-area-inset-bottom));
+  background:var(--surface);
+  border-block-start:1px solid var(--line-strong);
+}
+.bottombar .lbl{font-size:13px;color:var(--ink-soft)}
+.bottombar .amt{font-size:22px;font-weight:800;letter-spacing:-.01em}
+/* Keeps the bar from covering the last row of the page. */
+.bottombar-space{block-size:0}
+
+@media (max-width:767px){
+  .wrap{padding:0 16px}
+  .sheet{padding:18px;margin-block-end:16px}
+  .sheet-title{font-size:19px}
+  /* One card per row. */
+  .catalog-grid{grid-template-columns:1fr}
+  /* The ledger drops its spine and runs as one column: at this width the bars
+     were 3% of the line and the figures say the same thing exactly. */
+  .ledger{grid-template-columns:1fr;gap:0}
+  .spine{display:none}
+  .bottombar-space{block-size:76px}
+}
+
+@media (min-width:768px){
+  .bottombar{display:none}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none !important;animation:none !important}
+}
