@@ -24,13 +24,15 @@ export const ConsumptionSchema = z.strictObject({
   kwhPer100km: z.number().positive().optional(),
   /** Manufacturer's electric range. The engine discounts it by a policy factor. */
   evRangeKm: z.number().positive().optional(),
-  fuel: z.literal('petrol95').optional(),
+  fuel: z.enum(['petrol95', 'diesel']).optional(),
   /**
    * 'estimate' means the figure was supplied so the engine could run and has no
    * importer behind it. Every row reads 'estimate' today; the UI must mark any
    * cost derived from one.
    */
   source: z.enum(['estimate', 'importer', 'manufacturer']),
+  /** Where the figure came from, in Hebrew, for the trace. */
+  sourceNote: z.string().optional(),
 })
 
 export const VehicleSchema = z.strictObject({
@@ -41,8 +43,12 @@ export const VehicleSchema = z.strictObject({
   modelFamily: z.string(),
   trim: z.string(),
   powertrain: PowertrainSchema,
-  bodyStyle: z.enum(['hatch', 'suv', 'sedan']),
+  bodyStyle: z.enum(['hatch', 'suv', 'sedan', 'mpv']),
   listPrice: z.number().positive(),
+  /** True only where the price list actually quotes a rambi cost. */
+  rambiEligible: z.boolean().optional(),
+  /** Measured in road tests; beats the manufacturer claim in the engine. */
+  realEvRangeKm: z.number().positive().nullable().optional(),
   supplementRate: z.number().positive(),
   /** As printed in the source table. test/data/schema.test.ts checks the formula against it. */
   supplementTierC: z.number().nonnegative(),

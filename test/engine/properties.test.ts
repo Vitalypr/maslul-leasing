@@ -59,6 +59,13 @@ function run(
       receivesLicenseFee: false, receivesPrivateInsurance: false,
       receivesServiceVehicleTierC: false, receivesFixedNet: false,
       receivesVariableNet: false,
+      licenseFeeAnnualPaid: 0,
+      privateInsuranceAnnualPaid: 0,
+      serviceVehicleTierCMonthly: 0,
+      fixedNetMonthly: 0,
+      variableNetMonthly: 0,
+      installsCharger: false,
+      chargerInstallCost: 0,
     },
     policy, taxRules: taxRules as never, prices: prices as never,
   })
@@ -176,21 +183,24 @@ describe('hand-verified reference case', () => {
    * Worked by hand from the 2026 brackets, independently of the engine:
    *   supplement  2.15% x 164,990 - 2.15% x 135,000 = 644.79/mo  -> 7,737.48
    *   usage value 164,990 x 2.48%, no reduction for petrol       -> 49,101.00
-   *   fuel        35,000 / 15.5 km/l x 7.41                      -> 16,732.26
-   *   budget      800 x 12, capped at what was spent             -> -9,600.00
+   *   fuel        35,000 / 20.0 km/l x 8.09                      -> 14,157.50
+   *   budget      800 x 12, capped at what was spent             ->  -9,600.00
    *   tax         [tax(29,091.75) - tax(25,000)] x 12            -> 23,112.96
+   *
+   * The consumption is the Israeli importer's disclosed 5.0 l/100km for the
+   * 1.5 TSI Selection, not the 15.5 km/l this file first assumed.
    */
   it('reproduces the worked example to the agora', () => {
     const r = run('skoda-octavia-selection', 25000, 35000, 0, 'C', false)
     expect(line(r, 'upgradeSupplement')).toBeCloseTo(7737.48, 2)
     expect(line(r, 'usageValue')).toBeCloseTo(49101.00, 2)
-    expect(line(r, 'fuelCost')).toBeCloseTo(16732.26, 2)
+    expect(line(r, 'fuelCost')).toBeCloseTo(14157.50, 2)
     expect(line(r, 'fuelBudget')).toBeCloseTo(-9600.00, 2)
     expect(line(r, 'excessKm')).toBe(0)          // exactly at quota: no charge
-    expect(r.annualCash).toBeCloseTo(14869.74, 2)
+    expect(r.annualCash).toBeCloseTo(12294.98, 2)
     expect(r.annualTaxDelta).toBeCloseTo(23112.96, 2)
-    expect(r.annualNet).toBeCloseTo(37982.70, 2)
-    expect(r.monthlyNet).toBeCloseTo(3165.23, 2)
+    expect(r.annualNet).toBeCloseTo(35407.94, 2)
+    expect(r.monthlyNet).toBeCloseTo(2950.66, 2)
   })
 
   it('gives a mild hybrid no usage-value reduction', () => {

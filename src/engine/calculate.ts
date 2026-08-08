@@ -6,6 +6,7 @@ import { type Powertrain, type UsageValueRules } from './tax/usageValue'
 import { splitAnnualKm, type UsageSplit } from './usage'
 import { CONTRIBUTORS } from './contributors'
 import type { ServiceTier } from './contributors/leaseSupplement'
+import { energyCostAnnual } from './contributors/energy'
 import type { EnergyPrices, VehicleConsumption } from './contributors/energy'
 import { forgoneLines } from './forgone'
 import type { ForgoneAnnualItem, ForgoneMonthlyItem } from './forgone'
@@ -60,6 +61,17 @@ export type Employee = {
   receivesServiceVehicleTierC: boolean
   receivesFixedNet: boolean
   receivesVariableNet: boolean
+  /* The forgone amounts are the employee's own figures. The licence fee follows
+     the car actually owned and the insurance follows the quote actually paid,
+     so policy can only supply the ceiling, never the value. */
+  licenseFeeAnnualPaid: number
+  privateInsuranceAnnualPaid: number
+  serviceVehicleTierCMonthly: number
+  fixedNetMonthly: number
+  variableNetMonthly: number
+  /** A plug-in needs a wallbox, and the employee pays for it. */
+  installsCharger: boolean
+  chargerInstallCost: number
 }
 
 /**
@@ -106,6 +118,7 @@ export type Policy = {
     unusedCreditCappedAtSupplement: boolean
   }
   phev: { realWorldRangeFactor: number }
+  chargerInstall: { appliesTo: string[]; excludedFromTotals: boolean }
   forgone: {
     licenseFeeAnnual: ForgoneAnnualItem
     privateInsuranceAnnual: ForgoneAnnualItem
@@ -156,6 +169,46 @@ export type CalcResult = {
   forgoneTaxDelta: number
   /** What giving them up actually costs, after the tax effect. */
   forgoneAnnual: number
+  /**
+   * Installing a home charger, paid once by the employee.
+   *
+   * Deliberately NOT in annualNet, monthlyNet or threeYearNet. It is a single
+   * outlay on the employee's own property that outlives the lease, so folding
+   * it into a monthly figure would misstate the cost of the car in both
+   * directions — inflating the month and implying it recurs.
+   */
+  chargerInstallOneTime: number
+  /**
+   * What is missing before this car can be costed at all, in Hebrew, or null.
+   *
+   * Non-null means the totals above are incomplete and must not be presented
+   * as a cost. Suppressing the figure is the point: a confident number built
+   * on an absent input is worse than an admission.
+   */
+  missingDataHe: string | null
+}
+
+/**
+ * The wallbox, when the car needs one and the employee says they will fit one.
+ * Reported on its own so the screen can show it beside the car without it ever
+ * reaching a per-month figure.
+ */
+/**
+ * Whether a required input is absent. Today that is only the diesel price:
+ * Israel does not regulate it, so no official figure exists to fall back on,
+ * and one car in the fleet runs on it.
+ */
+function missingData(ctx: CalcContext): string | null {
+  return energyCostAnnual(
+    ctx.usage, ctx.vehicle.consumption ?? {}, ctx.prices,
+  ).missingPriceForHe
+}
+
+function chargerInstall(ctx: CalcContext): number {
+  const { installsCharger, chargerInstallCost } = ctx.employee
+  if (!installsCharger) return 0
+  if (!ctx.policy.chargerInstall.appliesTo.includes(ctx.vehicle.powertrain)) return 0
+  return round2(Math.max(0, chargerInstallCost))
 }
 
 function withUsage(input: CalcInput): CalcContext {
@@ -230,5 +283,7 @@ export function calculate(input: CalcInput): CalcResult {
     forgoneCash: fg.cash,
     forgoneTaxDelta,
     forgoneAnnual: round2(fg.cash + forgoneTaxDelta),
+    chargerInstallOneTime: chargerInstall(ctx),
+    missingDataHe: missingData(ctx),
   }
 }

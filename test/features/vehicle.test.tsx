@@ -90,7 +90,8 @@ describe('<VehiclePage> — the plug-in electricity share', () => {
       chargesDaily: base.chargesDaily,
       manufacturerEvRangeKm:
         (vehicle(PHEV).consumption as { evRangeKm?: number }).evRangeKm ?? null,
-      realEvRangeKm: null,
+      realEvRangeKm:
+        (vehicle(PHEV) as { realEvRangeKm?: number | null }).realEvRangeKm ?? null,
       realWorldRangeFactor: policy.phev.realWorldRangeFactor,
     })
     const share = Math.round((split.evKm / split.annualKm) * 100)
@@ -112,7 +113,9 @@ describe('<VehiclePage> — the plug-in electricity share', () => {
 describe('<VehiclePage> — what the employee gives up', () => {
   const receiving = {
     receivesPrivateInsurance: true,
+    privateInsuranceAnnualPaid: 4200,
     receivesServiceVehicleTierC: true,
+    serviceVehicleTierCMonthly: 570,
   }
 
   it('says nothing when there is nothing to give up', () => {
@@ -123,7 +126,9 @@ describe('<VehiclePage> — what the employee gives up', () => {
     const html = render(OCTAVIA, receiving)
     expect(html).toContain('מה תפסיד')
     for (const l of result(OCTAVIA, receiving).forgone) {
-      expect(html, l.id).toContain(l.labelHe)
+      // React escapes the apostrophe in "רכב שירות ג'" to &#x27;, so compare
+      // against the escaped form rather than the raw label.
+      expect(html, l.id).toContain(l.labelHe.replace(/'/g, '&#x27;'))
     }
   })
 
@@ -162,18 +167,34 @@ describe('<VehiclePage> — what the employee gives up', () => {
 })
 
 describe('<VehiclePage> — unverified sources', () => {
-  it('marks the mileage quota and the excess rate while policy says unverified', () => {
-    expect(policy.mileage.verified).toBe(false)
-    expect(render(OCTAVIA).match(/לא אומת/g)?.length).toBeGreaterThanOrEqual(1)
+  it('marks the mileage quota only while policy says it is unverified', () => {
+    /*
+     * The quota and the excess rate are confirmed now (35,000 km at 0.12), so
+     * the honest behaviour is no mark. Asserting the rule in both directions
+     * keeps the mark meaningful — a mark that never disappears says nothing.
+     */
+    const marks = render(OCTAVIA).match(/לא אומת/g)?.length ?? 0
+    if (policy.mileage.verified) expect(marks).toBe(0)
+    else expect(marks).toBeGreaterThanOrEqual(1)
   })
 
-  it('marks the electric range it derived from the unverified policy factor', () => {
-    expect(policy.phev.verified).toBe(false)
+  it('stops marking the electric range once a measured one replaces the factor', () => {
+    /*
+     * The mark exists to warn that a range was derived from the unverified
+     * 70% factor. Every plug-in now carries realEvRangeKm measured in road
+     * tests, so the derivation — and the warning with it — no longer applies.
+     * The rule is asserted in both directions so the mark keeps its meaning.
+     */
     const marks = (id: string) => render(id).match(/לא אומת/g)?.length ?? 0
-    expect(marks(PHEV)).toBeGreaterThan(marks(OCTAVIA))
+    const measured =
+      (vehicle(PHEV) as { realEvRangeKm?: number | null }).realEvRangeKm != null
+    if (measured) expect(marks(PHEV)).toBe(marks(OCTAVIA))
+    else expect(marks(PHEV)).toBeGreaterThan(marks(OCTAVIA))
   })
 
-  it('marks the consumption figure the cost rests on', () => {
-    expect(render(OCTAVIA)).toContain('משוערת')
+  it('marks the consumption figure only while it is an estimate', () => {
+    const src = (vehicle(OCTAVIA).consumption as { source?: string } | undefined)?.source
+    if (src === 'estimate') expect(render(OCTAVIA)).toContain('משוערת')
+    else expect(render(OCTAVIA)).not.toContain('משוערת')
   })
 })

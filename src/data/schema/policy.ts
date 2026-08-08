@@ -18,21 +18,26 @@ export const TaxTreatmentSchema = z.enum([
   'net', 'gross', 'taxableBenefit', 'grossedUp',
 ])
 
-/** A benefit stated per year, and the switch that turns it off. */
-const ForgoneAnnualSchema = z.strictObject({
-  annual: z.number().nonnegative(),
+/**
+ * A forgone benefit as policy describes it.
+ *
+ * Policy states the ceiling and a figure to suggest, never the value. Two of
+ * these differ per person by definition — the licence fee follows the car the
+ * employee actually owns and the insurance follows the quote they actually
+ * paid — so the amount belongs to the profile, not here.
+ */
+const ForgoneItemSchema = z.strictObject({
   enabled: z.boolean(),
+  employeeEnters: z.boolean(),
+  /** Ceiling on the yearly figure, or null where the component has none. */
+  annualCap: z.number().nonnegative().nullable().optional(),
+  /** Ceiling on the monthly figure, or null where the component has none. */
+  monthlyCap: z.number().nonnegative().nullable().optional(),
+  /** Shown as a hint beside the field. Never used as a value. */
+  suggested: z.number().nonnegative().nullable().optional(),
   verified: z.boolean(),
   labelHe: z.string().min(1),
-  note: z.string().optional(),
-})
-
-/** A benefit stated per month. Never both — the engine reads one or the other. */
-const ForgoneMonthlySchema = z.strictObject({
-  monthly: z.number().nonnegative(),
-  enabled: z.boolean(),
-  verified: z.boolean(),
-  labelHe: z.string().min(1),
+  helpHe: z.string().optional(),
   note: z.string().optional(),
 })
 
@@ -55,6 +60,8 @@ export const PolicySchema = z.strictObject({
      */
     highRateThreshold: z.number().positive().nullable(),
     rambiDiscount: z.number().min(0).max(1),
+    /** Which vehicles the discount reaches. */
+    rambiScope: z.enum(['markedVehiclesOnly', 'wholeFleet']).optional(),
     verified: z.boolean(),
     note: z.string().optional(),
   }),
@@ -91,12 +98,27 @@ export const PolicySchema = z.strictObject({
     verified: z.boolean(),
   }),
 
+  /**
+   * A wallbox for a plug-in, paid once by the employee. Held apart from every
+   * other cost because it must never reach a per-month figure: it is a single
+   * outlay on the employee's own property that outlives the lease.
+   */
+  chargerInstall: z.strictObject({
+    appliesTo: z.array(z.string()),
+    employeeEnters: z.boolean(),
+    suggested: z.number().nonnegative().nullable().optional(),
+    excludedFromTotals: z.literal(true),
+    verified: z.boolean(),
+    labelHe: z.string().min(1),
+    helpHe: z.string().optional(),
+  }),
+
   forgone: z.strictObject({
-    licenseFeeAnnual: ForgoneAnnualSchema,
-    privateInsuranceAnnual: ForgoneAnnualSchema,
-    serviceVehicleTierC: ForgoneMonthlySchema,
-    fixedNetAllowance: ForgoneMonthlySchema,
-    variableNetAllowance: ForgoneMonthlySchema,
+    licenseFeeAnnual: ForgoneItemSchema,
+    privateInsuranceAnnual: ForgoneItemSchema,
+    serviceVehicleTierC: ForgoneItemSchema,
+    fixedNetAllowance: ForgoneItemSchema,
+    variableNetAllowance: ForgoneItemSchema,
   }),
 
   taxTreatment: z.strictObject({

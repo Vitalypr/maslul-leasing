@@ -110,26 +110,76 @@ export function ProfileForm({ profile, onChange, gradesToTier }: ProfileFormProp
                onValue={v => { onChange({ rambiEligible: v }) }} />
       </div>
 
-      <Group legend="מה אתה מקבל היום">
+      {/*
+        * Each of these is a tick plus the amount, because the amount is
+        * personal: the licence fee follows the car owned, the insurance
+        * follows the quote paid, and the payslip components vary by grade.
+        * The amount field appears only once the box is ticked, so an unticked
+        * benefit does not leave a stray number on screen.
+        */}
+      <Group legend="מה אתה מקבל היום, ותפסיד אם תיקח רכב">
         <Check id="receivesLicenseFee" label="החזר אגרת רישוי"
                checked={profile.receivesLicenseFee}
                onValue={v => { onChange({ receivesLicenseFee: v }) }} />
+        {profile.receivesLicenseFee && (
+          <Num id="licenseFeeAnnualPaid" label="אגרת הרישוי ששילמת בשנה, ₪" step={50}
+               helpHe="עד תקרה של 1,941 ₪"
+               value={profile.licenseFeeAnnualPaid}
+               onValue={v => { onChange({ licenseFeeAnnualPaid: v }) }} />
+        )}
 
         <Check id="receivesPrivateInsurance" label="השתתפות בביטוח רכב פרטי"
                checked={profile.receivesPrivateInsurance}
                onValue={v => { onChange({ receivesPrivateInsurance: v }) }} />
+        {profile.receivesPrivateInsurance && (
+          <Num id="privateInsuranceAnnualPaid" label="עלות הביטוח שלך בשנה, ₪" step={100}
+               helpHe="עד תקרה של 7,000 ₪"
+               value={profile.privateInsuranceAnnualPaid}
+               onValue={v => { onChange({ privateInsuranceAnnualPaid: v }) }} />
+        )}
 
         <Check id="receivesServiceVehicleTierC" label={"רכב שירות ג'"}
                checked={profile.receivesServiceVehicleTierC}
                onValue={v => { onChange({ receivesServiceVehicleTierC: v }) }} />
+        {profile.receivesServiceVehicleTierC && (
+          <Num id="serviceVehicleTierCMonthly" label={"רכב שירות ג' בתלוש, ₪ לחודש"} step={10}
+               helpHe="רכיב ברוטו. לדוגמה 570 ₪"
+               value={profile.serviceVehicleTierCMonthly}
+               onValue={v => { onChange({ serviceVehicleTierCMonthly: v }) }} />
+        )}
 
         <Check id="receivesFixedNet" label="קבועות נטו"
                checked={profile.receivesFixedNet}
                onValue={v => { onChange({ receivesFixedNet: v }) }} />
+        {profile.receivesFixedNet && (
+          <Num id="fixedNetMonthly" label="קבועות נטו, ₪ לחודש" step={10}
+               helpHe="לדוגמה 318 ₪"
+               value={profile.fixedNetMonthly}
+               onValue={v => { onChange({ fixedNetMonthly: v }) }} />
+        )}
 
         <Check id="receivesVariableNet" label="משת.רגי.נטו"
                checked={profile.receivesVariableNet}
                onValue={v => { onChange({ receivesVariableNet: v }) }} />
+        {profile.receivesVariableNet && (
+          <Num id="variableNetMonthly" label="משת.רגי.נטו, ₪ לחודש" step={10}
+               helpHe="לדוגמה 408 ₪"
+               value={profile.variableNetMonthly}
+               onValue={v => { onChange({ variableNetMonthly: v }) }} />
+        )}
+      </Group>
+
+      {/* Reported beside the car, never inside a monthly figure. */}
+      <Group legend="עמדת טעינה">
+        <Check id="installsCharger" label="אתקין עמדת טעינה בבית"
+               checked={profile.installsCharger}
+               onValue={v => { onChange({ installsCharger: v }) }} />
+        {profile.installsCharger && (
+          <Num id="chargerInstallCost" label="עלות ההתקנה המשוערת, ₪" step={100}
+               helpHe="הוצאה חד־פעמית על חשבונך. מוצגת בנפרד ואינה נכנסת לעלות החודשית."
+               value={profile.chargerInstallCost}
+               onValue={v => { onChange({ chargerInstallCost: v }) }} />
+        )}
       </Group>
     </Sheet>
   )
@@ -139,15 +189,17 @@ export function ProfileForm({ profile, onChange, gradesToTier }: ProfileFormProp
  * A number the employee types. Money, distance and days are all non-negative,
  * so the control says so rather than letting a minus reach the engine.
  */
-function Num({ id, label, value, step, onValue }: {
+function Num({ id, label, value, step, onValue, helpHe }: {
   id: string
   label: string
   value: number
   step: number
   onValue: (value: number) => void
+  /** A ceiling or a worked example. Guidance, never a prefilled value. */
+  helpHe?: string
 }) {
   return (
-    <Field label={label} htmlFor={id}>
+    <Field label={label} htmlFor={id} helpHe={helpHe}>
       <input
         id={id}
         name={id}

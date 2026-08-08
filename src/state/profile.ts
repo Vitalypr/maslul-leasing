@@ -36,6 +36,16 @@ export const DEFAULT_PROFILE: Profile = {
   receivesServiceVehicleTierC: false,
   receivesFixedNet: false,
   receivesVariableNet: false,
+  /* The forgone amounts start empty on purpose: a suggested figure shown as a
+     hint is guidance, the same figure prefilled as a value is a claim about
+     this person's payslip that nobody made. */
+  licenseFeeAnnualPaid: 0,
+  privateInsuranceAnnualPaid: 0,
+  serviceVehicleTierCMonthly: 0,
+  fixedNetMonthly: 0,
+  variableNetMonthly: 0,
+  installsCharger: false,
+  chargerInstallCost: 0,
 }
 
 /**
@@ -68,6 +78,15 @@ export function parseProfile(raw: string | null): Profile {
       bool(o['receivesServiceVehicleTierC'], d.receivesServiceVehicleTierC),
     receivesFixedNet: bool(o['receivesFixedNet'], d.receivesFixedNet),
     receivesVariableNet: bool(o['receivesVariableNet'], d.receivesVariableNet),
+    licenseFeeAnnualPaid: num(o['licenseFeeAnnualPaid'], d.licenseFeeAnnualPaid),
+    privateInsuranceAnnualPaid:
+      num(o['privateInsuranceAnnualPaid'], d.privateInsuranceAnnualPaid),
+    serviceVehicleTierCMonthly:
+      num(o['serviceVehicleTierCMonthly'], d.serviceVehicleTierCMonthly),
+    fixedNetMonthly: num(o['fixedNetMonthly'], d.fixedNetMonthly),
+    variableNetMonthly: num(o['variableNetMonthly'], d.variableNetMonthly),
+    installsCharger: bool(o['installsCharger'], d.installsCharger),
+    chargerInstallCost: num(o['chargerInstallCost'], d.chargerInstallCost),
   }
 }
 

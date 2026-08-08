@@ -251,3 +251,31 @@ button{font:inherit;color:inherit}
 @media (prefers-reduced-motion:reduce){
   *{transition:none !important;animation:none !important}
 }
+
+/* Guidance under a control — a ceiling or a worked example. Quieter than the
+   label so it reads as help, not as part of the question. */
+.field-help {
+  margin: -10px 0 14px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-faint);
+}
+
+/* A required input is absent, so no cost is shown. Clay rather than the
+   ordinary line colour: this is not a caveat on a number, it is the absence
+   of one, and it should not be mistaken for a footnote. */
+.missing-data {
+  display: block;
+  border: 1px solid var(--clay);
+  background: var(--clay-wash);
+  border-radius: var(--r);
+  padding: 11px 13px;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.missing-data b {
+  display: block;
+  color: var(--clay);
+  margin-bottom: 2px;
+}

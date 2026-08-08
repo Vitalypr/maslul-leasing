@@ -38,6 +38,13 @@ const employee: Employee = {
   receivesServiceVehicleTierC: false,
   receivesFixedNet: false,
   receivesVariableNet: false,
+  licenseFeeAnnualPaid: 0,
+  privateInsuranceAnnualPaid: 0,
+  serviceVehicleTierCMonthly: 0,
+  fixedNetMonthly: 0,
+  variableNetMonthly: 0,
+  installsCharger: false,
+  chargerInstallCost: 0,
 }
 
 function vehicle(id: string): Vehicle {
@@ -55,22 +62,13 @@ const run = (id: string, over: Partial<Employee> = {}, org: Policy = basePolicy)
     prices,
   })
 
-/** The client has not supplied this figure; the scenario supplies one. */
-const withServiceVehicle: Policy = {
-  ...basePolicy,
-  forgone: {
-    ...basePolicy.forgone,
-    serviceVehicleTierC: { ...basePolicy.forgone.serviceVehicleTierC, monthly: 1200 },
-  },
-}
-
-const withFixedNet: Policy = {
-  ...basePolicy,
-  forgone: {
-    ...basePolicy.forgone,
-    fixedNetAllowance: { ...basePolicy.forgone.fixedNetAllowance, monthly: 900 },
-  },
-}
+/*
+ * The forgone amounts belong to the employee now, not to policy — the licence
+ * fee follows the car actually owned and the payslip components vary by grade.
+ * These scenarios therefore patch the profile.
+ */
+const withServiceVehicle = { receivesServiceVehicleTierC: true, serviceVehicleTierCMonthly: 1200 }
+const withFixedNet = { receivesFixedNet: true, fixedNetMonthly: 900 }
 
 describe('calculate — end to end', () => {
   it('charges no supplement for a car inside the tier C budget', () => {
@@ -134,7 +132,8 @@ describe('calculate — end to end', () => {
   it('adds forgone benefits only when the employee receives them', () => {
     const without = run('skoda-octavia-selection')
     const with_ = run('skoda-octavia-selection', {
-      receivesLicenseFee: true, receivesPrivateInsurance: true,
+      receivesLicenseFee: true, licenseFeeAnnualPaid: 1500,
+      receivesPrivateInsurance: true, privateInsuranceAnnualPaid: 4200,
     })
     expect(without.forgoneAnnual).toBe(0)
     expect(with_.forgoneAnnual).toBeGreaterThan(0)
@@ -151,7 +150,6 @@ describe('calculate — end to end', () => {
   it('prices a forgone gross component below its face value', () => {
     const r = run(
       'skoda-octavia-selection',
-      { receivesServiceVehicleTierC: true },
       withServiceVehicle,
     )
     expect(r.forgoneCash).toBe(14400)
@@ -174,8 +172,7 @@ describe('calculate — end to end', () => {
   it('prices a forgone gross component at the bracket the lease pushes it to', () => {
     const r = run(
       'skoda-octavia-selection',
-      { grossMonthlySalary: 44000, receivesServiceVehicleTierC: true },
-      withServiceVehicle,
+      { grossMonthlySalary: 44000, ...withServiceVehicle },
     )
     const againstBareSalary = deltaTaxAnnual(44000 * 12, -14400, 2.25, taxRules)
     expect(r.forgoneTaxDelta).toBeLessThan(againstBareSalary)
@@ -186,7 +183,6 @@ describe('calculate — end to end', () => {
     const without = run('skoda-octavia-selection')
     const with_ = run(
       'skoda-octavia-selection',
-      { receivesServiceVehicleTierC: true },
       withServiceVehicle,
     )
     expect(with_.annualNet).toBeCloseTo(without.annualNet, 2)
@@ -197,8 +193,7 @@ describe('calculate — end to end', () => {
   it('prices a purely grossed-up set at exactly its face value', () => {
     const r = run(
       'skoda-octavia-selection',
-      { receivesPrivateInsurance: true, receivesFixedNet: true },
-      withFixedNet,
+      { receivesPrivateInsurance: true, privateInsuranceAnnualPaid: 7000, ...withFixedNet },
     )
     expect(r.forgoneCash).toBe(17800)
     expect(r.forgoneTaxDelta).toBe(0)

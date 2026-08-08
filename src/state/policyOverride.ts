@@ -28,9 +28,13 @@ import pricesJson from '../data/energy/prices-2026.json'
 /** No schema file exists for the energy prices; this is it. */
 export const PricesSchema = z.strictObject({
   petrol95PerLiter: z.number().nonnegative(),
+  /** One car in the fleet is diesel; Israel does not regulate its price. */
+  dieselPerLiter: z.number().nonnegative().nullable().optional(),
   homeElectricityPerKwh: z.number().nonnegative(),
   asOf: z.string(),
   verified: z.boolean(),
+  source: z.string().optional(),
+  notes: z.record(z.string(), z.string()).optional(),
 })
 
 export type PricesData = z.infer<typeof PricesSchema>

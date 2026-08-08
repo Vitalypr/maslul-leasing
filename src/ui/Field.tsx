@@ -13,10 +13,15 @@ export type FieldProps = {
   /** id of the control this labels. */
   htmlFor: string
   unverified?: boolean
+  /** A ceiling or a worked example, shown under the control. */
+  helpHe?: string | undefined
   children: ReactNode
 }
 
-export function Field({ label, htmlFor, unverified = false, children }: FieldProps) {
+export function Field({
+  label, htmlFor, unverified = false, helpHe, children,
+}: FieldProps) {
+  const helpId = helpHe === undefined ? undefined : `${htmlFor}-help`
   return (
     <div className="field">
       <label className="field-label" htmlFor={htmlFor}>
@@ -24,6 +29,12 @@ export function Field({ label, htmlFor, unverified = false, children }: FieldPro
         {unverified ? <span className="field-unverified">לא אומת</span> : null}
       </label>
       {children}
+      {/* A ceiling or a worked example. It sits under the control and is tied
+          to it for screen readers, so it reads as guidance rather than as part
+          of the label. */}
+      {helpHe === undefined
+        ? null
+        : <p id={helpId} className="field-help">{helpHe}</p>}
     </div>
   )
 }

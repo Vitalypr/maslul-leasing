@@ -1,0 +1,36 @@
+{
+  "year": 2026,
+  "effectiveFrom": "2026-01-01",
+  "sourceUrl": "https://www.gov.il/he/service/itc-mm_usecar10",
+  "usageValue": {
+    "linearRate": 0.0248,
+    "listPriceCeiling": 596860,
+    "monthlyDeduction": { "ice": 0, "mhev": 0, "hybrid": 560, "phev": 1130, "bev": 1350 },
+    "verified": true
+  },
+  "incomeTaxMonthlyBrackets": [
+    { "upTo": 7010,  "rate": 0.10 },
+    { "upTo": 10060, "rate": 0.14 },
+    { "upTo": 19000, "rate": 0.20 },
+    { "upTo": 25100, "rate": 0.31 },
+    { "upTo": 46690, "rate": 0.35 },
+    { "upTo": 58190, "rate": 0.47 },
+    { "upTo": null,  "rate": 0.50 }
+  ],
+  "bracketsVerified": false,
+  "bracketsNote": "20% ו-31% אומתו מול הרפורמה. גבולות 10% ו-14% הוסקו מ-2025 וטעונים אימות.",
+  "creditPointValueMonthly": 242,
+
+  "nationalInsuranceMonthlyBrackets": [
+    { "upTo": 7703,  "rate": 0.0104 },
+    { "upTo": 51910, "rate": 0.07 },
+    { "upTo": null,  "rate": 0 }
+  ],
+  "healthInsuranceMonthlyBrackets": [
+    { "upTo": 7703,  "rate": 0.0323 },
+    { "upTo": 51910, "rate": 0.0517 },
+    { "upTo": null,  "rate": 0 }
+  ],
+  "socialInsuranceVerified": true,
+  "socialInsuranceNote": "חלק העובד 2026: 4.27% עד 7,703 ו-12.17% עד תקרה של 51,910. מוחזק מפוצל לביטוח לאומי (1.04/7) ובריאות (3.23/5.17) כדי שהפירוט יוכל להציג את שניהם. 1.04+3.23=4.27, 7+5.17=12.17."
+}

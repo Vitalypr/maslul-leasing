@@ -6,12 +6,19 @@ import type { CalcContext } from '../calculate'
 export type EnergyPrices = {
   petrol95PerLiter: number
   homeElectricityPerKwh: number
+  /**
+   * Diesel is not price-regulated in Israel, so unlike petrol there is no
+   * official maximum to anchor to. Optional because most fleets have none.
+   */
+  dieselPerLiter?: number | null | undefined
 }
 
 export type VehicleConsumption = {
   kmPerLiter?: number
   kmPerLiterHybridMode?: number
   kwhPer100km?: number
+  /** Which liquid fuel, when the car burns one. Absent means petrol 95. */
+  fuel?: string | undefined
 }
 
 export type EnergyCost = {
@@ -19,6 +26,12 @@ export type EnergyCost = {
   electricityCost: number
   liters: number
   kwh: number
+  /**
+   * Names the fuel whose price is missing, when one is. Non-null means
+   * petrolCost is not a cost — it is a blank, and the caller must say so
+   * rather than print it.
+   */
+  missingPriceForHe: string | null
 }
 
 /**
@@ -30,17 +43,41 @@ export function kmPerLiterOf(cons: VehicleConsumption): number {
   return cons.kmPerLiterHybridMode ?? cons.kmPerLiter ?? 0
 }
 
+/**
+ * The pump price for whatever this car actually burns, or null when nobody has
+ * supplied one.
+ *
+ * One car in the fleet is diesel — the Toyota CITY 5, which the source price
+ * list recorded as petrol because the manufacturer column had dropped out of
+ * the export. Diesel is not price-regulated in Israel, so there is no official
+ * figure to fall back on.
+ *
+ * Returning null rather than substituting the petrol price is the whole point.
+ * A car priced on the wrong fuel would show a confident number that is simply
+ * untrue, and nothing on screen would say so. A null propagates to the surface
+ * as "data missing", which is the honest answer.
+ */
+export function pricePerLiter(
+  cons: VehicleConsumption, prices: EnergyPrices
+): number | null {
+  if (cons.fuel === 'diesel') return prices.dieselPerLiter ?? null
+  return prices.petrol95PerLiter
+}
+
 export function energyCostAnnual(
   split: UsageSplit, cons: VehicleConsumption, prices: EnergyPrices
 ): EnergyCost {
   const kpl = kmPerLiterOf(cons)
   const liters = kpl > 0 ? split.iceKm / kpl : 0
   const kwh = cons.kwhPer100km ? (split.evKm * cons.kwhPer100km) / 100 : 0
+  const price = pricePerLiter(cons, prices)
+  const missingPriceForHe = price === null && liters > 0 ? 'מחיר סולר' : null
   return {
     liters: round2(liters),
     kwh: round2(kwh),
-    petrolCost: round2(liters * prices.petrol95PerLiter),
+    petrolCost: price === null ? 0 : round2(liters * price),
     electricityCost: round2(kwh * prices.homeElectricityPerKwh),
+    missingPriceForHe,
   }
 }
 
@@ -58,6 +95,7 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
   const cons: VehicleConsumption = ctx.vehicle.consumption ?? {}
   const prices: EnergyPrices = ctx.prices
   const { petrolCost, electricityCost, liters, kwh } = energyCostAnnual(split, cons, prices)
+  const unitPrice = pricePerLiter(cons, prices) ?? 0
   const treatment = ctx.policy.taxTreatment.fuelOverage
   const out: MoneyLine[] = []
 
@@ -72,8 +110,8 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
       trace: {
         formulaHe:
           `${fmt(split.iceKm)} ק"מ ÷ ${fmt(kpl)} קמ"ל = ${fmt(liters)} ליטר\n` +
-          `× ${fmt(prices.petrol95PerLiter)} ₪ = ${fmt(petrolCost)} ₪ לשנה`,
-        inputs: { iceKm: split.iceKm, kmPerLiter: kpl, liters, pricePerLiter: prices.petrol95PerLiter },
+          `× ${fmt(unitPrice)} ₪ = ${fmt(petrolCost)} ₪ לשנה`,
+        inputs: { iceKm: split.iceKm, kmPerLiter: kpl, liters, pricePerLiter: unitPrice },
         sourceRef: 'catalog/fleet-2026.json · consumption · energy/prices-2026.json',
       },
     })

@@ -25,6 +25,13 @@ const employee: Employee = {
   receivesServiceVehicleTierC: false,
   receivesFixedNet: false,
   receivesVariableNet: false,
+  licenseFeeAnnualPaid: 0,
+  privateInsuranceAnnualPaid: 0,
+  serviceVehicleTierCMonthly: 0,
+  fixedNetMonthly: 0,
+  variableNetMonthly: 0,
+  installsCharger: false,
+  chargerInstallCost: 0,
 }
 
 /** A car dear enough that the tier C supplement is not zero. */

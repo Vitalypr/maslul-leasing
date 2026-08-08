@@ -139,26 +139,41 @@ export function CatalogGrid({
               </span>
             )}
 
-            <Money
-              value={result.monthlyNet}
-              className="mt-4 block text-[30px] font-extrabold leading-none tracking-tight"
-            />
-            <span className="mt-1.5 text-[12.5px] text-[var(--ink-soft)]">
-              לחודש, נטו לכיס
-            </span>
+            {/*
+              * A car with a missing input shows the gap, not a price. The
+              * engine still returns totals, but they were built without a
+              * required figure, so printing them would present a guess with
+              * the same confidence as a calculation.
+              */}
+            {result.missingDataHe === null ? (
+              <>
+                <Money
+                  value={result.monthlyNet}
+                  className="mt-4 block text-[30px] font-extrabold leading-none tracking-tight"
+                />
+                <span className="mt-1.5 text-[12.5px] text-[var(--ink-soft)]">
+                  לחודש, נטו לכיס
+                </span>
 
-            <span className={TERMS}>
-              <span>
-                שנה{' '}
-                <Money value={result.annualNet}
-                       className="font-semibold text-[var(--ink-soft)]" />
+                <span className={TERMS}>
+                  <span>
+                    שנה{' '}
+                    <Money value={result.annualNet}
+                           className="font-semibold text-[var(--ink-soft)]" />
+                  </span>
+                  <span>
+                    3 שנים{' '}
+                    <Money value={result.threeYearNet}
+                           className="font-semibold text-[var(--ink-soft)]" />
+                  </span>
+                </span>
+              </>
+            ) : (
+              <span className="missing-data mt-4">
+                <b>חסרים נתונים</b>
+                {`לא ניתן לחשב עלות ללא ${result.missingDataHe}.`}
               </span>
-              <span>
-                3 שנים{' '}
-                <Money value={result.threeYearNet}
-                       className="font-semibold text-[var(--ink-soft)]" />
-              </span>
-            </span>
+            )}
 
             {/* Every consumption figure in the catalogue is still an estimate
                 (docs/ASSUMPTIONS.md section ה), and the cost above rests on it. */}

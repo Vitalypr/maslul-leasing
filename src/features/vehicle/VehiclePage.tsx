@@ -116,6 +116,15 @@ export function VehiclePage({
         </figure>
       </header>
 
+      {result.missingDataHe === null ? null : (
+        <p role="status" className="missing-data mb-5">
+          <b>חסרים נתונים לרכב הזה</b>
+          {`אין ${result.missingDataHe}, ולכן לא מוצגת עלות. `}
+          סולר אינו מפוקח בישראל ואין לו מחיר מרבי רשמי — נדרש המחיר שלקוח ליסינג
+          משלם בפועל. עד אז כל מספר כאן היה ניחוש שנראה כמו חישוב.
+        </p>
+      )}
+
       <div className="grid gap-5 lg:[grid-template-columns:1fr_460px]">
         {/* The heading above already identifies the car — its powertrain and
             its list price. What is left for this sheet is the terms it would
@@ -217,6 +226,27 @@ export function VehiclePage({
             totalAnnual={result.forgoneAnnual * h.factor}
             totalLabelHe={`אחרי מס, ${h.ofHe}`}
           />
+        </Sheet>
+      )}
+
+      {/*
+        * The wallbox, reported and deliberately not counted.
+        *
+        * It is a single outlay on the employee's own property that outlives
+        * the lease, so putting it into a monthly figure would misstate the
+        * cost twice over — inflating the month and implying it recurs. It is
+        * stated plainly instead, and the note says why it sits outside.
+        */}
+      {result.chargerInstallOneTime > 0 && (
+        <Sheet title="הוצאה חד־פעמית">
+          <div className="flex items-baseline justify-between gap-3 text-[14px]">
+            <span>התקנת עמדת טעינה</span>
+            <Money value={result.chargerInstallOneTime} className="font-semibold" />
+          </div>
+          <p className="mt-2 mb-0 text-[12.5px] text-[var(--ink-faint)]">
+            על חשבונך, פעם אחת. אינה נכללת בעלות החודשית, השנתית או התלת־שנתית —
+            העמדה נשארת אצלך גם אחרי סוף החוזה.
+          </p>
         </Sheet>
       )}
 

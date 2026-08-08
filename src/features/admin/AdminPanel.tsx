@@ -260,47 +260,72 @@ export function AdminPanel({ store }: AdminPanelProps) {
       </Sheet>
 
       <Sheet title="מה מפסידים">
+        <p className="mt-0 mb-4 text-[12.5px] text-[var(--ink-soft)]">
+          הסכומים עצמם מוזנים על ידי העובד — אגרת רישוי וביטוח משתנים לפי הרכב
+          שברשותו, ורכיבי התלוש משתנים לפי דרגה. כאן נקבעות רק התקרה והמלצה
+          שתוצג לידו.
+        </p>
         <div className="grid gap-x-6 sm:grid-cols-2">
-          <ForgoneAmount
+          <ForgoneLimits
             id="fg-license" item={policy.forgone.licenseFeeAnnual} periodHe="לשנה"
-            onAmount={n => {
-              store.updatePolicy({ forgone: { licenseFeeAnnual: { annual: n } } })
+            capKey="annualCap"
+            onCap={n => {
+              store.updatePolicy({ forgone: { licenseFeeAnnual: { annualCap: n } } })
+            }}
+            onSuggested={n => {
+              store.updatePolicy({ forgone: { licenseFeeAnnual: { suggested: n } } })
             }}
             onEnabled={v => {
               store.updatePolicy({ forgone: { licenseFeeAnnual: { enabled: v } } })
             }}
           />
-          <ForgoneAmount
+          <ForgoneLimits
             id="fg-insurance" item={policy.forgone.privateInsuranceAnnual} periodHe="לשנה"
-            onAmount={n => {
-              store.updatePolicy({ forgone: { privateInsuranceAnnual: { annual: n } } })
+            capKey="annualCap"
+            onCap={n => {
+              store.updatePolicy({ forgone: { privateInsuranceAnnual: { annualCap: n } } })
+            }}
+            onSuggested={n => {
+              store.updatePolicy({ forgone: { privateInsuranceAnnual: { suggested: n } } })
             }}
             onEnabled={v => {
               store.updatePolicy({ forgone: { privateInsuranceAnnual: { enabled: v } } })
             }}
           />
-          <ForgoneAmount
+          <ForgoneLimits
             id="fg-service" item={policy.forgone.serviceVehicleTierC} periodHe="לחודש"
-            onAmount={n => {
-              store.updatePolicy({ forgone: { serviceVehicleTierC: { monthly: n } } })
+            capKey="monthlyCap"
+            onCap={n => {
+              store.updatePolicy({ forgone: { serviceVehicleTierC: { monthlyCap: n } } })
+            }}
+            onSuggested={n => {
+              store.updatePolicy({ forgone: { serviceVehicleTierC: { suggested: n } } })
             }}
             onEnabled={v => {
               store.updatePolicy({ forgone: { serviceVehicleTierC: { enabled: v } } })
             }}
           />
-          <ForgoneAmount
+          <ForgoneLimits
             id="fg-fixed" item={policy.forgone.fixedNetAllowance} periodHe="לחודש"
-            onAmount={n => {
-              store.updatePolicy({ forgone: { fixedNetAllowance: { monthly: n } } })
+            capKey="monthlyCap"
+            onCap={n => {
+              store.updatePolicy({ forgone: { fixedNetAllowance: { monthlyCap: n } } })
+            }}
+            onSuggested={n => {
+              store.updatePolicy({ forgone: { fixedNetAllowance: { suggested: n } } })
             }}
             onEnabled={v => {
               store.updatePolicy({ forgone: { fixedNetAllowance: { enabled: v } } })
             }}
           />
-          <ForgoneAmount
+          <ForgoneLimits
             id="fg-variable" item={policy.forgone.variableNetAllowance} periodHe="לחודש"
-            onAmount={n => {
-              store.updatePolicy({ forgone: { variableNetAllowance: { monthly: n } } })
+            capKey="monthlyCap"
+            onCap={n => {
+              store.updatePolicy({ forgone: { variableNetAllowance: { monthlyCap: n } } })
+            }}
+            onSuggested={n => {
+              store.updatePolicy({ forgone: { variableNetAllowance: { suggested: n } } })
             }}
             onEnabled={v => {
               store.updatePolicy({ forgone: { variableNetAllowance: { enabled: v } } })
@@ -581,36 +606,48 @@ type ForgoneItem = {
   enabled: boolean
   verified: boolean
   labelHe: string
+  annualCap?: number | null | undefined
+  monthlyCap?: number | null | undefined
+  suggested?: number | null | undefined
+  helpHe?: string | undefined
   note?: string | undefined
 }
 
-function ForgoneAmount({
-  id, item, periodHe, onAmount, onEnabled,
+function ForgoneLimits({
+  id, item, periodHe, capKey, onCap, onSuggested, onEnabled,
 }: {
   id: string
-  item: ForgoneItem & ({ annual: number } | { monthly: number })
+  item: ForgoneItem
   periodHe: string
-  onAmount: (value: number) => void
+  capKey: 'annualCap' | 'monthlyCap'
+  onCap: (value: number) => void
+  onSuggested: (value: number) => void
   onEnabled: (value: boolean) => void
 }): ReactNode {
-  const amount = 'annual' in item ? item.annual : item.monthly
+  const cap = item[capKey]
   return (
     <div>
       <NumberField
-        id={id} label={`${item.labelHe} · ${periodHe}`} unitHe="₪" step={50}
+        id={`${id}-cap`} label={`${item.labelHe} · תקרה ${periodHe}`} unitHe="₪" step={50}
         unverified={!item.verified}
-        value={amount}
-        onCommit={onAmount}
+        value={cap ?? 0}
+        onCommit={onCap}
+      />
+      <NumberField
+        id={`${id}-suggested`} label={`${item.labelHe} · המלצה ${periodHe}`}
+        unitHe="₪" step={10}
+        value={item.suggested ?? 0}
+        onCommit={onSuggested}
       />
       <Switch
         id={`${id}-enabled`} label="נכלל בחישוב"
         checked={item.enabled}
         onChange={onEnabled}
       />
-      {item.note === undefined
+      {item.helpHe === undefined
         ? null
         : (
-          <p className="mt-0 mb-4 text-[12px] text-[var(--ink-faint)]">{item.note}</p>
+          <p className="mt-0 mb-4 text-[12px] text-[var(--ink-faint)]">{item.helpHe}</p>
         )}
     </div>
   )
