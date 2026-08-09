@@ -147,12 +147,11 @@ export const PWA_OPTIONS: PwaOptions = {
         },
       },
       /*
-       * The 43 vehicle photographs are cached as they are first seen rather
-       * than precached. At 892 KB the whole set would now fit in the install,
-       * but the gallery shows all forty-three at once and the fleet list shows
-       * them as you scroll, so they arrive quickly in practice — and keeping
-       * them out holds the install itself to roughly a megabyte over mobile
-       * data. The catalogue is still intact offline once it has been browsed.
+       * The 43 vehicle photographs are 3.0 MB, so precaching them would make
+       * installation a long download over mobile data for pictures the reader
+       * may never scroll to. They are cached as they are first seen instead,
+       * which holds the install to about a megabyte and still leaves the
+       * catalogue intact offline once it has been browsed once.
        */
       {
         urlPattern: /\/assets\/.*\.jpg$/,

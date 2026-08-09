@@ -1,12 +1,14 @@
 /**
  * A vehicle photograph, or nothing at all.
  *
- * All forty-three are studio cutouts from icar.co.il, normalised offline to one
- * frame — 16:10, 1000x625, the car scaled to fit inside a 94% box and centred
- * on white. Because the source is already a cutout on white, padding to the
- * frame is invisible: no car is cropped and none sits tighter than its
- * neighbour. That work is done before the file lands here, so this component
- * only has to place it. The whole set is 892 KB.
+ * All forty-three are studio cutouts from icar.co.il, normalised offline by
+ * scripts/normalise-vehicle-images.py to one frame — 16:10, 1000x625, each car
+ * cropped to its own bounding box and then scaled to fill the same share of
+ * that frame. Normalising on the car rather than on the canvas is the whole
+ * point: icar pads them inconsistently, so scaling the canvas leaves cars at
+ * visibly different sizes. Because the source is a cutout on white, the
+ * padding is invisible and nothing is ever cropped. The set is 3.0 MB, and
+ * test/data/images.test.ts holds the geometry.
  *
  * The empty branch is kept even though nothing uses it today. A catalogue row
  * added without a photograph must render as a stated absence, never as a broken
