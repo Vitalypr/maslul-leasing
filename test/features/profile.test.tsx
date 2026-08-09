@@ -37,7 +37,7 @@ describe('<ProfileForm>', () => {
     const html = render()
     for (const id of [
       'grossMonthlySalary', 'creditPoints', 'serviceTier', 'commuteOneWayKm',
-      'workDaysPerMonth', 'annualKm', 'monthlyFuelBudgetIce',
+      'wfhDaysPerWeek', 'annualKm', 'monthlyFuelBudgetIce',
       'monthlyFuelBudgetElectrified',
     ]) {
       expect(html, id).toContain(`for="${id}"`)

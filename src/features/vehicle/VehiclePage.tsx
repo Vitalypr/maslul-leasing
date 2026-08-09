@@ -60,7 +60,9 @@ export function VehiclePage({
   const usage = useMemo(() => splitAnnualKm({
     annualKm: profile.annualKm,
     commuteOneWayKm: profile.commuteOneWayKm,
-    workDaysPerMonth: profile.workDaysPerMonth,
+    commuteDaysPerYear: policy.usage.commuteDaysPerYear,
+    wfhDaysPerWeek: profile.wfhDaysPerWeek,
+    daysPerYear: policy.usage.daysPerYear,
     powertrain: vehicle.powertrain,
     chargesDaily: profile.chargesDaily,
     manufacturerEvRangeKm: vehicle.consumption?.evRangeKm ?? null,
@@ -117,6 +119,11 @@ export function VehiclePage({
           {/* Everything on this screen is about cost. The spec sheet, the
               colours, the road tests — those live on icar, and pointing at
               them is more useful than reproducing a worse version here. */}
+          {/* Where the only photograph available does not exactly depict this
+              trim, say so under it rather than letting the reader assume. */}
+          {vehicle.imageNoteHe === undefined ? null : (
+            <figcaption className="image-note">{vehicle.imageNoteHe}</figcaption>
+          )}
           {vehicle.icarUrl === undefined ? null : (
             <figcaption>
               <a
@@ -190,8 +197,13 @@ export function VehiclePage({
                 >
                   {km(usage.effectiveEvRangeKm)}
                 </Spec>
-                <Spec term="נסיעה יומית">
-                  {km(usage.dailyCommuteKm)} × {usage.workDaysPerYear} ימי עבודה
+                {/* Both buckets, because the reader needs to see which one
+                    empties the battery — that is what decides the petrol. */}
+                <Spec term="נסיעה לעבודה">
+                  {km(usage.dailyCommuteKm)} × {usage.commuteDays} ימים
+                </Spec>
+                <Spec term="שאר ימות השנה">
+                  {km(usage.otherDailyKm)} × {usage.otherDays} ימים
                 </Spec>
                 <Spec term={'ק"מ על חשמל בשנה'}>
                   {km(usage.evKm)} מתוך {km(usage.annualKm)}

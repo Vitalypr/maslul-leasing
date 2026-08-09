@@ -168,6 +168,29 @@ export function AdminPanel({ store }: AdminPanelProps) {
         />
       </Sheet>
 
+      {/* Only plug-ins read these, but they describe the working year rather
+          than the car, so they sit apart from the plug-in settings. */}
+      <Sheet title="שנת העבודה">
+        <div className="grid gap-x-6 sm:grid-cols-2">
+          <NumberField
+            id="commute-days" label="ימי נסיעה לעבודה בשנה" unitHe="ימים" step={5}
+            unverified={!policy.usage.verified}
+            value={policy.usage.commuteDaysPerYear}
+            onCommit={n => { store.updatePolicy({ usage: { commuteDaysPerYear: n } }) }}
+          />
+          <NumberField
+            id="days-per-year" label="ימים בשנה" unitHe="ימים" step={1}
+            unverified={!policy.usage.verified}
+            value={policy.usage.daysPerYear}
+            onCommit={n => { store.updatePolicy({ usage: { daysPerYear: n } }) }}
+          />
+        </div>
+        <p className="field-help">
+          עבודה מהבית של יום או יומיים בשבוע מורידה מהמספר הזה חמישית או שתי חמישיות,
+          והימים עוברים לשאר ימות השנה. נקבע לכל עובד במסך הפרופיל.
+        </p>
+      </Sheet>
+
       <Sheet title="הפחתות שווי שימוש">
         <div className="grid gap-x-6 sm:grid-cols-2">
           <NumberField

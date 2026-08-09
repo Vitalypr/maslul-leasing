@@ -150,27 +150,31 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
 }
 
 /**
- * One sentence on where the petrol kilometres came from, for a plug-in that is
- * being charged. Empty for everything else, where the answer is just "all of
- * them" and saying so would be padding.
+ * Where the petrol kilometres came from, for a plug-in that is being charged.
+ * Empty for everything else, where the answer is just "all of them".
  *
- * Which of the two limits bound matters to the reader: a battery too small for
- * the commute is a reason to look at a different car, while a commute shorter
- * than the battery means the petrol is all weekend driving and no car in the
- * fleet would change it.
+ * It shows both buckets — commuting days and the rest of the year — and marks
+ * the ones where the battery ran out, because that is the fact that decides
+ * the number. A reader whose battery empties on both is looking at a car too
+ * small for their driving; a reader whose battery empties on neither is paying
+ * for petrol they could avoid only by driving less.
  */
 function whyIceKm(s: UsageSplit): string {
   if (s.evKm <= 0 || s.iceKm <= 0) return ''
-  const batteryBound = s.effectiveEvRangeKm < s.dailyCommuteKm
-  const perDay = Math.min(s.dailyCommuteKm, s.effectiveEvRangeKm)
-  const cause = batteryBound
-    ? `הסוללה מכסה ${fmt(s.effectiveEvRangeKm)} ק"מ ביום — פחות מהנסיעה היומית ${fmt(s.dailyCommuteKm)} ק"מ`
-    : `הנסיעה היומית ${fmt(s.dailyCommuteKm)} ק"מ נכנסת כולה בסוללה (${fmt(s.effectiveEvRangeKm)} ק"מ)`
-  return (
-    `${cause}\n` +
-    `חשמל: ${fmt(perDay)} ק"מ × ${fmt(s.workDaysPerYear)} ימי עבודה = ${fmt(s.evKm)} ק"מ\n` +
-    `דלק: ${fmt(s.annualKm)} − ${fmt(s.evKm)} = ${fmt(s.iceKm)} ק"מ (${Math.round(s.iceKm / s.annualKm * 100)}% מהנסועה)\n`
-  )
+  const full = (perDay: number) => perDay >= s.effectiveEvRangeKm - 0.011
+  const commuteEv = Math.min(s.dailyCommuteKm, s.effectiveEvRangeKm)
+  const otherEv = Math.min(s.otherDailyKm, s.effectiveEvRangeKm)
+  const lines = [
+    `טווח חשמלי אמיתי ${fmt(s.effectiveEvRangeKm)} ק"מ, טעינה אחת בבוקר`,
+    `נסיעה לעבודה: ${fmt(s.commuteDays)} ימים × ${fmt(s.dailyCommuteKm)} ק"מ`
+      + ` → ${fmt(commuteEv)} על חשמל${full(s.dailyCommuteKm) ? ' (הסוללה נגמרת)' : ''}`,
+    `שאר השנה: ${fmt(s.otherDays)} ימים × ${fmt(s.otherDailyKm)} ק"מ`
+      + ` → ${fmt(otherEv)} על חשמל${full(s.otherDailyKm) ? ' (הסוללה נגמרת)' : ''}`,
+    `חשמל בסה"כ: ${fmt(s.evFromCommute)} + ${fmt(s.evFromOther)} = ${fmt(s.evKm)} ק"מ`,
+    `דלק: ${fmt(s.annualKm)} − ${fmt(s.evKm)} = ${fmt(s.iceKm)} ק"מ`
+      + ` (${Math.round(s.iceKm / s.annualKm * 100)}% מהנסועה)`,
+  ]
+  return `${lines.join('\n')}\n`
 }
 
 const fmt = (n: number) =>

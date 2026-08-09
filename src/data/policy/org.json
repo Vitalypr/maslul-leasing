@@ -24,6 +24,12 @@
     "creditForUnusedKm": false,
     "verified": true
   },
+  "usage": {
+    "commuteDaysPerYear": 210,
+    "daysPerYear": 365,
+    "verified": true,
+    "note": "210 ימי נסיעה לעבודה בשנה = 42 שבועות עבודה × 5. עבודה מהבית יום או יומיים בשבוע מורידה 42 או 84 ימים, ל-168 או 126. שאר ימי השנה מקבלים את יתרת הנסועה בחלוקה שווה."
+  },
   "contract": {
     "termMonths": 36,
     "verified": true

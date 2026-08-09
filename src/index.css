@@ -525,3 +525,15 @@ button{font:inherit;color:inherit}
 .icar-link:hover { color: var(--petrol); }
 .icar-link:focus-visible { outline: 2px solid var(--petrol); outline-offset: -2px; }
 .icar-link svg { flex: none; opacity: .75; }
+
+/* A caveat about the photograph above it. Set in the clay warning colour, not
+   in body text: it corrects the picture, and a reader who skims the page must
+   not take the image at face value. */
+.image-note {
+  padding: 8px 13px;
+  border-block-start: 1px solid var(--line);
+  background: var(--clay-wash);
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  line-height: 1.55;
+}

@@ -21,7 +21,7 @@ const run = (id: string, salary = 35000) => calculate({
   vehicle: vehicle(id),
   employee: {
     grossMonthlySalary: salary, creditPoints: 2.25, serviceTier: 'C',
-    commuteOneWayKm: 34, workDaysPerMonth: 21, annualKm: 36000,
+    commuteOneWayKm: 34, wfhDaysPerWeek: 0, annualKm: 36000,
     rambiEligible: false, chargesDaily: true,
     monthlyFuelBudgetIce: 800, monthlyFuelBudgetElectrified: 1000,
     receivesLicenseFee: false, receivesPrivateInsurance: false,
@@ -80,7 +80,7 @@ describe('a credit that is settled yearly says so', () => {
       vehicle: vehicle('skoda-kodiaq-adv'),
       employee: {
         grossMonthlySalary: 35000, creditPoints: 2.25, serviceTier: 'C',
-        commuteOneWayKm: 20, workDaysPerMonth: 21, annualKm: 12000,
+        commuteOneWayKm: 20, wfhDaysPerWeek: 0, annualKm: 12000,
         rambiEligible: false, chargesDaily: true,
         monthlyFuelBudgetIce: 1800, monthlyFuelBudgetElectrified: 1800,
         receivesLicenseFee: false, receivesPrivateInsurance: false,
@@ -109,7 +109,7 @@ describe('a credit that is settled yearly says so', () => {
       vehicle: vehicle('skoda-octavia-selection'),
       employee: {
         grossMonthlySalary: 35000, creditPoints: 2.25, serviceTier: 'C',
-        commuteOneWayKm: 20, workDaysPerMonth: 21, annualKm: 15000,
+        commuteOneWayKm: 20, wfhDaysPerWeek: 0, annualKm: 15000,
         rambiEligible: false, chargesDaily: true,
         monthlyFuelBudgetIce: 1400, monthlyFuelBudgetElectrified: 1400,
         receivesLicenseFee: false, receivesPrivateInsurance: false,

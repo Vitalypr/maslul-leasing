@@ -78,6 +78,18 @@ export const PolicySchema = z.strictObject({
     verified: z.boolean(),
   }),
 
+  /**
+   * How the year divides for the plug-in electricity split. Only plug-ins read
+   * it, but it describes the employee's driving pattern rather than the car,
+   * so it sits on its own rather than inside phev.
+   */
+  usage: z.strictObject({
+    /** Days a year the employee drives to work, before working from home. */
+    commuteDaysPerYear: z.number().int().positive(),
+    daysPerYear: z.number().int().positive(),
+    verified: z.boolean(),
+    note: z.string().optional(),
+  }),
   contract: z.strictObject({
     termMonths: z.number().int().positive(),
     verified: z.boolean(),

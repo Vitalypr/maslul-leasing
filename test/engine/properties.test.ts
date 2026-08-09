@@ -52,7 +52,7 @@ function run(
     vehicle: vehicleOf(id),
     employee: {
       grossMonthlySalary: salary, creditPoints: 2.25, serviceTier: tier,
-      commuteOneWayKm: 34, workDaysPerMonth: 21, annualKm,
+      commuteOneWayKm: 34, wfhDaysPerWeek: 0, annualKm,
       rambiEligible: false, chargesDaily,
       monthlyFuelBudgetIce: 800 + 200 * step,
       monthlyFuelBudgetElectrified: 1000 + 200 * step,

@@ -16,6 +16,12 @@ export type Profile = Employee
 /** Versioned, so a change to the shape cannot resurrect an incompatible blob. */
 export const PROFILE_STORAGE_KEY = 'maslul.profile.v1'
 
+/** 0, 1 or 2 — anything else is a corrupted blob and reads as none. */
+function wfh(raw: unknown): number {
+  const n = typeof raw === 'number' && Number.isFinite(raw) ? Math.round(raw) : 0
+  return n === 1 || n === 2 ? n : 0
+}
+
 /**
  * The starting point, matching the basis of the approved prototype. These are
  * a first screen the reader immediately edits, not a claim about anyone.
@@ -25,7 +31,7 @@ export const DEFAULT_PROFILE: Profile = {
   creditPoints: 2.25,
   serviceTier: 'C',
   commuteOneWayKm: 34,
-  workDaysPerMonth: 21,
+  wfhDaysPerWeek: 0,
   annualKm: 26000,
   rambiEligible: false,
   chargesDaily: true,
@@ -65,7 +71,10 @@ export function parseProfile(raw: string | null): Profile {
     creditPoints: num(o['creditPoints'], d.creditPoints),
     serviceTier: tier(o['serviceTier']),
     commuteOneWayKm: num(o['commuteOneWayKm'], d.commuteOneWayKm),
-    workDaysPerMonth: num(o['workDaysPerMonth'], d.workDaysPerMonth),
+    /* Older saved profiles carry workDaysPerMonth, which this replaced. It is
+       simply not read: the field is gone from the model, and defaulting the
+       new one to zero home days matches how those profiles behaved. */
+    wfhDaysPerWeek: wfh(o['wfhDaysPerWeek']),
     annualKm: num(o['annualKm'], d.annualKm),
     rambiEligible: bool(o['rambiEligible'], d.rambiEligible),
     chargesDaily: bool(o['chargesDaily'], d.chargesDaily),

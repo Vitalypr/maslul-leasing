@@ -28,7 +28,7 @@ const run = (id: string, o: Over = {}) => calculate({
   vehicle: vehicle(id),
   employee: {
     grossMonthlySalary: 35000, creditPoints: 2.25, serviceTier: 'C',
-    commuteOneWayKm: o.commuteOneWayKm ?? 50, workDaysPerMonth: 22,
+    commuteOneWayKm: o.commuteOneWayKm ?? 50, wfhDaysPerWeek: 0,
     annualKm: o.annualKm ?? 45000,
     rambiEligible: false, chargesDaily: true,
     monthlyFuelBudgetIce: o.budget ?? 1000,
@@ -48,18 +48,18 @@ const settlement = (id: string, o: Over = {}) =>
 
 describe('the annual fuel settlement', () => {
   it('appears even when it settles to nothing', () => {
-    // Petrol alone (11,674) outruns a 9,600 budget, so there is nothing back.
-    const line = settlement('byd-atto2-boost', { budget: 800 })
+    // Petrol alone (7,435) outruns a 6,000 budget, so there is nothing back.
+    const line = settlement('byd-atto2-boost', { budget: 500 })
     expect(line).toBeDefined()
     expect(line?.annualAmount).toBe(0)
   })
 
   it('names the overspend rather than going silent', () => {
-    const line = settlement('byd-atto2-boost', { budget: 800 })
+    const line = settlement('byd-atto2-boost', { budget: 500 })
     expect(line?.trace.formulaHe).toContain('חריגה')
     expect(line?.trace.formulaHe).toContain('אין החזר')
-    // 9,600 budget against 11,673.87 of petrol.
-    expect(line?.trace.inputs['overspend']).toBeCloseTo(2073.87, 1)
+    // 6,000 budget against 7,435.22 of petrol.
+    expect(line?.trace.inputs['overspend']).toBeCloseTo(1435.22, 1)
     expect(line?.trace.inputs['unused']).toBe(0)
   })
 
@@ -70,16 +70,16 @@ describe('the annual fuel settlement', () => {
    */
   it('measures the budget against petrol alone, never against charging', () => {
     const line = settlement('byd-atto2-boost')
-    // 23,088 petrol km / 16 km/l x 8.09 = 11,673.87. The 2,505 of electricity
+    // 14,705 petrol km / 16 km/l x 8.09 = 7,435.22. The 3,464 of electricity
     // is the employee's and must not appear here.
-    expect(line?.trace.inputs['annualSpend']).toBeCloseTo(11673.87, 1)
-    expect(line?.trace.inputs['unused']).toBeCloseTo(326.13, 1)
-    expect(line?.annualAmount).toBeCloseTo(-326.13, 1)
+    expect(line?.trace.inputs['annualSpend']).toBeCloseTo(7435.22, 1)
+    expect(line?.trace.inputs['unused']).toBeCloseTo(4564.78, 1)
+    expect(line?.annualAmount).toBeCloseTo(-4564.78, 1)
   })
 
   it('leaves charging fully on the employee, and says so', () => {
     const elec = run('byd-atto2-boost').ledger.find(l => l.id === 'electricityCost')
-    expect(elec?.annualAmount).toBeCloseTo(2505.33, 1)
+    expect(elec?.annualAmount).toBeCloseTo(3463.81, 1)
     expect(elec?.trace.formulaHe).toContain('העובד משלם אותה בעצמו')
   })
 
@@ -118,11 +118,11 @@ describe('the annual fuel settlement', () => {
    * year cannot be reconstructed from what arrives.
    */
   it('carries the annual sum in the label, not just the cadence', () => {
-    expect(settlement('byd-atto2-boost')?.cadenceHe).toBe('מסולק פעם בשנה · ₪326 בשנה')
+    expect(settlement('byd-atto2-boost')?.cadenceHe).toBe('מסולק פעם בשנה · ₪4,565 בשנה')
   })
 
   it('names no sum when there is no refund to name', () => {
-    expect(settlement('byd-atto2-boost', { budget: 800 })?.cadenceHe)
+    expect(settlement('byd-atto2-boost', { budget: 500 })?.cadenceHe)
       .toBe('מסולק פעם בשנה')
   })
 
@@ -140,17 +140,29 @@ describe('the annual fuel settlement', () => {
 })
 
 describe('the petrol line explains its own kilometres', () => {
-  it('says the battery is the limit when the commute outruns it', () => {
-    const f = run('byd-atto2-boost').ledger.find(l => l.id === 'fuelCost')?.trace.formulaHe ?? ''
-    expect(f).toContain('83')       // the measured range, not the claimed 90
-    expect(f).toContain('264')      // 22 working days x 12
-    expect(f).toContain('51%')      // the petrol share of 45,000 km
+  const trace = (o: Over = {}) =>
+    run('byd-atto2-boost', o).ledger.find(l => l.id === 'fuelCost')?.trace.formulaHe ?? ''
+
+  it('shows both buckets and marks the ones that empty the battery', () => {
+    const f = trace()
+    expect(f).toContain('83')                    // measured range, not the claimed 90
+    expect(f).toContain('210 ימים')            // commuting days
+    expect(f).toContain('155 ימים')            // the rest of the year
+    // 100 km commuting and 155 km otherwise, so both run the battery flat.
+    expect(f.match(/הסוללה נגמרת/g)).toHaveLength(2)
+    expect(f).toContain('33%')                   // the petrol share of 45,000 km
   })
 
-  it('says the commute fits when it does', () => {
-    const f = run('byd-atto2-boost', { commuteOneWayKm: 20, annualKm: 20000 })
-      .ledger.find(l => l.id === 'fuelCost')?.trace.formulaHe ?? ''
-    expect(f).toContain('נכנסת כולה בסוללה')
+  /*
+   * The case the old model got wrong. A 40 km round trip fits inside the
+   * battery, so the commute is entirely electric — but 36,600 km spread over
+   * the remaining 155 days is 236 a day, which is not. Before, every one of
+   * those kilometres was petrol; now the battery takes its 83 a day first.
+   */
+  it('marks only the bucket that runs out', () => {
+    const f = trace({ commuteOneWayKm: 20 })
+    expect(f).toContain('210 ימים × 40 ק"מ → 40 על חשמל')
+    expect(f.match(/הסוללה נגמרת/g)).toHaveLength(1)
   })
 
   it('stays quiet on a car that only burns petrol', () => {

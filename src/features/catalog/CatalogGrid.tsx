@@ -25,7 +25,12 @@ import { VehicleImage } from '../../ui/VehicleImage'
  * costs cars and must not grow a field it would never read; the screens link
  * out to the model's page, so the screens' type is where the link lives.
  */
-export type FleetVehicle = Vehicle & { trim: string; icarUrl?: string | undefined }
+export type FleetVehicle = Vehicle & {
+  trim: string
+  icarUrl?: string | undefined
+  /** Set where the photograph does not exactly depict this trim. */
+  imageNoteHe?: string | undefined
+}
 
 export type CatalogGridProps = {
   vehicles: readonly FleetVehicle[]

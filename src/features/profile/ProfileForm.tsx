@@ -86,9 +86,24 @@ export function ProfileForm({ profile, onChange, gradesToTier }: ProfileFormProp
              value={profile.commuteOneWayKm}
              onValue={v => { onChange({ commuteOneWayKm: v }) }} />
 
-        <Num id="workDaysPerMonth" label="ימי עבודה בחודש" step={1}
-             value={profile.workDaysPerMonth}
-             onValue={v => { onChange({ workDaysPerMonth: v }) }} />
+        {/* Replaced "working days a month". The organisation fixes the working
+            year at 210 days; what varies between employees is how many of them
+            are worked from home, and that is the only part worth asking. */}
+        <Field htmlFor="wfhDaysPerWeek" label="ימי עבודה מהבית בשבוע">
+          {/* The resulting commuting days are named in the options rather than
+              in a help line under the control. It is the fact the reader needs
+              and the form's rule is one label and nothing after it. */}
+          <select
+            id="wfhDaysPerWeek"
+            className="field-select"
+            value={String(profile.wfhDaysPerWeek)}
+            onChange={e => { onChange({ wfhDaysPerWeek: Number(e.target.value) }) }}
+          >
+            <option value="0">אין — 210 ימי נסיעה בשנה</option>
+            <option value="1">יום אחד — 168 ימי נסיעה</option>
+            <option value="2">יומיים — 126 ימי נסיעה</option>
+          </select>
+        </Field>
 
         <Num id="annualKm" label={'נסועה שנתית, ק"מ'} step={1000}
              value={profile.annualKm}

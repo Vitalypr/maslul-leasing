@@ -21,7 +21,7 @@ const employee: Employee = {
   creditPoints: 2.25,
   serviceTier: 'C',
   commuteOneWayKm: 34,
-  workDaysPerMonth: 21,
+  wfhDaysPerWeek: 0,
   annualKm: 26000,
   rambiEligible: false,
   chargesDaily: true,

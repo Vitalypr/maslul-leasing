@@ -19,7 +19,21 @@ describe('parseProfile', () => {
     const p = parseProfile('{"grossMonthlySalary":31000,"serviceTier":"D"}')
     expect(p.grossMonthlySalary).toBe(31000)
     expect(p.serviceTier).toBe('D')
-    expect(p.workDaysPerMonth).toBe(DEFAULT_PROFILE.workDaysPerMonth)
+    expect(p.wfhDaysPerWeek).toBe(DEFAULT_PROFILE.wfhDaysPerWeek)
+  })
+
+  it('drops workDaysPerMonth, which wfhDaysPerWeek replaced', () => {
+    // Profiles saved before the change carry the old field. It must not be
+    // read, and must not stop the rest of the profile from loading.
+    const p = parseProfile('{"grossMonthlySalary":31000,"workDaysPerMonth":26}')
+    expect(p.grossMonthlySalary).toBe(31000)
+    expect(p.wfhDaysPerWeek).toBe(0)
+    expect('workDaysPerMonth' in p).toBe(false)
+  })
+
+  it('accepts only nought, one or two days at home', () => {
+    for (const [raw, want] of [['0',0],['1',1],['2',2],['3',0],['-1',0],['1.4',1],['"1"',0]] as const)
+      expect(parseProfile(`{"wfhDaysPerWeek":${raw}}`).wfhDaysPerWeek, raw).toBe(want)
   })
 
   it('rejects a value of the wrong type rather than carrying it into the engine', () => {

@@ -50,7 +50,8 @@ export type Employee = {
   creditPoints: number
   serviceTier: ServiceTier
   commuteOneWayKm: number
-  workDaysPerMonth: number
+  /** Days a week worked from home: 0, 1 or 2. Fewer commuting days. */
+  wfhDaysPerWeek: number
   annualKm: number
   rambiEligible: boolean
   chargesDaily: boolean
@@ -109,6 +110,7 @@ export type Policy = {
     excessRatePerKm: number
     creditForUnusedKm: boolean
   }
+  usage: { commuteDaysPerYear: number; daysPerYear: number }
   contract: { termMonths: number }
   fuel: {
     employeeEntersBudget: boolean
@@ -291,7 +293,9 @@ function withUsage(input: CalcInput): CalcContext {
     usage: splitAnnualKm({
       annualKm: employee.annualKm,
       commuteOneWayKm: employee.commuteOneWayKm,
-      workDaysPerMonth: employee.workDaysPerMonth,
+      commuteDaysPerYear: policy.usage.commuteDaysPerYear,
+      wfhDaysPerWeek: employee.wfhDaysPerWeek,
+      daysPerYear: policy.usage.daysPerYear,
       powertrain: vehicle.powertrain,
       chargesDaily: employee.chargesDaily,
       manufacturerEvRangeKm: vehicle.consumption?.evRangeKm ?? null,

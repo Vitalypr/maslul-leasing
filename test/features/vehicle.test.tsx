@@ -85,7 +85,9 @@ describe('<VehiclePage> — the plug-in electricity share', () => {
     const split = splitAnnualKm({
       annualKm: base.annualKm,
       commuteOneWayKm: base.commuteOneWayKm,
-      workDaysPerMonth: base.workDaysPerMonth,
+      commuteDaysPerYear: policyJson.usage.commuteDaysPerYear,
+      wfhDaysPerWeek: base.wfhDaysPerWeek,
+      daysPerYear: policyJson.usage.daysPerYear,
       powertrain: 'phev',
       chargesDaily: base.chargesDaily,
       manufacturerEvRangeKm:
