@@ -33,6 +33,9 @@ const render = (id: string, over: Partial<Profile> = {}) =>
       policy={policy}
       taxRules={taxRules}
       prices={prices}
+      inCompare={false}
+      compareFull={false}
+      onToggleCompare={() => undefined}
     />,
   )
 
@@ -160,7 +163,11 @@ describe('<VehiclePage> — what the employee gives up', () => {
 
     const html = renderToStaticMarkup(
       <VehiclePage vehicle={vehicle(OCTAVIA)} profile={employee}
-                   policy={grossy} taxRules={taxRules} prices={prices} />,
+                   policy={grossy} taxRules={taxRules} prices={prices}
+      inCompare={false}
+      compareFull={false}
+      onToggleCompare={() => undefined}
+    />,
     )
     // The block follows the same horizon as the lease ledger, which opens on
     // the month, so the figure on screen is the annual one over twelve.

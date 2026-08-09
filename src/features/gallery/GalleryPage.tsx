@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { calculate } from '../../engine/calculate'
 import type { CalcTaxRules } from '../../engine/calculate'
 import type { EnergyPrices } from '../../engine/contributors/energy'
@@ -41,9 +41,21 @@ const ORDER: readonly Powertrain[] = ['bev', 'phev', 'hybrid', 'mhev', 'ice']
 
 type Priced = { vehicle: FleetVehicle; monthly: number; missing: string | null }
 
+/* Cars whose cost cannot be computed sort last either way: they have no price
+   to rank, and putting them at the top of "cheapest first" would read as a
+   claim that they are cheap. */
+const SORTS = [
+  { id: 'asc', labelHe: 'מהזול ליקר', sign: 1 },
+  { id: 'desc', labelHe: 'מהיקר לזול', sign: -1 },
+] as const
+
+type SortId = (typeof SORTS)[number]['id']
+
 export function GalleryPage({
   vehicles, profile, policy, taxRules, prices, onSelect,
 }: GalleryPageProps) {
+  const [sort, setSort] = useState<SortId>('asc')
+
   const groups = useMemo(() => {
     const priced: Priced[] = vehicles.map(vehicle => {
       const r = calculate({ vehicle, employee: profile, policy, taxRules, prices })
@@ -54,13 +66,16 @@ export function GalleryPage({
       .map(pt => ({
         powertrain: pt,
         labelHe: POWERTRAIN_LABEL_HE[pt],
-        // Cheapest first within a group: the reason to group is comparison.
+        // Sorted within the group: the reason to group is comparison.
         items: priced
           .filter(p => p.vehicle.powertrain === pt)
-          .sort((a, b) => a.monthly - b.monthly),
+          .sort((a, b) => {
+            if ((a.missing === null) !== (b.missing === null)) return a.missing === null ? -1 : 1
+            return (a.monthly - b.monthly) * (SORTS.find(x => x.id === sort)?.sign ?? 1)
+          }),
       }))
       .filter(g => g.items.length > 0)
-  }, [vehicles, profile, policy, taxRules, prices])
+  }, [vehicles, profile, policy, taxRules, prices, sort])
 
   return (
     <section className="py-6">
@@ -69,6 +84,21 @@ export function GalleryPage({
         <p className="mt-1 text-[14px] text-[var(--soft)]">
           כל הרכבים לפי סוג מנוע, עם העלות החודשית המוערכת נטו לפרופיל שלך.
         </p>
+
+        <div className="seg seg-sort" role="tablist" aria-label="סדר תצוגה">
+          {SORTS.map(o => (
+            <button
+              key={o.id}
+              type="button"
+              role="tab"
+              className="seg-btn"
+              aria-selected={sort === o.id}
+              onClick={() => { setSort(o.id) }}
+            >
+              {o.labelHe}
+            </button>
+          ))}
+        </div>
       </header>
 
       {groups.map(g => (

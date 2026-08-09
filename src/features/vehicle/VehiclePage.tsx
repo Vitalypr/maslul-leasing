@@ -12,7 +12,7 @@ import { VehicleImage } from '../../ui/VehicleImage'
 import { Sheet } from '../../ui/Sheet'
 import { Ledger } from '../../ui/Ledger'
 import { BottomBar } from '../../ui/BottomBar'
-import { IconExternal } from '../../ui/Icons'
+import { IconCheck, IconExternal, IconPlus } from '../../ui/Icons'
 import {
   POWERTRAIN_COLOR, POWERTRAIN_LABEL_HE, type FleetVehicle,
 } from '../catalog/CatalogGrid'
@@ -35,6 +35,13 @@ export type VehiclePageProps = {
   taxRules: CalcTaxRules
   prices: EnergyPrices
   onBack?: () => void
+  /* Required, not optional — see the note on CatalogGridProps. An omittable
+     prop is how the comparison came to be unreachable from every screen. */
+  /** Whether this car is already in the comparison. */
+  inCompare: boolean
+  /** True once four cars are chosen, so the control can say why it refuses. */
+  compareFull: boolean
+  onToggleCompare: () => void
 }
 
 const HORIZONS = [
@@ -47,6 +54,7 @@ type Horizon = (typeof HORIZONS)[number]['id']
 
 export function VehiclePage({
   vehicle, profile, policy, taxRules, prices, onBack,
+  inCompare, compareFull, onToggleCompare,
 }: VehiclePageProps) {
   const [horizon, setHorizon] = useState<Horizon>('month')
 
@@ -281,7 +289,22 @@ export function VehiclePage({
 
       {/* Phone only. It carries the figure from the sheet above, at whatever
           horizon is selected, so the two can never disagree. */}
-      <BottomBar labelHe="נטו לכיס" value={total} />
+      <BottomBar
+        labelHe="נטו לכיס"
+        value={total}
+        action={(
+            <button
+              type="button"
+              className={inCompare ? 'chip is-on' : 'chip'}
+              aria-pressed={inCompare}
+              disabled={!inCompare && compareFull}
+              onClick={onToggleCompare}
+            >
+              {inCompare ? <IconCheck size={16} /> : <IconPlus size={16} />}
+              {inCompare ? 'בהשוואה' : compareFull ? 'ההשוואה מלאה' : 'להשוואה'}
+            </button>
+        )}
+      />
     </article>
   )
 }

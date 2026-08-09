@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react'
 import { Money } from './Money'
 
 /**
@@ -16,15 +17,19 @@ export type BottomBarProps = {
   labelHe: string
   /** Monthly shekels, as the engine produced them. */
   value: number
+  /** An action alongside the figure. The bar is the one thing always in view
+   *  on a long page, so it is where an action belongs. */
+  action?: ReactNode
 }
 
-export function BottomBar({ labelHe, value }: BottomBarProps) {
+export function BottomBar({ labelHe, value, action }: BottomBarProps) {
   return (
     <>
       <div className="bottombar-space" aria-hidden="true" />
       <div className="bottombar">
         <span className="lbl">{labelHe}</span>
         <Money value={value} className="amt" />
+        {action === undefined ? null : <span className="bottombar-action">{action}</span>}
       </div>
     </>
   )

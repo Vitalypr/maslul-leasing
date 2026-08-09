@@ -39,7 +39,11 @@ const count = (html: string, pattern: RegExp) => html.match(pattern)?.length ?? 
 
 const vehicleHtml = renderToStaticMarkup(
   <VehiclePage vehicle={vehicle(OCTAVIA)} profile={profile} policy={policy}
-               taxRules={taxRules} prices={prices} />,
+               taxRules={taxRules} prices={prices}
+      inCompare={false}
+      compareFull={false}
+      onToggleCompare={() => undefined}
+    />,
 )
 
 const entries: CompareEntry[] = [...catalog]

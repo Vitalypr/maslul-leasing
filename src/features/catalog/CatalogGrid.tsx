@@ -7,6 +7,7 @@ import type { PolicyData } from '../../data/schema/policy'
 import type { Profile } from '../../state/profile'
 import { Money } from '../../ui/Money'
 import { VehicleImage } from '../../ui/VehicleImage'
+import { IconCheck, IconPlus } from '../../ui/Icons'
 
 /**
  * The fleet, priced for one person.
@@ -40,6 +41,21 @@ export type CatalogGridProps = {
   prices: EnergyPrices
   selectedId?: string | null
   onSelect: (id: string) => void
+  /*
+   * The comparison wiring is required, not optional.
+   *
+   * It was optional, and App.tsx simply never passed it — so the store worked,
+   * the comparison screen worked, every test passed, and no car could be added
+   * to a comparison. A prop that a screen must have in order to be usable
+   * should not be one a caller can silently omit; the type is the only thing
+   * that makes forgetting it a build failure rather than a missing feature.
+   */
+  /** Ids currently in the comparison. */
+  comparing: readonly string[]
+  /** Adds or removes one. */
+  onToggleCompare: (id: string) => void
+  /** True once the comparison is full, so the control can say why it refuses. */
+  compareFull: boolean
 }
 
 export const POWERTRAIN_LABEL_HE: Record<Powertrain, string> = {
@@ -83,6 +99,7 @@ const TERMS = [
 
 export function CatalogGrid({
   vehicles, profile, policy, taxRules, prices, selectedId = null, onSelect,
+  comparing, onToggleCompare, compareFull,
 }: CatalogGridProps) {
   const [filter, setFilter] = useState<Filter>('all')
 
@@ -103,7 +120,7 @@ export function CatalogGrid({
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2 pb-5" role="group" aria-label="סוג הנעה">
+      <div className="filter-row" role="group" aria-label="סוג הנעה">
         <Chip active={filter === 'all'} powertrain="all" label="הכל"
               onPick={() => { setFilter('all') }} />
         {present.map(pt => (
@@ -116,9 +133,29 @@ export function CatalogGrid({
       {/* One hairline between cards: a 1px gap over a --line background, so the
           rules are the grid itself rather than a border on every card. */}
       <div className={GRID}>
-        {shown.map(({ vehicle, result }) => (
+        {shown.map(({ vehicle, result }) => {
+          const inCompare = comparing.includes(vehicle.id)
+          return (
+          /* A wrapper, not a button, because the compare control has to be a
+             button of its own and a button cannot contain one. The card body
+             below is the clickable region; the toggle sits over the
+             photograph as its sibling. */
+          <div key={vehicle.id} className="card-wrap">
           <button
-            key={vehicle.id}
+              type="button"
+              className="compare-pin"
+              aria-pressed={inCompare}
+              disabled={!inCompare && compareFull}
+              aria-label={inCompare
+                ? `הסרת ${vehicle.nameHe} מההשוואה`
+                : compareFull ? 'ההשוואה מלאה' : `הוספת ${vehicle.nameHe} להשוואה`}
+              title={inCompare ? 'להסרה מההשוואה'
+                : compareFull ? 'אפשר להשוות עד ארבעה רכבים' : 'להוספה להשוואה'}
+              onClick={() => { onToggleCompare(vehicle.id) }}
+            >
+              {inCompare ? <IconCheck size={16} /> : <IconPlus size={16} />}
+          </button>
+          <button
             type="button"
             data-vehicle-id={vehicle.id}
             aria-current={vehicle.id === selectedId}
@@ -192,7 +229,9 @@ export function CatalogGrid({
               <span className="field-unverified mt-3">צריכה משוערת</span>
             ) : null}
           </button>
-        ))}
+          </div>
+          )
+        })}
       </div>
     </div>
   )
@@ -205,15 +244,17 @@ function Chip({ active, powertrain, label, color, onPick }: {
   color?: string
   onPick: () => void
 }) {
-  // `.chip` in index.css carries the shape, the 44px target and the pressed
-  // state, which it reads from aria-pressed rather than a second class.
+  // `.chip` in index.css carries the shape and the pressed state, which it
+  // reads from aria-pressed rather than a second class. `chip-sm` shrinks the
+  // drawn chip so all five fit one row, and restores the 44px tap target with
+  // a pseudo-element rather than by growing back.
   return (
     <button
       type="button"
       aria-pressed={active}
       data-powertrain={powertrain}
       onClick={onPick}
-      className="chip"
+      className="chip chip-sm"
     >
       {color === undefined ? null : <i style={{ background: color }} />}
       {label}

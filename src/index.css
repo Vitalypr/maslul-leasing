@@ -537,3 +537,83 @@ button{font:inherit;color:inherit}
   font-size: 11.5px;
   line-height: 1.55;
 }
+
+/* ── Compact powertrain filter ──────────────────────────────────────────────
+   Five chips at the full 44px control size wrapped to two rows on a phone and
+   pushed the first card below the fold. They are a filter, not a primary
+   action, so they shrink — but only the chrome shrinks. The tap target stays
+   at 44px through padding, because a filter you cannot hit is worse than a
+   filter that wraps. */
+.chip.chip-sm {
+  min-height: 34px;
+  padding: 0 8px;
+  gap: 4px;
+  font-size: 12.5px;
+  font-weight: 600;
+  position: relative;
+  white-space: nowrap;
+}
+.chip.chip-sm::after {
+  /* Extends the hit area to 44px without changing the drawn size. */
+  content: "";
+  position: absolute;
+  inset-block: -5px;
+  inset-inline: 0;
+}
+.chip.chip-sm i { inline-size: 6px; block-size: 6px; }
+
+/* One row, and it scrolls sideways if the fleet ever grows another powertrain
+   rather than reflowing and moving the grid down the page. */
+.filter-row {
+  display: flex;
+  gap: 5px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block-end: 20px;
+  overscroll-behavior-x: contain;
+}
+.filter-row::-webkit-scrollbar { display: none; }
+.filter-row > * { flex: none; }
+
+/* ── Gallery sort ─────────────────────────────────────────────────────────── */
+.seg-sort {
+  margin-block-start: 14px;
+  max-inline-size: 320px;
+}
+.seg-sort .seg-btn { min-height: 38px; font-size: 13px; }
+
+/* ── Compare ──────────────────────────────────────────────────────────────── */
+/* The card is a wrapper so the toggle can be a button beside the card's own
+   button rather than inside it, which is invalid and unreachable by keyboard. */
+.card-wrap { position: relative; display: flex; }
+.card-wrap > .catalog-card,
+.card-wrap > button:last-child { flex: 1; }
+
+.compare-pin {
+  position: absolute;
+  inset-block-start: 8px;
+  inset-inline-end: 8px;
+  z-index: 2;
+  inline-size: 34px;
+  block-size: 34px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  /* A stronger hairline rather than a shadow: the pin sits on a white
+     photograph and needs an edge, and the system has no shadows in it. */
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink-soft);
+}
+.compare-pin:hover:not(:disabled) { border-color: var(--petrol); color: var(--petrol); }
+.compare-pin[aria-pressed="true"] {
+  background: var(--petrol);
+  border-color: var(--petrol);
+  color: #fff;
+}
+.compare-pin:disabled { opacity: .38; cursor: not-allowed; }
+
+.bottombar-action { margin-inline-start: auto; }
+.bottombar-action .chip { min-height: 38px; font-size: 13px; }
+.chip.is-on { border-color: var(--petrol); background: var(--petrol); color: #fff; }

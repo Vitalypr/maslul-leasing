@@ -92,6 +92,24 @@ export function IconExternal({ size = 15, className }: IconProps) {
   )
 }
 
+/** Add to the comparison. */
+export function IconPlus({ size = 16, className }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M12 5v14" /><path d="M5 12h14" />
+    </svg>
+  )
+}
+
+/** Already in the comparison. */
+export function IconCheck({ size = 16, className }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M4.5 12.5l5 5 10-11" />
+    </svg>
+  )
+}
+
 export function IconMenu({ size = 22, className }: IconProps) {
   return (
     <svg {...base(size)} className={className}>

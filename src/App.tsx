@@ -153,6 +153,9 @@ export function App() {
             prices={prices as EnergyPrices}
             selectedId={openVehicleId}
             onSelect={openCar}
+            comparing={selection.selected}
+            onToggleCompare={selection.toggle}
+            compareFull={selection.isFull}
           />
         )}
 
@@ -175,6 +178,9 @@ export function App() {
             taxRules={taxRules as CalcTaxRules}
             prices={prices as EnergyPrices}
             onBack={() => { goTab(cameFrom) }}
+            inCompare={selection.isSelected(openVehicle.id)}
+            compareFull={selection.isFull}
+            onToggleCompare={() => { selection.toggle(openVehicle.id) }}
           />
         )}
 

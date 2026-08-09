@@ -28,6 +28,9 @@ const html = renderToStaticMarkup(
     taxRules={taxRules}
     prices={prices}
     onSelect={() => {}}
+    comparing={[]}
+    onToggleCompare={() => {}}
+    compareFull={false}
   />,
 )
 
