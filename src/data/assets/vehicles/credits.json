@@ -1,343 +1,223 @@
 {
- "_note": "Vehicle photographs from Wikimedia Commons. Licences are CC0, CC BY or CC BY-SA. CC BY-SA requires attribution and share-alike, so this list must be surfaced in the application, not just kept in the repo. mirrored:true means the source image was flipped horizontally so the whole fleet faces the same way — a derivative work, permitted under these licences and disclosed here.",
- "generated": "2026-08-08",
- "count": 42,
+ "_note": "מקור התמונות וקישורי הדגם. הלקוח אישר שהשימוש בתמונות מותר לו, ולכן אין ייחוס במסך.",
+ "generated": "2026-08-09",
+ "source": "icar.co.il",
+ "count": 43,
  "vehicles": {
-  "byd-sealion5-design": {
-   "file": "byd-sealion5-design.jpg",
-   "commonsFile": "BYD Sealion 05 EV 007.jpg",
-   "license": "CC0",
-   "author": "JustAnotherCarDesigner",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Sealion_05_EV_007.jpg",
-   "mirrored": false
-  },
-  "omoda7-phev-elevate": {
-   "file": "omoda7-phev-elevate.jpg",
-   "commonsFile": "Omoda 7 SHS IAA 2025 DSC 2184.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Omoda_7_SHS_IAA_2025_DSC_2184.jpg",
-   "mirrored": false
-  },
-  "kia-picanto-lxplus": {
-   "file": "kia-picanto-lxplus.jpg",
-   "commonsFile": "2024 Kia Picanto (JA) IAA 2025 DSC 1271.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_Kia_Picanto_(JA)_IAA_2025_DSC_1271.jpg",
-   "mirrored": false
-  },
-  "hyundai-venue-prime": {
-   "file": "hyundai-venue-prime.jpg",
-   "commonsFile": "Hyundai Venue QX1 1.6 GL Atlas White.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Ethan Llamas",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hyundai_Venue_QX1_1.6_GL_Atlas_White.jpg",
-   "mirrored": true
-  },
-  "toyota-corolla-cross-active": {
-   "file": "toyota-corolla-cross-active.jpg",
-   "commonsFile": "2022 Toyota Corolla Cross L FWD, Front Left, 11-21-2021.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Elise240SX",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2022_Toyota_Corolla_Cross_L_FWD%2C_Front_Left%2C_11-21-2021.jpg",
-   "mirrored": false
-  },
-  "kia-niro-hybrid-lx": {
-   "file": "kia-niro-hybrid-lx.jpg",
-   "commonsFile": "Kia Niro (SG2) PHEV Leonberg 2022 1X7A0474.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kia_Niro_(SG2)_PHEV_Leonberg_2022_1X7A0474.jpg",
-   "mirrored": false
-  },
-  "subaru-crosstrek-luxury": {
-   "file": "subaru-crosstrek-luxury.jpg",
-   "commonsFile": "Subaru Crosstrek (GU) Washington DC Metro Area, USA.jpg",
-   "license": "CC BY 4.0",
-   "author": "OWS Photography",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Subaru_Crosstrek_(GU)_Washington_DC_Metro_Area%2C_USA.jpg",
-   "mirrored": true
+  "byd-atto2-boost": {
+   "file": "byd-atto2-boost.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/byd-atto2-new.jpg",
+   "modelPage": "https://www.icar.co.il/BYD/BYD_%D7%90%D7%98%D7%95_2/BYD_%D7%90%D7%98%D7%95_2_%D7%97%D7%93%D7%A9/"
   },
   "byd-seal5-dmi-comfort": {
    "file": "byd-seal5-dmi-comfort.jpg",
-   "commonsFile": "2025 BYD Seal 05 DM-i front view.png",
-   "license": "CC BY 3.0",
-   "author": "Get Auto China",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_BYD_Seal_05_DM-i_front_view.png",
-   "mirrored": false
-  },
-  "mg3-hybrid-luxury": {
-   "file": "mg3-hybrid-luxury.jpg",
-   "commonsFile": "MG 3 (3rd generation) Automesse Ludwigsburg 2024 IMG 1571 (cropped).jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:MG_3_(3rd_generation)_Automesse_Ludwigsburg_2024_IMG_1571_(cropped).jpg",
-   "mirrored": false
-  },
-  "kgm-torres-hybrid": {
-   "file": "kgm-torres-hybrid.jpg",
-   "commonsFile": "SsangYong Torres Automesse Ludwigsburg 2024 IMG 1442.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:SsangYong_Torres_Automesse_Ludwigsburg_2024_IMG_1442.jpg",
-   "mirrored": false
-  },
-  "chery-arrizo8-phev-comfort": {
-   "file": "chery-arrizo8-phev-comfort.jpg",
-   "commonsFile": "Chery Arrizo 8 020.jpg",
-   "license": "CC0",
-   "author": "JustAnotherCarDesigner",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chery_Arrizo_8_020.jpg",
-   "mirrored": false
-  },
-  "chery-tiggo8-phev-comfort": {
-   "file": "chery-tiggo8-phev-comfort.jpg",
-   "commonsFile": "Chery Tiggo 8 Pro 004.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chery_Tiggo_8_Pro_004.jpg",
-   "mirrored": true
-  },
-  "hyundai-elantra-hybrid-prime": {
-   "file": "hyundai-elantra-hybrid-prime.jpg",
-   "commonsFile": "2023 Hyundai Avante (Elantra) 1.6 HEV Hybrid CN7 PE.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Hyundai_Avante_(Elantra)_1.6_HEV_Hybrid_CN7_PE.jpg",
-   "mirrored": false
-  },
-  "skoda-scala-selection": {
-   "file": "skoda-scala-selection.jpg",
-   "commonsFile": "Škoda Scala Facelift IMG 8900.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_Scala_Facelift_IMG_8900.jpg",
-   "mirrored": false
-  },
-  "chery-tiggo7-phev-luxury": {
-   "file": "chery-tiggo7-phev-luxury.jpg",
-   "commonsFile": "Chery Tiggo 7 II facelift 001.jpg",
-   "license": "CC0",
-   "author": "JustAnotherCarDesigner",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chery_Tiggo_7_II_facelift_001.jpg",
-   "mirrored": false
-  },
-  "opel-frontera-gs-7": {
-   "file": "opel-frontera-gs-7.jpg",
-   "commonsFile": "Opel Frontera C Electric DSC 9332.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Opel_Frontera_C_Electric_DSC_9332.jpg",
-   "mirrored": true
-  },
-  "peugeot-2008-active": {
-   "file": "peugeot-2008-active.jpg",
-   "commonsFile": "2020 Peugeot 2008 Allure Front.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Vauxford",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2020_Peugeot_2008_Allure_Front.jpg",
-   "mirrored": false
-  },
-  "skoda-fabia-selection": {
-   "file": "skoda-fabia-selection.jpg",
-   "commonsFile": "Skoda Fabia IV 1X7A6155.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Skoda_Fabia_IV_1X7A6155.jpg",
-   "mirrored": true
-  },
-  "hyundai-kona-hybrid-premium": {
-   "file": "hyundai-kona-hybrid-premium.jpg",
-   "commonsFile": "Hyundai Kona (SX2) N Line 1X7A0846.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hyundai_Kona_(SX2)_N_Line_1X7A0846.jpg",
-   "mirrored": false
-  },
-  "hyundai-venue-prime-plus": {
-   "file": "hyundai-venue-prime-plus.jpg",
-   "commonsFile": "Hyundai Venue QX1 1.6 GL Atlas White.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Ethan Llamas",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Hyundai_Venue_QX1_1.6_GL_Atlas_White.jpg",
-   "mirrored": true
-  },
-  "lynkco-01-pro": {
-   "file": "lynkco-01-pro.jpg",
-   "commonsFile": "Lynk & Co 01 PHEV 1X7A6757.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Lynk_%26_Co_01_PHEV_1X7A6757.jpg",
-   "mirrored": false
-  },
-  "mitsubishi-outlander-intense-7": {
-   "file": "mitsubishi-outlander-intense-7.jpg",
-   "commonsFile": "2022 Mitsubishi Outlander.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2022_Mitsubishi_Outlander.jpg",
-   "mirrored": false
-  },
-  "skoda-kodiaq-adv": {
-   "file": "skoda-kodiaq-adv.jpg",
-   "commonsFile": "Škoda Kodiaq II IMG 9433.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_Kodiaq_II_IMG_9433.jpg",
-   "mirrored": false
-  },
-  "jaecoo7-phev-elegance": {
-   "file": "jaecoo7-phev-elegance.jpg",
-   "commonsFile": "Jaecoo 7 front view 01.png",
-   "license": "CC BY 3.0",
-   "author": "Autosdeprimera",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Jaecoo_7_front_view_01.png",
-   "mirrored": false
-  },
-  "mg-hs-hybrid-luxury": {
-   "file": "mg-hs-hybrid-luxury.jpg",
-   "commonsFile": "2025 MG HS Exclusive (Poland) front view.png",
-   "license": "CC BY 3.0",
-   "author": "AutoMotoVlog",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_MG_HS_Exclusive_(Poland)_front_view.png",
-   "mirrored": false
-  },
-  "opel-mokka-mhev-gsline": {
-   "file": "opel-mokka-mhev-gsline.jpg",
-   "commonsFile": "Opel Mokka B IMG 4457.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Opel_Mokka_B_IMG_4457.jpg",
-   "mirrored": true
-  },
-  "byd-atto2-boost": {
-   "file": "byd-atto2-boost.jpg",
-   "commonsFile": "BYD Atto 2 MYLE Festival 2025 DSC 9417.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Atto_2_MYLE_Festival_2025_DSC_9417.jpg",
-   "mirrored": false
-  },
-  "kia-seltos-lxplus": {
-   "file": "kia-seltos-lxplus.jpg",
-   "commonsFile": "Алматы, Kia Seltos на Ауэзова-Тимирязева.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Nikolai Bulykin",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%D0%90%D0%BB%D0%BC%D0%B0%D1%82%D1%8B%2C_Kia_Seltos_%D0%BD%D0%B0_%D0%90%D1%83%D1%8D%D0%B7%D0%BE%D0%B2%D0%B0-%D0%A2%D0%B8%D0%BC%D0%B8%D1%80%D1%8F%D0%B7%D0%B5%D0%B2%D0%B0.jpg",
-   "mirrored": true
-  },
-  "chery-tiggo4-hybrid-comfort": {
-   "file": "chery-tiggo4-hybrid-comfort.jpg",
-   "commonsFile": "2025 Chery Tiggo 4 silver front.jpg",
-   "license": "CC0",
-   "author": "Throwawayacc222",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Chery_Tiggo_4_silver_front.jpg",
-   "mirrored": true
-  },
-  "chery-tiggo7-phev-comfort": {
-   "file": "chery-tiggo7-phev-comfort.jpg",
-   "commonsFile": "Chery Tiggo 7 II facelift 001.jpg",
-   "license": "CC0",
-   "author": "JustAnotherCarDesigner",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Chery_Tiggo_7_II_facelift_001.jpg",
-   "mirrored": false
-  },
-  "seat-arona-style": {
-   "file": "seat-arona-style.jpg",
-   "commonsFile": "Seat Arona Xcellence (Facelift) – f 01022023.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Seat_Arona_Xcellence_(Facelift)_%E2%80%93_f_01022023.jpg",
-   "mirrored": true
-  },
-  "skoda-octavia-selection": {
-   "file": "skoda-octavia-selection.jpg",
-   "commonsFile": "Škoda Octavia IV Scout DSC 7253.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_Octavia_IV_Scout_DSC_7253.jpg",
-   "mirrored": false
-  },
-  "jaecoo5-hev-luxury": {
-   "file": "jaecoo5-hev-luxury.jpg",
-   "commonsFile": "2025 Jaecoo 5 EV Max (Thailand) front view.png",
-   "license": "CC BY 3.0",
-   "author": "iMoD Official",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Jaecoo_5_EV_Max_(Thailand)_front_view.png",
-   "mirrored": false
-  },
-  "skoda-karoq-selection": {
-   "file": "skoda-karoq-selection.jpg",
-   "commonsFile": "Škoda Karoq Scout at Paris Motor Show 2018, Paris (1Y7A2125).jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Matti Blume",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_Karoq_Scout_at_Paris_Motor_Show_2018%2C_Paris_(1Y7A2125).jpg",
-   "mirrored": false
-  },
-  "jaecoo5-hev-premium": {
-   "file": "jaecoo5-hev-premium.jpg",
-   "commonsFile": "2025 Jaecoo 5 1.6 Luxury (United Kingdom) front view.jpg",
-   "license": "CC BY 3.0",
-   "author": "CarsofGlasgow",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2025_Jaecoo_5_1.6_Luxury_(United_Kingdom)_front_view.jpg",
-   "mirrored": false
-  },
-  "kia-sportage-urban": {
-   "file": "kia-sportage-urban.jpg",
-   "commonsFile": "Kia Sportage (NQ5) 1X7A0326 (edited).jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Kia_Sportage_(NQ5)_1X7A0326_(edited).jpg",
-   "mirrored": false
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/byd-seal-5.jpg",
+   "modelPage": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C_5/BYD_%D7%A1%D7%99%D7%9C_5_%D7%97%D7%93%D7%A9/"
   },
   "byd-sealion5-comfort": {
    "file": "byd-sealion5-comfort.jpg",
-   "commonsFile": "BYD Sealion 05 EV 007.jpg",
-   "license": "CC0",
-   "author": "JustAnotherCarDesigner",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:BYD_Sealion_05_EV_007.jpg",
-   "mirrored": false
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/byd-sealion-5-new.jpg",
+   "modelPage": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5_%D7%97%D7%93%D7%A9/"
   },
-  "mg-zs-hybrid-luxury": {
-   "file": "mg-zs-hybrid-luxury.jpg",
-   "commonsFile": "2024 MG ZS Hybrid+ (France) front view.png",
-   "license": "CC BY 3.0",
-   "author": "La Revue Automobile",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2024_MG_ZS_Hybrid%2B_(France)_front_view.png",
-   "mirrored": true
+  "byd-sealion5-design": {
+   "file": "byd-sealion5-design.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/byd-sealion-5-new.jpg",
+   "modelPage": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5_%D7%97%D7%93%D7%A9/"
   },
-  "skoda-kamiq-selection": {
-   "file": "skoda-kamiq-selection.jpg",
-   "commonsFile": "Škoda Kamiq Facelift IMG 8638.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander-93",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:%C5%A0koda_Kamiq_Facelift_IMG_8638.jpg",
-   "mirrored": true
+  "chery-arrizo8-phev-comfort": {
+   "file": "chery-arrizo8-phev-comfort.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-arrizo-8-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%90%D7%A8%D7%99%D7%96%D7%95_8/%D7%A6%27%D7%A8%D7%99_%D7%90%D7%A8%D7%99%D7%96%D7%95_8_%D7%97%D7%93%D7%A9/"
   },
-  "toyota-yaris-cross-eco": {
-   "file": "toyota-yaris-cross-eco.jpg",
-   "commonsFile": "Toyota Yaris Cross Hybrid Auto Zuerich 2021 IMG 0430.jpg",
-   "license": "CC BY-SA 4.0",
-   "author": "Alexander Migl",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_Yaris_Cross_Hybrid_Auto_Zuerich_2021_IMG_0430.jpg",
-   "mirrored": true
+  "chery-fx-hev-comfort": {
+   "file": "chery-fx-hev-comfort.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-fx-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_FX/%D7%A6%27%D7%A8%D7%99_FX_%D7%97%D7%93%D7%A9/"
   },
-  "hyundai-elantra-hybrid-premium": {
-   "file": "hyundai-elantra-hybrid-premium.jpg",
-   "commonsFile": "2023 Hyundai Avante (Elantra) 1.6 HEV Hybrid CN7 PE.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:2023_Hyundai_Avante_(Elantra)_1.6_HEV_Hybrid_CN7_PE.jpg",
-   "mirrored": false
+  "chery-tiggo4-hybrid-comfort": {
+   "file": "chery-tiggo4-hybrid-comfort.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-tiggo-4-pro-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_4_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_4_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "chery-tiggo7-phev-comfort": {
+   "file": "chery-tiggo7-phev-comfort.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-tiggo-7-pro-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "chery-tiggo7-phev-luxury": {
+   "file": "chery-tiggo7-phev-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-tiggo-7-pro-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "chery-tiggo8-phev-comfort": {
+   "file": "chery-tiggo8-phev-comfort.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/chery-tiggo-8-pro-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_8_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_8_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
   },
   "city-5": {
    "file": "city-5.jpg",
-   "commonsFile": "Toyota ProAce City Classic-Gala 2021 1X7A0173.jpg",
-   "license": "see Commons file page",
-   "author": "see Commons file page",
-   "sourceUrl": "https://commons.wikimedia.org/wiki/File:Toyota_ProAce_City_Classic-Gala_2021_1X7A0173.jpg",
-   "mirrored": true
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/toyota-city-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A1%D7%99%D7%98%D7%99/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A1%D7%99%D7%98%D7%99_%D7%97%D7%93%D7%A9/"
+  },
+  "hyundai-elantra-hybrid-premium": {
+   "file": "hyundai-elantra-hybrid-premium.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/hyundai-elantra-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "hyundai-elantra-hybrid-prime": {
+   "file": "hyundai-elantra-hybrid-prime.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/hyundai-elantra-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "hyundai-kona-hybrid-premium": {
+   "file": "hyundai-kona-hybrid-premium.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/hyundai-kona-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%A7%D7%95%D7%A0%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%A7%D7%95%D7%A0%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "hyundai-venue-prime": {
+   "file": "hyundai-venue-prime.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/hyundai-venue-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "hyundai-venue-prime-plus": {
+   "file": "hyundai-venue-prime-plus.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/hyundai-venue-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "jaecoo5-hev-luxury": {
+   "file": "jaecoo5-hev-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/jaecoo-5-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_5/%D7%92%27%D7%90%D7%A7%D7%95_5_%D7%97%D7%93%D7%A9/"
+  },
+  "jaecoo5-hev-premium": {
+   "file": "jaecoo5-hev-premium.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/jaecoo-5-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_5/%D7%92%27%D7%90%D7%A7%D7%95_5_%D7%97%D7%93%D7%A9/"
+  },
+  "jaecoo7-phev-elegance": {
+   "file": "jaecoo7-phev-elegance.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/jaecoo-7-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_7/%D7%92%27%D7%90%D7%A7%D7%95_7_%D7%97%D7%93%D7%A9/"
+  },
+  "kgm-torres-hybrid": {
+   "file": "kgm-torres-hybrid.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/kgm-torres-new.jpg",
+   "modelPage": "https://www.icar.co.il/KGM/KGM_%D7%98%D7%95%D7%A8%D7%A1/KGM_%D7%98%D7%95%D7%A8%D7%A1_%D7%97%D7%93%D7%A9/"
+  },
+  "kia-niro-hybrid-lx": {
+   "file": "kia-niro-hybrid-lx.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/kia-niro-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A0%D7%99%D7%A8%D7%95/%D7%A7%D7%99%D7%94_%D7%A0%D7%99%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "kia-picanto-lxplus": {
+   "file": "kia-picanto-lxplus.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/kia-picanto-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A4%D7%99%D7%A7%D7%A0%D7%98%D7%95/%D7%A7%D7%99%D7%94_%D7%A4%D7%99%D7%A7%D7%A0%D7%98%D7%95_%D7%97%D7%93%D7%A9/"
+  },
+  "kia-seltos-lxplus": {
+   "file": "kia-seltos-lxplus.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/kia-seltos-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A1%D7%9C%D7%98%D7%95%D7%A1/%D7%A7%D7%99%D7%94_%D7%A1%D7%9C%D7%98%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
+  },
+  "kia-sportage-urban": {
+   "file": "kia-sportage-urban.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/kia-sportage-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A1%D7%A4%D7%95%D7%A8%D7%98%D7%96%27/%D7%A7%D7%99%D7%94_%D7%A1%D7%A4%D7%95%D7%A8%D7%98%D7%96%27_%D7%97%D7%93%D7%A9/"
+  },
+  "lynkco-01-pro": {
+   "file": "lynkco-01-pro.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/lynk%26co-01-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95_01/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95_01_%D7%97%D7%93%D7%A9/"
+  },
+  "mg-hs-hybrid-luxury": {
+   "file": "mg-hs-hybrid-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/mg-hs-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_HS/%D7%A1%D7%90%D7%99%D7%A7-MG_HS_%D7%97%D7%93%D7%A9/"
+  },
+  "mg-zs-hybrid-luxury": {
+   "file": "mg-zs-hybrid-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/mg-zs-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_ZS/%D7%A1%D7%90%D7%99%D7%A7-MG_ZS_%D7%97%D7%93%D7%A9/"
+  },
+  "mg3-hybrid-luxury": {
+   "file": "mg3-hybrid-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/mg-3-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_3/%D7%A1%D7%90%D7%99%D7%A7-MG_3_%D7%97%D7%93%D7%A9/"
+  },
+  "mitsubishi-outlander-intense-7": {
+   "file": "mitsubishi-outlander-intense-7.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/mitsubishi-outlander-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99_%D7%90%D7%90%D7%95%D7%98%D7%9C%D7%A0%D7%93%D7%A8/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99_%D7%90%D7%90%D7%95%D7%98%D7%9C%D7%A0%D7%93%D7%A8_%D7%97%D7%93%D7%A9/"
+  },
+  "omoda7-phev-elevate": {
+   "file": "omoda7-phev-elevate.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/omoda-7-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94_7/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94_7_%D7%97%D7%93%D7%A9/"
+  },
+  "opel-frontera-gs-7": {
+   "file": "opel-frontera-gs-7.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/opel-frontera-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%90%D7%95%D7%A4%D7%9C/%D7%90%D7%95%D7%A4%D7%9C_%D7%A4%D7%A8%D7%95%D7%A0%D7%98%D7%A8%D7%94/%D7%90%D7%95%D7%A4%D7%9C_%D7%A4%D7%A8%D7%95%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "opel-mokka-mhev-gsline": {
+   "file": "opel-mokka-mhev-gsline.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/opel-mokka-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%90%D7%95%D7%A4%D7%9C/%D7%90%D7%95%D7%A4%D7%9C_%D7%9E%D7%95%D7%A7%D7%94/%D7%90%D7%95%D7%A4%D7%9C_%D7%9E%D7%95%D7%A7%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "peugeot-2008-active": {
+   "file": "peugeot-2008-active.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/PeugeotE-20082023Exteriors02.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A4%D7%99%D7%92%27%D7%95/%D7%A4%D7%99%D7%92%27%D7%95_2008/%D7%A4%D7%99%D7%92%27%D7%95_2008_%D7%97%D7%93%D7%A9/"
+  },
+  "seat-arona-style": {
+   "file": "seat-arona-style.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/seat-arona-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%99%D7%90%D7%98/%D7%A1%D7%99%D7%90%D7%98_%D7%90%D7%A8%D7%95%D7%A0%D7%94/%D7%A1%D7%99%D7%90%D7%98_%D7%90%D7%A8%D7%95%D7%A0%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-fabia-selection": {
+   "file": "skoda-fabia-selection.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-fabia-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A4%D7%90%D7%91%D7%99%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A4%D7%90%D7%91%D7%99%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-kamiq-selection": {
+   "file": "skoda-kamiq-selection.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-kamiq-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%9E%D7%99%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%9E%D7%99%D7%A7_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-karoq-selection": {
+   "file": "skoda-karoq-selection.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-karoq-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%A8%D7%95%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%A8%D7%95%D7%A7_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-kodiaq-adv": {
+   "file": "skoda-kodiaq-adv.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-kodiaq-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%95%D7%93%D7%99%D7%90%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%95%D7%93%D7%99%D7%90%D7%A7_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-octavia-selection": {
+   "file": "skoda-octavia-selection.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-octavia-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%90%D7%95%D7%A7%D7%98%D7%91%D7%99%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%90%D7%95%D7%A7%D7%98%D7%91%D7%99%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "skoda-scala-selection": {
+   "file": "skoda-scala-selection.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/skoda-scala-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A1%D7%A7%D7%90%D7%9C%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A1%D7%A7%D7%90%D7%9C%D7%94_%D7%97%D7%93%D7%A9/"
+  },
+  "subaru-crosstrek-luxury": {
+   "file": "subaru-crosstrek-luxury.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/subaru-crosstrek-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95_%D7%A7%D7%A8%D7%95%D7%A1%D7%98%D7%A8%D7%A7/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95_%D7%A7%D7%A8%D7%95%D7%A1%D7%98%D7%A8%D7%A7_%D7%97%D7%93%D7%A9/"
+  },
+  "toyota-corolla-cross-active": {
+   "file": "toyota-corolla-cross-active.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/toyota-corolla-cross-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A7%D7%95%D7%A8%D7%95%D7%9C%D7%94_%D7%A7%D7%A8%D7%95%D7%A1/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A7%D7%95%D7%A8%D7%95%D7%9C%D7%94_%D7%A7%D7%A8%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
+  },
+  "toyota-yaris-cross-eco": {
+   "file": "toyota-yaris-cross-eco.jpg",
+   "imageUrl": "https://www.icar.co.il/_media/images/models/bgremoval/toyota-yaris-cross-new.jpg",
+   "modelPage": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%99%D7%90%D7%A8%D7%99%D7%A1_%D7%A7%D7%A8%D7%95%D7%A1/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%99%D7%90%D7%A8%D7%99%D7%A1_%D7%A7%D7%A8%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
   }
  }
 }

@@ -11,6 +11,7 @@ import { CatalogGrid } from './features/catalog/CatalogGrid'
 import type { FleetVehicle } from './features/catalog/CatalogGrid'
 import { VehiclePage } from './features/vehicle/VehiclePage'
 import { ComparePage } from './features/compare/ComparePage'
+import { GalleryPage } from './features/gallery/GalleryPage'
 import type { CompareEntry } from './features/compare/ComparePage'
 import { AdminGate } from './features/admin/AdminGate'
 import { AdminPanel } from './features/admin/AdminPanel'
@@ -18,7 +19,7 @@ import fleetJson from './data/catalog/fleet-2026.json'
 import { NavMenu } from './ui/NavMenu'
 import type { NavItem } from './ui/NavMenu'
 import {
-  IconCompare, IconFleet, IconProfile, IconSettings, IconTheme,
+  IconCompare, IconFleet, IconGallery, IconProfile, IconSettings, IconTheme,
 } from './ui/Icons'
 
 /**
@@ -31,13 +32,14 @@ import {
  * about the same number.
  */
 
-type Screen = 'catalog' | 'vehicle' | 'compare' | 'profile' | 'admin'
+type Screen = 'catalog' | 'gallery' | 'vehicle' | 'compare' | 'profile' | 'admin'
 type Theme = 'light' | 'dark'
 
 const THEME_STORAGE_KEY = 'maslul.theme'
 
 const TABS: readonly { id: Screen; labelHe: string; icon: () => ReactNode }[] = [
   { id: 'catalog', labelHe: 'הצי', icon: () => <IconFleet /> },
+  { id: 'gallery', labelHe: 'גלריה', icon: () => <IconGallery /> },
   { id: 'compare', labelHe: 'השוואה', icon: () => <IconCompare /> },
   { id: 'profile', labelHe: 'הפרופיל שלי', icon: () => <IconProfile /> },
   { id: 'admin', labelHe: 'הגדרות', icon: () => <IconSettings /> },
@@ -52,6 +54,10 @@ export function App() {
   )
   const [screen, setScreen] = useState<Screen>('catalog')
   const [openVehicleId, setOpenVehicleId] = useState<string | null>(null)
+  /* Which screen the open car was reached from, so Back returns there. A car
+     opened from the gallery that lands you on the fleet list has lost your
+     place. */
+  const [cameFrom, setCameFrom] = useState<'catalog' | 'gallery'>('catalog')
   const [menuOpen, setMenuOpen] = useState(false)
 
   const profileStore = useProfile()
@@ -99,9 +105,11 @@ export function App() {
       : {}),
   })), [selection.selected.length])
 
-  function openCar(id: string): void {
+  function openCar(id: string, from: 'catalog' | 'gallery' = 'catalog'): void {
     setOpenVehicleId(id)
+    setCameFrom(from)
     setScreen('vehicle')
+    window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   function goTab(id: Screen): void {
@@ -118,7 +126,7 @@ export function App() {
 
           <NavMenu
             items={navItems}
-            activeId={screen === 'vehicle' ? 'catalog' : screen}
+            activeId={screen === 'vehicle' ? cameFrom : screen}
             onSelect={id => { goTab(id as Screen) }}
             open={menuOpen}
             onOpenChange={setMenuOpen}
@@ -148,6 +156,17 @@ export function App() {
           />
         )}
 
+        {screen === 'gallery' && (
+          <GalleryPage
+            vehicles={FLEET}
+            profile={profile}
+            policy={policy}
+            taxRules={taxRules as CalcTaxRules}
+            prices={prices as EnergyPrices}
+            onSelect={id => { openCar(id, 'gallery') }}
+          />
+        )}
+
         {screen === 'vehicle' && openVehicle !== null && (
           <VehiclePage
             vehicle={openVehicle}
@@ -155,7 +174,7 @@ export function App() {
             policy={policy}
             taxRules={taxRules as CalcTaxRules}
             prices={prices as EnergyPrices}
-            onBack={() => { goTab('catalog') }}
+            onBack={() => { goTab(cameFrom) }}
           />
         )}
 

@@ -114,6 +114,8 @@ export type Policy = {
     employeeEntersBudget: boolean
     defaultMonthlyBudgetIce: number
     defaultMonthlyBudgetElectrified: number
+    /** Petrol only when false: the employee pays their own charging. */
+    budgetCoversElectricity: boolean
     unusedCreditEnabled: boolean
     unusedCreditCappedAtSupplement: boolean
   }

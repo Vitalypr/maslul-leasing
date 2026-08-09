@@ -32,6 +32,7 @@
     "employeeEntersBudget": true,
     "defaultMonthlyBudgetIce": 0,
     "defaultMonthlyBudgetElectrified": 0,
+    "budgetCoversElectricity": false,
     "unusedCreditEnabled": true,
     "unusedCreditCappedAtSupplement": true,
     "verified": true

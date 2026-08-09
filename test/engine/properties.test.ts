@@ -85,6 +85,19 @@ function* all() {
               yield { id, salary, annualKm, step, tier, chargesDaily }
 }
 
+/**
+ * True when the unused-fuel refund is pinned to the upgrade supplement, so an
+ * extra shekel of unspent budget would return nothing. Read off the trace the
+ * engine already publishes rather than recomputed, so the test cannot drift
+ * from the rule it is checking.
+ */
+function creditIsCapped(r: { ledger: { id: string; trace: { inputs: Record<string, number> } }[] }): boolean {
+  const line = r.ledger.find(l => l.id === 'unusedFuelCredit')
+  if (line === undefined) return false
+  const { unused = 0, annualSupplement = 0 } = line.trace.inputs
+  return annualSupplement > 0 && unused >= annualSupplement - 0.011
+}
+
 describe('engine properties across the input space', () => {
   it('charges for excess kilometres only above the quota, and exactly at the rate', () => {
     for (const c of all()) {
@@ -96,16 +109,49 @@ describe('engine properties across the input space', () => {
     }
   })
 
-  it('never makes charging a plug-in cost more than not charging', () => {
+  /*
+   * Charging used to be unconditionally cheaper, and the test said so. It is
+   * not, and the reason is worth stating rather than hiding behind a loosened
+   * bound.
+   *
+   * The employer's budget pays for petrol only — the employee's own meter pays
+   * for charging — and unspent budget comes back only up to the upgrade
+   * supplement. Once that refund is already at its cap, moving a kilometre off
+   * petrol and onto the wall converts an expense the employer was paying into
+   * one the employee pays, and buys no extra refund for it. So charging is
+   * cheaper exactly while the refund still has headroom, which is the form the
+   * invariant takes now.
+   *
+   * The excluded case is not a defect. It is a real and slightly perverse
+   * incentive in the policy, and it is tested for on purpose below.
+   */
+  it('never makes charging a plug-in cost more, while the refund has headroom', () => {
     for (const id of IDS)
       for (const salary of SALARIES)
         for (const annualKm of KMS)
           for (const step of STEPS)
             for (const tier of TIERS) {
-              const on = run(id, salary, annualKm, step, tier, true).annualNet
+              const on = run(id, salary, annualKm, step, tier, true)
+              if (creditIsCapped(on)) continue
               const off = run(id, salary, annualKm, step, tier, false).annualNet
-              expect(on, `${id} ${annualKm}km`).toBeLessThanOrEqual(off + 0.011)
+              expect(on.annualNet, `${id} ${annualKm}km`).toBeLessThanOrEqual(off + 0.011)
             }
+  })
+
+  it('makes charging dearer only when the refund is already at its cap', () => {
+    let seen = 0
+    for (const id of IDS)
+      for (const annualKm of KMS)
+        for (const step of STEPS) {
+          const on = run(id, 35000, annualKm, step, 'C', true)
+          const off = run(id, 35000, annualKm, step, 'C', false).annualNet
+          if (on.annualNet <= off + 0.011) continue
+          seen++
+          // Every such case must be explained by the cap, never by anything else.
+          expect(creditIsCapped(on), `${id} ${annualKm}km step ${step}`).toBe(true)
+        }
+    // If this ever falls to zero the policy changed and the note above is stale.
+    expect(seen).toBeGreaterThan(0)
   })
 
   it('never makes a larger fuel budget cost the employee more', () => {

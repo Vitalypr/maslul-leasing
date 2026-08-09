@@ -70,7 +70,19 @@ export function Ledger({
                   onClick={() => toggle(l.id)}
                 >
                   <span className="caret" aria-hidden="true">▾</span>
-                  <span className="lbl">{l.labelHe}</span>
+                  <span className="lbl">
+                    {l.labelHe}
+                    {/* When the money does not move monthly, say so. The unused
+                        fuel credit is reconciled once a year, and a twelfth of
+                        it shown in the monthly column reads as a monthly rebate
+                        that never arrives. The engine writes the annual sum
+                        into this string, because by the time a line reaches
+                        here its amount may already have been scaled to the
+                        chosen horizon and the year is no longer recoverable. */}
+                    {l.cadenceHe === undefined
+                      ? null
+                      : <em className="cadence">{l.cadenceHe}</em>}
+                  </span>
                   <Money
                     value={l.annualAmount * factor}
                     className={l.annualAmount < 0 ? 'amt neg' : 'amt'}

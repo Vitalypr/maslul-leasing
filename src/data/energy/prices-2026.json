@@ -3,7 +3,7 @@
   "homeElectricityPerKwh": 0.6352,
   "asOf": "2026-08-08",
   "verified": true,
-  "source": "נמסר על ידי הלקוח. עדכון אוטומטי חודשי — ראה docs/ENERGY-ASSUMPTIONS.md",
+  "source": "נמסר על ידי הלקוח ואומת מול המקור הרשמי. העדכון ידני — אין משיכה אוטומטית מהאינטרנט. ניתן לשנות במסך המנהל. ראה docs/ENERGY-ASSUMPTIONS.md",
   "dieselPerLiter": null,
   "notes": {
     "petrol95": "מחיר מרבי בשירות עצמי, בתוקף 02/08/2026. מאומת.",

@@ -108,7 +108,15 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
       annualAmount: petrolCost,
       treatment,
       trace: {
-        formulaHe:
+        /*
+         * On a plug-in the litre count is surprising unless the reader is told
+         * where the petrol kilometres come from. The battery covers one charge
+         * per working day and no more; everything past that, and every
+         * kilometre driven on a day that is not a working day, is petrol. Said
+         * plainly here the figure stops looking like a broken economy number
+         * and starts looking like the commute it actually describes.
+         */
+        formulaHe: whyIceKm(split) +
           `${fmt(split.iceKm)} ק"מ ÷ ${fmt(kpl)} קמ"ל = ${fmt(liters)} ליטר\n` +
           `× ${fmt(unitPrice)} ₪ = ${fmt(petrolCost)} ₪ לשנה`,
         inputs: { iceKm: split.iceKm, kmPerLiter: kpl, liters, pricePerLiter: unitPrice },
@@ -128,7 +136,10 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
       trace: {
         formulaHe:
           `${fmt(split.evKm)} ק"מ × ${fmt(per100)} kWh ל-100 ק"מ = ${fmt(kwh)} kWh\n` +
-          `× ${fmt(prices.homeElectricityPerKwh)} ₪ = ${fmt(electricityCost)} ₪ לשנה`,
+          `× ${fmt(prices.homeElectricityPerKwh)} ₪ = ${fmt(electricityCost)} ₪ לשנה`
+          // The one thing a reader cannot infer from the arithmetic: who pays.
+          + (ctx.policy.fuel.budgetCoversElectricity ? ''
+            : '\nטעינה ביתית אינה מכוסה בקצובת הדלק — העובד משלם אותה בעצמו.'),
         inputs: { evKm: split.evKm, kwhPer100km: per100, kwh, pricePerKwh: prices.homeElectricityPerKwh },
         sourceRef: 'catalog/fleet-2026.json · consumption · energy/prices-2026.json',
       },
@@ -136,6 +147,30 @@ export function energyLines(ctx: CalcContext): MoneyLine[] {
   }
 
   return out
+}
+
+/**
+ * One sentence on where the petrol kilometres came from, for a plug-in that is
+ * being charged. Empty for everything else, where the answer is just "all of
+ * them" and saying so would be padding.
+ *
+ * Which of the two limits bound matters to the reader: a battery too small for
+ * the commute is a reason to look at a different car, while a commute shorter
+ * than the battery means the petrol is all weekend driving and no car in the
+ * fleet would change it.
+ */
+function whyIceKm(s: UsageSplit): string {
+  if (s.evKm <= 0 || s.iceKm <= 0) return ''
+  const batteryBound = s.effectiveEvRangeKm < s.dailyCommuteKm
+  const perDay = Math.min(s.dailyCommuteKm, s.effectiveEvRangeKm)
+  const cause = batteryBound
+    ? `הסוללה מכסה ${fmt(s.effectiveEvRangeKm)} ק"מ ביום — פחות מהנסיעה היומית ${fmt(s.dailyCommuteKm)} ק"מ`
+    : `הנסיעה היומית ${fmt(s.dailyCommuteKm)} ק"מ נכנסת כולה בסוללה (${fmt(s.effectiveEvRangeKm)} ק"מ)`
+  return (
+    `${cause}\n` +
+    `חשמל: ${fmt(perDay)} ק"מ × ${fmt(s.workDaysPerYear)} ימי עבודה = ${fmt(s.evKm)} ק"מ\n` +
+    `דלק: ${fmt(s.annualKm)} − ${fmt(s.evKm)} = ${fmt(s.iceKm)} ק"מ (${Math.round(s.iceKm / s.annualKm * 100)}% מהנסועה)\n`
+  )
 }
 
 const fmt = (n: number) =>

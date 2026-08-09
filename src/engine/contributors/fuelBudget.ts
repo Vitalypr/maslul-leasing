@@ -51,11 +51,25 @@ export function fuelBudgetLines(ctx: CalcContext): MoneyLine[] {
   const monthlyBudget = monthlyFuelBudget(ctx)
   const annualBudget = round2(monthlyBudget * 12)
 
+  /*
+   * What the budget is allowed to pay for.
+   *
+   * Petrol only. The employer budgets fuel; home charging is on the employee's
+   * own electricity bill and never touches this account. The distinction is
+   * invisible in the total for an ordinary plug-in — the arithmetic happens to
+   * land in the same place — but it is not invisible for a battery car, where
+   * treating charging as budget-eligible would silently refund an expense the
+   * employer never agreed to cover.
+   */
   const energy = energyCostAnnual(ctx.usage, ctx.vehicle.consumption ?? {}, ctx.prices)
-  const annualSpend = round2(energy.petrolCost + energy.electricityCost)
+  const annualSpend = ctx.policy.fuel.budgetCoversElectricity
+    ? round2(energy.petrolCost + energy.electricityCost)
+    : round2(energy.petrolCost)
 
   const out: MoneyLine[] = []
   const covered = round2(Math.min(annualBudget, annualSpend))
+  // Named on screen so nobody has to infer the scope of the budget.
+  const spendHe = ctx.policy.fuel.budgetCoversElectricity ? 'אנרגיה' : 'דלק'
 
   if (covered !== 0) {
     out.push({
@@ -67,29 +81,57 @@ export function fuelBudgetLines(ctx: CalcContext): MoneyLine[] {
       trace: {
         formulaHe:
           `תקציב ${fmt(monthlyBudget)} ₪ × 12 = ${fmt(annualBudget)} ₪\n` +
-          `הוצאת אנרגיה בפועל ${fmt(annualSpend)} ₪ → מכוסה ${fmt(covered)} ₪`,
+          `הוצאת ${spendHe} בפועל ${fmt(annualSpend)} ₪ → מכוסה ${fmt(covered)} ₪`
+          + (ctx.policy.fuel.budgetCoversElectricity ? ''
+            : '\nהקצובה מיועדת לדלק בלבד. חשמל לטעינה משולם על ידי העובד.'),
         inputs: { monthlyBudget, annualBudget, annualSpend, covered },
         sourceRef: 'policy/org.json · fuel',
       },
     })
   }
 
-  const credit = creditFor(ctx, annualBudget, annualSpend)
-  if (credit !== 0) {
+  /*
+   * The annual settlement always appears, including when it settles to zero.
+   *
+   * It used to be emitted only when there was money in it, which is what a
+   * ledger normally wants — a row of nought is noise. It is the wrong rule
+   * here. This is the one line a reader goes looking for, and finding nothing
+   * where they expected a refund reads as a fault in the app rather than as an
+   * answer. So the row states the outcome either way, and when the outcome is
+   * nothing it says by how much the budget was overspent.
+   */
+  if (ctx.policy.fuel.unusedCreditEnabled && annualBudget > 0) {
+    const unused = round2(Math.max(0, annualBudget - annualSpend))
+    const over = round2(Math.max(0, annualSpend - annualBudget))
+    const credit = creditFor(ctx, annualBudget, annualSpend)
+    const cap = annualSupplement(ctx)
+
     out.push({
       id: 'unusedFuelCredit',
-      labelHe: 'זיכוי דלק שלא נוצל',
+      labelHe: credit > 0 ? 'זיכוי קצובת דלק שלא נוצלה' : 'זיכוי קצובת דלק — אין',
       category: 'fuelBudget',
-      annualAmount: -credit,
+      // Normalised: -0 is a real JS value and would print as a negative nought.
+      annualAmount: credit === 0 ? 0 : -credit,
+      /*
+       * Settled once a year against the supplement, not returned monthly — and
+       * the year's figure is written in here rather than left to the display.
+       * A line arrives at the ledger already scaled to whichever horizon the
+       * reader picked, so by then the annual sum cannot be recovered, and
+       * "₪27" against "settled once a year" is a question, not an answer.
+       */
+      cadenceHe: credit > 0
+        ? `מסולק פעם בשנה · ₪${fmt(Math.round(credit))} בשנה`
+        : 'מסולק פעם בשנה',
       treatment: ctx.policy.taxTreatment.unusedFuelCredit,
       trace: {
-        formulaHe:
-          `${fmt(annualBudget)} − ${fmt(annualSpend)} = ${fmt(Math.max(0, annualBudget - annualSpend))} ₪ שלא נוצלו\n` +
-          `מקוזז מול התוספת השנתית ${fmt(annualSupplement(ctx))} ₪ → ${fmt(credit)} ₪`,
+        formulaHe: over > 0
+          ? `קצובה ${fmt(annualBudget)} ₪ − הוצאת ${spendHe} ${fmt(annualSpend)} ₪ = חריגה של ${fmt(over)} ₪\n`
+            + 'ההוצאה גבוהה מהקצובה, ולכן לא נותר ממה לזכות. אין החזר.'
+          : `קצובה ${fmt(annualBudget)} ₪ − הוצאת ${spendHe} ${fmt(annualSpend)} ₪ = ${fmt(unused)} ₪ שלא נוצלו\n`
+            + `תקרה: התוספת השנתית ${fmt(cap)} ₪ → מוחזר ${fmt(credit)} ₪`,
         inputs: {
-          annualBudget, annualSpend,
-          annualSupplement: annualSupplement(ctx),
-          credit,
+          annualBudget, annualSpend, unused, overspend: over,
+          annualSupplement: cap, credit,
         },
         sourceRef: 'policy/org.json · fuel.unusedCredit',
       },

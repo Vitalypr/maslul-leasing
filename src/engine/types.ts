@@ -25,6 +25,16 @@ export type MoneyLine = {
   /** Annual ILS. Positive = leaves the employee. Negative = reaches them. */
   annualAmount: number
   treatment: TaxTreatment
+  /**
+   * When the money actually moves, when that is not monthly.
+   *
+   * Most lines are a monthly reality — the supplement leaves the payslip every
+   * month. The unused-fuel credit does not: it is reconciled once a year. The
+   * annual and contract totals are right either way, but the monthly view
+   * divides it by twelve, and without saying so that reads as a rebate arriving
+   * every month. The marker is what keeps the average honest.
+   */
+  cadenceHe?: string | undefined
   trace: {
     formulaHe: string
     inputs: Record<string, number>

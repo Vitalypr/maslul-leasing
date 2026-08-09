@@ -18,8 +18,14 @@ import { VehicleImage } from '../../ui/VehicleImage'
  * car costs *this* reader, per month, after tax.
  */
 
-/** A catalogue row: what the engine reads, plus what the card shows. */
-export type FleetVehicle = Vehicle & { trim: string }
+/**
+ * A catalogue row: what the engine reads, plus what the card shows.
+ *
+ * `icarUrl` is deliberately here and not on the engine's `Vehicle`. The engine
+ * costs cars and must not grow a field it would never read; the screens link
+ * out to the model's page, so the screens' type is where the link lives.
+ */
+export type FleetVehicle = Vehicle & { trim: string; icarUrl?: string | undefined }
 
 export type CatalogGridProps = {
   vehicles: readonly FleetVehicle[]

@@ -87,7 +87,13 @@ export const PolicySchema = z.strictObject({
     employeeEntersBudget: z.boolean(),
     defaultMonthlyBudgetIce: z.number().nonnegative(),
     defaultMonthlyBudgetElectrified: z.number().nonnegative(),
-    unusedCreditEnabled: z.boolean(),
+    /**
+   * Whether home charging draws on the same budget as petrol. It does not:
+   * the employer budgets fuel, and the employee pays their own electricity
+   * bill. Kept as a flag because it is an employer policy, not a law.
+   */
+  budgetCoversElectricity: z.boolean(),
+  unusedCreditEnabled: z.boolean(),
     unusedCreditCappedAtSupplement: z.boolean(),
     verified: z.boolean(),
   }),

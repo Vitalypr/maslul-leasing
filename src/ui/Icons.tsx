@@ -69,6 +69,29 @@ export function IconSettings({ size = 20, className }: IconProps) {
   )
 }
 
+/** The gallery: tiles in a grid, which is literally what the screen is. */
+export function IconGallery({ size = 20, className }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <rect x="3.6" y="3.6" width="7" height="7" rx="1.6" />
+      <rect x="13.4" y="3.6" width="7" height="7" rx="1.6" />
+      <rect x="3.6" y="13.4" width="7" height="7" rx="1.6" />
+      <rect x="13.4" y="13.4" width="7" height="7" rx="1.6" />
+    </svg>
+  )
+}
+
+/** Leaving the app: an arrow out of a frame, the web's settled sign for it. */
+export function IconExternal({ size = 15, className }: IconProps) {
+  return (
+    <svg {...base(size)} className={className}>
+      <path d="M13.5 4.5H19.5V10.5" />
+      <path d="M19.5 4.5L11 13" />
+      <path d="M18 14.6v3.9a1.5 1.5 0 0 1-1.5 1.5h-11A1.5 1.5 0 0 1 4 18.5v-11A1.5 1.5 0 0 1 5.5 6h3.9" />
+    </svg>
+  )
+}
+
 export function IconMenu({ size = 22, className }: IconProps) {
   return (
     <svg {...base(size)} className={className}>

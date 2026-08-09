@@ -1,15 +1,16 @@
 /**
  * A vehicle photograph, or nothing at all.
  *
- * The photographs come from Wikimedia Commons and are normalised at build time
- * to one frame — 16:10, 1000x625, centre-cropped — and thirteen of them were
- * mirrored so the whole fleet faces the same way. That work is done before the
- * file lands here, so this component only has to place it.
+ * All forty-three are studio cutouts from icar.co.il, normalised offline to one
+ * frame — 16:10, 1000x625, the car scaled to fit inside a 94% box and centred
+ * on white. Because the source is already a cutout on white, padding to the
+ * frame is invisible: no car is cropped and none sits tighter than its
+ * neighbour. That work is done before the file lands here, so this component
+ * only has to place it. The whole set is 892 KB.
  *
- * Two of the forty-three cars have no photograph: CITY 5, whose identity the
- * price list never states, and the Chery FX, which Commons does not cover.
- * They render the plate instead of a broken image. A missing photo must never
- * look like a loading failure, and must never borrow another car's picture.
+ * The empty branch is kept even though nothing uses it today. A catalogue row
+ * added without a photograph must render as a stated absence, never as a broken
+ * image, and never by borrowing another car's picture.
  */
 
 // Eager so a missing file is a build-time absence rather than a runtime 404.

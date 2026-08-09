@@ -8,7 +8,7 @@
   "notes": {
     "supplement": "supplementTierC/D are the values printed in the source table. They reproduce exactly as rate x max(0, listPrice - budget), with budgets of 135000 (tier C) and 155000 (tier D). See docs/data/DATA-SPEC.md section 2.",
     "consumption": "צריכת דלק מטבלאות הגילוי של היבואנים בישראל. לפלאגין: evRangeKm הוא הטווח המוצהר, ו-realEvRangeKm הוא טווח שנמדד במבחני דרך והוא שמשמש בחישוב.",
-    "images": "angle codes follow the uniform contract: 23 = front 3/4, 09 = side, 29 = rear 3/4, int = cabin. See DATA-SPEC.md section 5."
+    "images": "חיתוכי סטודיו מ-icar.co.il, מנורמלים ל-1000x625 על רקע לבן. icarUrl מפנה לדף הדגם באתר."
   },
   "vehicles": [
     {
@@ -29,7 +29,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A4%D7%99%D7%A7%D7%A0%D7%98%D7%95/%D7%A7%D7%99%D7%94_%D7%A4%D7%99%D7%A7%D7%A0%D7%98%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-fabia-selection",
@@ -49,7 +50,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A4%D7%90%D7%91%D7%99%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A4%D7%90%D7%91%D7%99%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "mg3-hybrid-luxury",
@@ -69,7 +71,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_3/%D7%A1%D7%90%D7%99%D7%A7-MG_3_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "hyundai-venue-prime",
@@ -89,7 +92,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "hyundai-venue-prime-plus",
@@ -109,7 +113,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%95%D7%A0%D7%99%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "seat-arona-style",
@@ -130,7 +135,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%99%D7%90%D7%98/%D7%A1%D7%99%D7%90%D7%98_%D7%90%D7%A8%D7%95%D7%A0%D7%94/%D7%A1%D7%99%D7%90%D7%98_%D7%90%D7%A8%D7%95%D7%A0%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-tiggo4-hybrid-comfort",
@@ -150,7 +156,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_4_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_4_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-scala-selection",
@@ -170,7 +177,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A1%D7%A7%D7%90%D7%9C%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A1%D7%A7%D7%90%D7%9C%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-kamiq-selection",
@@ -190,7 +198,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%9E%D7%99%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%9E%D7%99%D7%A7_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "peugeot-2008-active",
@@ -210,7 +219,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A4%D7%99%D7%92%27%D7%95/%D7%A4%D7%99%D7%92%27%D7%95_2008/%D7%A4%D7%99%D7%92%27%D7%95_2008_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "opel-mokka-mhev-gsline",
@@ -232,7 +242,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%90%D7%95%D7%A4%D7%9C/%D7%90%D7%95%D7%A4%D7%9C_%D7%9E%D7%95%D7%A7%D7%94/%D7%90%D7%95%D7%A4%D7%9C_%D7%9E%D7%95%D7%A7%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-fx-hev-comfort",
@@ -252,7 +263,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_FX/%D7%A6%27%D7%A8%D7%99_FX_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "jaecoo5-hev-premium",
@@ -272,7 +284,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_5/%D7%92%27%D7%90%D7%A7%D7%95_5_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "byd-atto2-boost",
@@ -294,7 +307,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 83
+      "realEvRangeKm": 83,
+      "icarUrl": "https://www.icar.co.il/BYD/BYD_%D7%90%D7%98%D7%95_2/BYD_%D7%90%D7%98%D7%95_2_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "mg-zs-hybrid-luxury",
@@ -314,7 +328,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_ZS/%D7%A1%D7%90%D7%99%D7%A7-MG_ZS_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "opel-frontera-gs-7",
@@ -335,7 +350,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%90%D7%95%D7%A4%D7%9C/%D7%90%D7%95%D7%A4%D7%9C_%D7%A4%D7%A8%D7%95%D7%A0%D7%98%D7%A8%D7%94/%D7%90%D7%95%D7%A4%D7%9C_%D7%A4%D7%A8%D7%95%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "toyota-yaris-cross-eco",
@@ -355,7 +371,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%99%D7%90%D7%A8%D7%99%D7%A1_%D7%A7%D7%A8%D7%95%D7%A1/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%99%D7%90%D7%A8%D7%99%D7%A1_%D7%A7%D7%A8%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "jaecoo5-hev-luxury",
@@ -375,7 +392,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_5/%D7%92%27%D7%90%D7%A7%D7%95_5_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "kia-seltos-lxplus",
@@ -395,7 +413,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A1%D7%9C%D7%98%D7%95%D7%A1/%D7%A7%D7%99%D7%94_%D7%A1%D7%9C%D7%98%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-octavia-selection",
@@ -415,7 +434,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%90%D7%95%D7%A7%D7%98%D7%91%D7%99%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%90%D7%95%D7%A7%D7%98%D7%91%D7%99%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "byd-sealion5-comfort",
@@ -438,7 +458,8 @@
       },
       "rambiEligible": false,
       "realEvRangeKm": 50,
-      "noteHe": "סוללה 12.96 קוט\"ש"
+      "noteHe": "סוללה 12.96 קוט\"ש",
+      "icarUrl": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "byd-sealion5-design",
@@ -461,7 +482,8 @@
       },
       "rambiEligible": false,
       "realEvRangeKm": 72,
-      "noteHe": "סוללה 18.3 קוט\"ש — דגם שונה מ-Comfort, לא כפילות"
+      "noteHe": "סוללה 18.3 קוט\"ש — דגם שונה מ-Comfort, לא כפילות",
+      "icarUrl": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5/BYD_%D7%A1%D7%99%D7%9C%D7%99%D7%95%D7%9F_5_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-karoq-selection",
@@ -481,7 +503,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%A8%D7%95%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%90%D7%A8%D7%95%D7%A7_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "hyundai-elantra-hybrid-prime",
@@ -501,7 +524,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-tiggo7-phev-comfort",
@@ -523,7 +547,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 75
+      "realEvRangeKm": 75,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "byd-seal5-dmi-comfort",
@@ -545,7 +570,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 78
+      "realEvRangeKm": 78,
+      "icarUrl": "https://www.icar.co.il/BYD/BYD_%D7%A1%D7%99%D7%9C_5/BYD_%D7%A1%D7%99%D7%9C_5_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-arrizo8-phev-comfort",
@@ -568,7 +594,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 83
+      "realEvRangeKm": 83,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%90%D7%A8%D7%99%D7%96%D7%95_8/%D7%A6%27%D7%A8%D7%99_%D7%90%D7%A8%D7%99%D7%96%D7%95_8_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "mg-hs-hybrid-luxury",
@@ -588,7 +615,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%90%D7%99%D7%A7-MG/%D7%A1%D7%90%D7%99%D7%A7-MG_HS/%D7%A1%D7%90%D7%99%D7%A7-MG_HS_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "subaru-crosstrek-luxury",
@@ -610,7 +638,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95_%D7%A7%D7%A8%D7%95%D7%A1%D7%98%D7%A8%D7%A7/%D7%A1%D7%95%D7%91%D7%90%D7%A8%D7%95_%D7%A7%D7%A8%D7%95%D7%A1%D7%98%D7%A8%D7%A7_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "hyundai-kona-hybrid-premium",
@@ -630,7 +659,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%A7%D7%95%D7%A0%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%A7%D7%95%D7%A0%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "hyundai-elantra-hybrid-premium",
@@ -650,7 +680,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94/%D7%99%D7%95%D7%A0%D7%93%D7%90%D7%99_%D7%90%D7%9C%D7%A0%D7%98%D7%A8%D7%94_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "kia-niro-hybrid-lx",
@@ -670,7 +701,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A0%D7%99%D7%A8%D7%95/%D7%A7%D7%99%D7%94_%D7%A0%D7%99%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "lynkco-01-pro",
@@ -692,7 +724,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 68
+      "realEvRangeKm": 68,
+      "icarUrl": "https://www.icar.co.il/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95_01/%D7%9C%D7%99%D7%A0%D7%A7_%D7%90%D7%A0%D7%93_%D7%A7%D7%95_01_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "jaecoo7-phev-elegance",
@@ -714,7 +747,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 78
+      "realEvRangeKm": 78,
+      "icarUrl": "https://www.icar.co.il/%D7%92%27%D7%90%D7%A7%D7%95/%D7%92%27%D7%90%D7%A7%D7%95_7/%D7%92%27%D7%90%D7%A7%D7%95_7_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "kgm-torres-hybrid",
@@ -734,7 +768,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/KGM/KGM_%D7%98%D7%95%D7%A8%D7%A1/KGM_%D7%98%D7%95%D7%A8%D7%A1_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-tiggo7-phev-luxury",
@@ -756,7 +791,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 75
+      "realEvRangeKm": 75,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_7_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "toyota-corolla-cross-active",
@@ -776,7 +812,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A7%D7%95%D7%A8%D7%95%D7%9C%D7%94_%D7%A7%D7%A8%D7%95%D7%A1/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A7%D7%95%D7%A8%D7%95%D7%9C%D7%94_%D7%A7%D7%A8%D7%95%D7%A1_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "city-5",
@@ -798,7 +835,8 @@
         "sourceNote": "מאגר WLTP של משרד התחבורה, דגם BKYMA21LLMTMDW. 5.5 ליטר/100 ק\"מ."
       },
       "rambiEligible": false,
-      "seats": 5
+      "seats": 5,
+      "icarUrl": "https://www.icar.co.il/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A1%D7%99%D7%98%D7%99/%D7%98%D7%95%D7%99%D7%95%D7%98%D7%94_%D7%A1%D7%99%D7%98%D7%99_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "kia-sportage-urban",
@@ -818,7 +856,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": false
+      "rambiEligible": false,
+      "icarUrl": "https://www.icar.co.il/%D7%A7%D7%99%D7%94/%D7%A7%D7%99%D7%94_%D7%A1%D7%A4%D7%95%D7%A8%D7%98%D7%96%27/%D7%A7%D7%99%D7%94_%D7%A1%D7%A4%D7%95%D7%A8%D7%98%D7%96%27_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "omoda7-phev-elevate",
@@ -840,7 +879,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": false,
-      "realEvRangeKm": 76
+      "realEvRangeKm": 76,
+      "icarUrl": "https://www.icar.co.il/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94_7/%D7%90%D7%95%D7%9E%D7%95%D7%93%D7%94_7_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "chery-tiggo8-phev-comfort",
@@ -865,7 +905,8 @@
         "sourceNote": "טווח מוצהר WLTP. הטווח האמיתי נמדד במבחני דרך ישראליים ונמצא ב-realEvRangeKm — הוא שגובר בחישוב."
       },
       "rambiEligible": true,
-      "realEvRangeKm": 72
+      "realEvRangeKm": 72,
+      "icarUrl": "https://www.icar.co.il/%D7%A6%27%D7%A8%D7%99/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_8_%D7%A4%D7%A8%D7%95/%D7%A6%27%D7%A8%D7%99_%D7%98%D7%99%D7%92%D7%95_8_%D7%A4%D7%A8%D7%95_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "mitsubishi-outlander-intense-7",
@@ -888,7 +929,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": true
+      "rambiEligible": true,
+      "icarUrl": "https://www.icar.co.il/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99_%D7%90%D7%90%D7%95%D7%98%D7%9C%D7%A0%D7%93%D7%A8/%D7%9E%D7%99%D7%A6%D7%95%D7%91%D7%99%D7%A9%D7%99_%D7%90%D7%90%D7%95%D7%98%D7%9C%D7%A0%D7%93%D7%A8_%D7%97%D7%93%D7%A9/"
     },
     {
       "id": "skoda-kodiaq-adv",
@@ -911,7 +953,8 @@
         "source": "importer",
         "sourceNote": "טבלת גילוי היבואן בישראל, הומר מ-ליטר/100 ק\"מ"
       },
-      "rambiEligible": true
+      "rambiEligible": true,
+      "icarUrl": "https://www.icar.co.il/%D7%A1%D7%A7%D7%95%D7%93%D7%94/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%95%D7%93%D7%99%D7%90%D7%A7/%D7%A1%D7%A7%D7%95%D7%93%D7%94_%D7%A7%D7%95%D7%93%D7%99%D7%90%D7%A7_%D7%97%D7%93%D7%A9/"
     }
   ]
 }

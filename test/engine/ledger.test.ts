@@ -72,3 +72,57 @@ describe('the ledger adds up', () => {
     expect(r.lines.some(l => l.treatment === 'taxableBenefit')).toBe(true)
   })
 })
+
+describe('a credit that is settled yearly says so', () => {
+  it('marks the unused-fuel credit as annual, and marks nothing else', () => {
+    // Big budget, little driving, a car with a supplement to offset against.
+    const r = calculate({
+      vehicle: vehicle('skoda-kodiaq-adv'),
+      employee: {
+        grossMonthlySalary: 35000, creditPoints: 2.25, serviceTier: 'C',
+        commuteOneWayKm: 20, workDaysPerMonth: 21, annualKm: 12000,
+        rambiEligible: false, chargesDaily: true,
+        monthlyFuelBudgetIce: 1800, monthlyFuelBudgetElectrified: 1800,
+        receivesLicenseFee: false, receivesPrivateInsurance: false,
+        receivesServiceVehicleTierC: false, receivesFixedNet: false,
+        receivesVariableNet: false, licenseFeeAnnualPaid: 0,
+        privateInsuranceAnnualPaid: 0, serviceVehicleTierCMonthly: 0,
+        fixedNetMonthly: 0, variableNetMonthly: 0,
+        installsCharger: false, chargerInstallCost: 0,
+      },
+      policy: policy as never, taxRules: taxRules as never, prices: prices as never,
+    })
+    const credit = r.ledger.find(l => l.id === 'unusedFuelCredit')!
+    expect(credit.annualAmount).toBeLessThan(0)
+    // The cadence now carries the year's sum with it, because the monthly
+    // column shows a twelfth of a payment nobody receives in twelfths.
+    expect(credit.cadenceHe).toMatch(/^מסולק פעם בשנה · ₪[\d,]+ בשנה$/)
+    for (const l of r.ledger.filter(l => l.id !== 'unusedFuelCredit')) {
+      expect(l.cadenceHe, l.id).toBeUndefined()
+    }
+  })
+
+  it('never credits more than the supplement it offsets', () => {
+    // 16,800 budget against 6,067 spent leaves 10,732 unused, but the Octavia
+    // supplement is only 7,737 — the credit stops there.
+    const r = calculate({
+      vehicle: vehicle('skoda-octavia-selection'),
+      employee: {
+        grossMonthlySalary: 35000, creditPoints: 2.25, serviceTier: 'C',
+        commuteOneWayKm: 20, workDaysPerMonth: 21, annualKm: 15000,
+        rambiEligible: false, chargesDaily: true,
+        monthlyFuelBudgetIce: 1400, monthlyFuelBudgetElectrified: 1400,
+        receivesLicenseFee: false, receivesPrivateInsurance: false,
+        receivesServiceVehicleTierC: false, receivesFixedNet: false,
+        receivesVariableNet: false, licenseFeeAnnualPaid: 0,
+        privateInsuranceAnnualPaid: 0, serviceVehicleTierCMonthly: 0,
+        fixedNetMonthly: 0, variableNetMonthly: 0,
+        installsCharger: false, chargerInstallCost: 0,
+      },
+      policy: policy as never, taxRules: taxRules as never, prices: prices as never,
+    })
+    const credit = -r.ledger.find(l => l.id === 'unusedFuelCredit')!.annualAmount
+    const supplement = r.ledger.find(l => l.id === 'upgradeSupplement')!.annualAmount
+    expect(credit).toBeCloseTo(supplement, 2)
+  })
+})

@@ -47,6 +47,8 @@ export const VehicleSchema = z.strictObject({
   listPrice: z.number().positive(),
   /** True only where the price list actually quotes a rambi cost. */
   rambiEligible: z.boolean().optional(),
+  /** The model's page on icar.co.il, linked from the vehicle screen. */
+  icarUrl: z.string().url().optional(),
   /** Measured in road tests; beats the manufacturer claim in the engine. */
   realEvRangeKm: z.number().positive().nullable().optional(),
   supplementRate: z.number().positive(),

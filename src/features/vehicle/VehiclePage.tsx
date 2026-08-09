@@ -12,6 +12,7 @@ import { VehicleImage } from '../../ui/VehicleImage'
 import { Sheet } from '../../ui/Sheet'
 import { Ledger } from '../../ui/Ledger'
 import { BottomBar } from '../../ui/BottomBar'
+import { IconExternal } from '../../ui/Icons'
 import {
   POWERTRAIN_COLOR, POWERTRAIN_LABEL_HE, type FleetVehicle,
 } from '../catalog/CatalogGrid'
@@ -113,6 +114,22 @@ export function VehiclePage({
 
         <figure className="mt-5 mb-0 overflow-hidden rounded-[var(--r)] border border-[var(--line)]">
           <VehicleImage vehicleId={vehicle.id} altHe={vehicle.nameHe} priority />
+          {/* Everything on this screen is about cost. The spec sheet, the
+              colours, the road tests — those live on icar, and pointing at
+              them is more useful than reproducing a worse version here. */}
+          {vehicle.icarUrl === undefined ? null : (
+            <figcaption>
+              <a
+                className="icar-link"
+                href={vehicle.icarUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                <IconExternal />
+                מפרט מלא ותמונות נוספות באתר icar
+              </a>
+            </figcaption>
+          )}
         </figure>
       </header>
 
