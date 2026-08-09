@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
 import { calculate } from './engine/calculate'
 import type { CalcTaxRules, Vehicle } from './engine/calculate'
 import type { EnergyPrices } from './engine/contributors/energy'
@@ -14,6 +15,11 @@ import type { CompareEntry } from './features/compare/ComparePage'
 import { AdminGate } from './features/admin/AdminGate'
 import { AdminPanel } from './features/admin/AdminPanel'
 import fleetJson from './data/catalog/fleet-2026.json'
+import { NavMenu } from './ui/NavMenu'
+import type { NavItem } from './ui/NavMenu'
+import {
+  IconCompare, IconFleet, IconProfile, IconSettings, IconTheme,
+} from './ui/Icons'
 
 /**
  * The application shell, and the thing that composes the screens.
@@ -30,11 +36,11 @@ type Theme = 'light' | 'dark'
 
 const THEME_STORAGE_KEY = 'maslul.theme'
 
-const TABS: readonly { id: Screen; labelHe: string }[] = [
-  { id: 'catalog', labelHe: 'הצי' },
-  { id: 'compare', labelHe: 'השוואה' },
-  { id: 'profile', labelHe: 'הפרופיל שלי' },
-  { id: 'admin', labelHe: 'הגדרות' },
+const TABS: readonly { id: Screen; labelHe: string; icon: () => ReactNode }[] = [
+  { id: 'catalog', labelHe: 'הצי', icon: () => <IconFleet /> },
+  { id: 'compare', labelHe: 'השוואה', icon: () => <IconCompare /> },
+  { id: 'profile', labelHe: 'הפרופיל שלי', icon: () => <IconProfile /> },
+  { id: 'admin', labelHe: 'הגדרות', icon: () => <IconSettings /> },
 ]
 
 /** The catalogue is data, so it is parsed once rather than on every render. */
@@ -46,6 +52,7 @@ export function App() {
   )
   const [screen, setScreen] = useState<Screen>('catalog')
   const [openVehicleId, setOpenVehicleId] = useState<string | null>(null)
+  const [menuOpen, setMenuOpen] = useState(false)
 
   const profileStore = useProfile()
   const settingsStore = useSettings()
@@ -83,6 +90,15 @@ export function App() {
     [selection.selected, profile, policy, taxRules, prices],
   )
 
+  const navItems = useMemo<NavItem[]>(() => TABS.map(t => ({
+    id: t.id,
+    labelHe: t.labelHe,
+    icon: t.icon(),
+    ...(t.id === 'compare' && selection.selected.length > 0
+      ? { badge: String(selection.selected.length) }
+      : {}),
+  })), [selection.selected.length])
+
   function openCar(id: string): void {
     setOpenVehicleId(id)
     setScreen('vehicle')
@@ -100,23 +116,13 @@ export function App() {
         <div className="wrap">
           <div className="brand">מס<span>לול</span></div>
 
-          <nav className="tabs" role="tablist" aria-label="מסכים">
-            {TABS.map(tab => (
-              <button
-                key={tab.id}
-                type="button"
-                role="tab"
-                className="tab"
-                aria-selected={screen === tab.id || (tab.id === 'catalog' && screen === 'vehicle')}
-                onClick={() => { goTab(tab.id) }}
-              >
-                {tab.labelHe}
-                {tab.id === 'compare' && selection.selected.length > 0
-                  ? ` (${String(selection.selected.length)})`
-                  : ''}
-              </button>
-            ))}
-          </nav>
+          <NavMenu
+            items={navItems}
+            activeId={screen === 'vehicle' ? 'catalog' : screen}
+            onSelect={id => { goTab(id as Screen) }}
+            open={menuOpen}
+            onOpenChange={setMenuOpen}
+          />
 
           <button
             type="button"
@@ -124,7 +130,7 @@ export function App() {
             aria-label="החלפת ערכת צבעים"
             onClick={() => { setTheme(current => (current === 'dark' ? 'light' : 'dark')) }}
           >
-            ◐
+            <IconTheme />
           </button>
         </div>
       </header>

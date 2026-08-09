@@ -151,7 +151,25 @@ export type CalcInput = {
 export type CalcContext = CalcInput & { usage: UsageSplit }
 
 export type CalcResult = {
+  /**
+   * The computational truth: every contributor's output, including the imputed
+   * benefit lines that move taxable income without moving cash.
+   */
   lines: MoneyLine[]
+  /**
+   * The same cost, arranged so a reader can add it up.
+   *
+   * `lines` contains שווי שימוש at its full imputed value — 2,714 a month on a
+   * 154,990 plug-in — but nobody pays that. They pay the tax on it, which at a
+   * 35,000 salary is 1,280. Printing the imputation in a column of costs makes
+   * the column disagree with its own total by the difference, and a reader who
+   * adds it up finds the app wrong.
+   *
+   * So every taxable-benefit line is folded into one line carrying the actual
+   * tax, and the imputation moves into that line's trace where it belongs as
+   * an input. These lines sum to annualNet.
+   */
+  ledger: MoneyLine[]
   forgone: MoneyLine[]
   /** Annual cash the employee parts with, before the tax effect. */
   annualCash: number
@@ -202,6 +220,59 @@ function missingData(ctx: CalcContext): string | null {
   return energyCostAnnual(
     ctx.usage, ctx.vehicle.consumption ?? {}, ctx.prices,
   ).missingPriceForHe
+}
+
+/**
+ * Rewrites the computed lines into a column that adds up.
+ *
+ * Taxable-benefit lines are replaced by a single line holding the tax they
+ * actually caused. The benefit itself, and the marginal rate it came off at,
+ * move into the trace — which is where an input belongs.
+ */
+function toLedger(
+  lines: MoneyLine[], annualTaxDelta: number, ctx: CalcContext,
+): MoneyLine[] {
+  const imputed = lines.filter(l => l.treatment === 'taxableBenefit')
+  const cash = lines.filter(l => l.treatment !== 'taxableBenefit')
+  if (imputed.length === 0) return cash
+
+  const benefitAnnual = round2(imputed.reduce((s, l) => s + l.annualAmount, 0))
+  const effectiveRate = benefitAnnual === 0 ? 0 : annualTaxDelta / benefitAnnual
+  const monthly = (n: number) => round2(n / 12).toLocaleString('en-US')
+
+  const taxLine: MoneyLine = {
+    id: 'usageValueTax',
+    labelHe: 'מס על שווי שימוש',
+    category: 'tax',
+    annualAmount: annualTaxDelta,
+    // Cash out of the payslip. It shifts no further taxable income of its own —
+    // it IS the tax on the shift already counted.
+    treatment: 'net',
+    trace: {
+      formulaHe:
+        `${imputed.map(l => l.labelHe).join(' + ')}: ` +
+        `${monthly(benefitAnnual)} ₪ לחודש נזקפים לשכר
+` +
+        `מס(שכר + זקיפה) − מס(שכר) = ${monthly(annualTaxDelta)} ₪ לחודש
+` +
+        `שיעור שולי בפועל ${(effectiveRate * 100).toFixed(2)}% — מדרגת מס הכנסה ` +
+        `בתוספת ביטוח לאומי ובריאות`,
+      inputs: {
+        usageValueMonthly: round2(benefitAnnual / 12),
+        taxMonthly: round2(annualTaxDelta / 12),
+        effectiveMarginalRate: round2(effectiveRate * 100),
+        grossMonthlySalary: ctx.employee.grossMonthlySalary,
+      },
+      sourceRef: 'tax-rules/2026.json · מדרגות מס, ביטוח לאומי ובריאות',
+    },
+  }
+
+  // Keep the tax where the imputation stood, so the order still reads as the
+  // order the money is accounted in.
+  const at = lines.findIndex(l => l.treatment === 'taxableBenefit')
+  const before = lines.slice(0, at).filter(l => l.treatment !== 'taxableBenefit')
+  const after = lines.slice(at).filter(l => l.treatment !== 'taxableBenefit')
+  return [...before, taxLine, ...after]
 }
 
 function chargerInstall(ctx: CalcContext): number {
@@ -272,6 +343,7 @@ export function calculate(input: CalcInput): CalcResult {
 
   return {
     lines,
+    ledger: toLedger(lines, annualTaxDelta, ctx),
     forgone,
     annualCash: cash,
     annualTaxableDelta: taxableDelta,

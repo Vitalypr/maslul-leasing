@@ -114,7 +114,7 @@ export const PWA_OPTIONS: PwaOptions = {
   /* 'auto' injects the registration script into index.html, so no source file
      has to import a virtual module the type-checker cannot see. */
   injectRegister: 'auto',
-  includeAssets: ['favicon.svg', 'apple-touch-icon.png'],
+  includeAssets: ['favicon-64.png', 'apple-touch-icon.png'],
   manifest: WEB_MANIFEST,
   workbox: {
     globPatterns: ['**/*.{html,js,css,png,svg,webmanifest}'],

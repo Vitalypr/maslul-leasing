@@ -211,7 +211,7 @@ export function VehiclePage({
 
           <div id="lease-ledger" role="tabpanel">
             <Ledger
-              lines={result.lines.map(scale)}
+              lines={result.ledger.map(scale)}
               totalAnnual={total}
               totalLabelHe={`סה"כ ${h.ofHe}`}
             />

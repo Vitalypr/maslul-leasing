@@ -279,3 +279,116 @@ button{font:inherit;color:inherit}
   color: var(--clay);
   margin-bottom: 2px;
 }
+
+/* ── navigation ───────────────────────────────────────────────────────────
+   Wide: items in the bar. Phone: one button and a drawer. The bar version
+   collapsed on a phone — four Hebrew labels with no room between them ran
+   together into one string — so below the tablet breakpoint they move out. */
+
+.navbar {
+  display: flex;
+  gap: 2px;
+  margin-inline-start: auto;
+}
+.navbar-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: var(--r);
+  background: none;
+  color: var(--ink-soft);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.navbar-item:hover { background: var(--surface-sunk); color: var(--ink); }
+.navbar-item[aria-selected="true"] { background: var(--petrol); color: #fff; }
+:root[data-theme="dark"] .navbar-item[aria-selected="true"] { color: #08130F; }
+
+.nav-badge {
+  min-inline-size: 19px;
+  padding: 1px 5px;
+  border-radius: 100px;
+  background: var(--surface-sunk);
+  color: var(--ink-soft);
+  font-size: 11.5px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.navbar-item[aria-selected="true"] .nav-badge,
+.nav-drawer-item[aria-current="true"] .nav-badge {
+  background: rgb(255 255 255 / 0.22);
+  color: inherit;
+}
+
+.navmenu-trigger { display: none; margin-inline-start: auto; }
+
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: 40;
+  background: rgb(0 0 0 / 0.42);
+}
+
+.nav-drawer {
+  position: fixed;
+  inset-block: 0;
+  inset-inline-end: 0;
+  z-index: 41;
+  inline-size: min(78vw, 300px);
+  padding: 12px;
+  background: var(--surface);
+  border-inline-start: 1px solid var(--line);
+  transform: translateX(100%);
+  visibility: hidden;
+  transition: transform .22s ease, visibility .22s;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+/* The drawer enters from the inline end, which in RTL is the left. */
+[dir="rtl"] .nav-drawer { transform: translateX(-100%); }
+.nav-drawer.is-open { transform: translateX(0); visibility: visible; }
+
+.nav-drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 6px 14px;
+  margin-block-end: 6px;
+  border-block-end: 1px solid var(--line);
+}
+
+.nav-drawer-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 50px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--r);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 15.5px;
+  font-weight: 600;
+  text-align: start;
+  cursor: pointer;
+}
+.nav-drawer-item span { flex: 1; }
+.nav-drawer-item:hover { background: var(--surface-sunk); }
+.nav-drawer-item[aria-current="true"] { background: var(--petrol); color: #fff; }
+:root[data-theme="dark"] .nav-drawer-item[aria-current="true"] { color: #08130F; }
+
+@media (max-width: 767px) {
+  .navbar { display: none; }
+  .navmenu-trigger { display: grid; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .nav-drawer { transition: none; }
+}

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>אייקון האפליקציה — שש גרסאות</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#F4F6F4; --surface:#FFF; --sunk:#EDF0EE;
+  --ink:#16211F; --soft:#5C6A66; --faint:#8A9793;
+  --petrol:#0D5C55; --wash:#E4EFEC; --clay:#8E3B2F; --clay-wash:#F6E9E6;
+  --line:#DCE2DE; --strong:#C3CCC7;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:Heebo,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1060px;margin:0 auto;padding:0 20px}
+h1{font-size:26px;font-weight:800;letter-spacing:-.02em;margin:36px 0 8px}
+.lede{margin:0 0 6px;color:var(--soft);font-size:15px;line-height:1.65;max-width:66ch}
+.note{border:1px solid var(--clay);background:var(--clay-wash);border-radius:6px;
+  padding:13px 15px;font-size:13.5px;line-height:1.65;margin:20px 0 34px;max-width:70ch}
+.note b{color:var(--clay)}
+
+.opt{background:var(--surface);border:1px solid var(--line);border-radius:8px;
+  padding:22px;margin-bottom:14px;display:grid;grid-template-columns:1fr 300px;gap:26px}
+.opt h2{font-size:17px;margin:0 0 4px;font-weight:700}
+.opt h2 span{font-family:"IBM Plex Mono",monospace;font-size:12px;color:var(--faint);
+  margin-inline-start:8px;font-weight:400}
+.opt p{margin:0;color:var(--soft);font-size:13.5px;line-height:1.6;max-width:52ch}
+.sizes{display:flex;align-items:flex-end;gap:18px;flex-wrap:wrap}
+.sz{text-align:center}
+.sz em{display:block;font-style:normal;font-family:"IBM Plex Mono",monospace;
+  font-size:10.5px;color:var(--faint);margin-top:6px}
+.ico{display:block;border-radius:22%;overflow:hidden}
+.ico.r512{width:104px;height:104px}
+.ico.r192{width:64px;height:64px}
+.ico.r48{width:40px;height:40px}
+/* Android masks the icon to a circle, so anything outside the middle 80% is
+   cut. This shows what actually survives. */
+.ico.mask{width:64px;height:64px;border-radius:50%}
+.home{background:linear-gradient(160deg,#2b3f3c,#16211F);border-radius:14px;
+  padding:16px 12px;display:flex;gap:14px;justify-content:center}
+.home .cell{text-align:center;width:66px}
+.home .cell b{display:block;font-size:10.5px;font-weight:500;color:#fff;
+  margin-top:6px;letter-spacing:.01em}
+.home .ico{width:54px;height:54px;margin:0 auto}
+footer{border-top:1px solid var(--line);margin-top:36px;padding:24px 0 60px;
+  font-size:13px;color:var(--soft);line-height:1.75}
+@media(max-width:820px){ .opt{grid-template-columns:1fr} }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>אייקון האפליקציה — שש גרסאות</h1>
+  <p class="lede">
+    צללית משכן הכנסת בשילוב רכב. כל גרסה מוצגת בגדלים שבהם היא באמת נראית,
+    כולל חיתוך לעיגול כפי שאנדרואיד עושה, ועל רקע מסך בית.
+  </p>
+
+  <div class="note">
+    <b>למה לא סמל הכנסת עצמו</b>
+    סמל הכנסת הוא סמל המדינה — המנורה עם ענפי הזית — והוא מוגן בחוק הגנת סמלים
+    התשל"ד־1974. שימוש בו באפליקציה שאינה רשמית, ובוודאי באתר ציבורי, אינו מורשה.
+    <b style="margin-top:8px">מה שכן</b>
+    משכן הכנסת הוא מבנה מזוהה מיד — גג שטוח שטוח וגולש, שורת עמודים, בסיס מוגבה —
+    ואינו סמל מוגן. הוא גם עובד טוב יותר כאייקון: צורה, לא תג.
+  </div>
+</div>
+
+<div class="wrap" id="opts"></div>
+
+<div class="wrap"><footer>
+  כל הגרסאות בנויות מאותם שני צבעים בלבד — פטרול <code>#0D5C55</code> ולבן — כדי
+  שהאייקון יישאר חד גם ב־48 פיקסלים ולא יתפרק לרעש. אחרי שתבחר, אייצר את שלושת
+  הקבצים שהמניפסט דורש: 192, 512 ו־maskable 512, בתוספת favicon.
+</footer></div>
+
+<script>
+/* One shared canvas so the six sit on the same grid and can be compared.
+   Only two colours: an icon that needs more does not survive 48px. */
+const BG = '#0D5C55', FG = '#FFFFFF';
+
+/* The Knesset building, reduced to what still reads small: an overhanging flat
+   roof, a colonnade, a raised base. Columns are drawn from a count so each
+   variant can thin them out rather than redraw. */
+function colonnade(x, y, w, h, n, gapRatio = 0.62) {
+  const pitch = w / n, bar = pitch * gapRatio;
+  let d = '';
+  for (let i = 0; i < n; i++) {
+    d += `<rect x="${(x + i * pitch + (pitch - bar) / 2).toFixed(1)}" y="${y}" width="${bar.toFixed(1)}" height="${h}" rx="1"/>`;
+  }
+  return d;
+}
+
+/* A car at icon scale is a body, a greenhouse notch and two wheels. Anything
+   more disappears. */
+function car(cx, cy, w, fill = FG) {
+  const h = w * 0.42, x = cx - w / 2, y = cy - h / 2, r = w * 0.105;
+  return `
+    <path d="M ${x} ${y + h * 0.72}
+             q 0 ${-h * 0.18} ${w * 0.09} ${-h * 0.24}
+             l ${w * 0.16} ${-h * 0.1}
+             l ${w * 0.13} ${-h * 0.3}
+             q ${w * 0.03} ${-h * 0.12} ${w * 0.11} ${-h * 0.12}
+             l ${w * 0.24} 0
+             q ${w * 0.08} 0 ${w * 0.12} ${h * 0.12}
+             l ${w * 0.1} ${h * 0.3}
+             l ${w * 0.14} ${h * 0.1}
+             q ${w * 0.09} ${h * 0.06} ${w * 0.09} ${h * 0.24}
+             l 0 ${h * 0.28} l ${-w} 0 z" fill="${fill}"/>
+    <circle cx="${x + w * 0.26}" cy="${y + h}" r="${r}" fill="${fill}"/>
+    <circle cx="${x + w * 0.74}" cy="${y + h}" r="${r}" fill="${fill}"/>
+    <circle cx="${x + w * 0.26}" cy="${y + h}" r="${r * 0.42}" fill="${BG}"/>
+    <circle cx="${x + w * 0.74}" cy="${y + h}" r="${r * 0.42}" fill="${BG}"/>`;
+}
+
+const VARIANTS = [
+  {
+    id: 'portico',
+    nameHe: 'פורטיקו',
+    descHe: 'הגג, שישה עמודים והבסיס — ומתחתם הרכב. הקריאה הכי ישירה: מוסד למעלה, רכב למטה. שישה עמודים הם הגבול שעוד נשמר ב־48 פיקסלים.',
+    svg: `
+      <rect x="88" y="132" width="336" height="34" rx="4" fill="${FG}"/>
+      ${`<g fill="${FG}">${colonnade(116, 166, 280, 116, 6)}</g>`}
+      <rect x="96" y="282" width="320" height="22" rx="3" fill="${FG}"/>
+      ${car(256, 372, 250)}`,
+  },
+  {
+    id: 'framed',
+    nameHe: 'הרכב במסגרת',
+    descHe: 'הרכב עומד בין שני עמודי קצה, מתחת לגג. הצורה מתלכדת לסימן אחד במקום שני אלמנטים זה מעל זה — הכי חזק בגודל קטן.',
+    svg: `
+      <rect x="76" y="128" width="360" height="36" rx="4" fill="${FG}"/>
+      <rect x="100" y="164" width="34" height="196" rx="3" fill="${FG}"/>
+      <rect x="378" y="164" width="34" height="196" rx="3" fill="${FG}"/>
+      <rect x="84" y="360" width="344" height="24" rx="3" fill="${FG}"/>
+      ${car(256, 292, 214)}`,
+  },
+  {
+    id: 'stacked',
+    nameHe: 'שכבות',
+    descHe: 'ארבעה עמודים עבים בלבד, וגוש רכב רחב מתחת. הכי פחות פרטים מבין השש, ולכן הכי בטוח בגדלים קטנים ובחיתוך לעיגול.',
+    svg: `
+      <rect x="104" y="140" width="304" height="36" rx="4" fill="${FG}"/>
+      ${`<g fill="${FG}">${colonnade(132, 176, 248, 104, 4, 0.56)}</g>`}
+      <rect x="112" y="280" width="288" height="20" rx="3" fill="${FG}"/>
+      ${car(256, 366, 268)}`,
+  },
+  {
+    id: 'badge',
+    nameHe: 'עיגול',
+    descHe: 'הכל בתוך דיסקה לבנה, והצורות בפטרול. הופך את היחס — טוב במיוחד לחיתוך העיגול של אנדרואיד, כי הגבול הוא חלק מהעיצוב ולא קורבן שלו.',
+    svg: `
+      <circle cx="256" cy="256" r="188" fill="${FG}"/>
+      <rect x="140" y="150" width="232" height="26" rx="3" fill="${BG}"/>
+      ${`<g fill="${BG}">${colonnade(162, 176, 188, 82, 5, 0.58)}</g>`}
+      <rect x="148" y="258" width="216" height="16" rx="2" fill="${BG}"/>
+      ${car(256, 328, 196, BG)}`,
+  },
+  {
+    id: 'wheelbase',
+    nameHe: 'עמודים וגלגל',
+    descHe: 'העמודים יושבים ישירות על שני גלגלים — המבנה והרכב הופכים לאובייקט אחד. הרעיון הכי מקורי כאן, וגם הכי סיכון: אפשר לקרוא אותו כשולחן.',
+    svg: `
+      <rect x="96" y="150" width="320" height="34" rx="4" fill="${FG}"/>
+      ${`<g fill="${FG}">${colonnade(126, 184, 260, 140, 5)}</g>`}
+      <rect x="104" y="324" width="304" height="22" rx="3" fill="${FG}"/>
+      <circle cx="168" cy="386" r="42" fill="${FG}"/>
+      <circle cx="344" cy="386" r="42" fill="${FG}"/>
+      <circle cx="168" cy="386" r="17" fill="${BG}"/>
+      <circle cx="344" cy="386" r="17" fill="${BG}"/>`,
+  },
+  {
+    id: 'profile',
+    nameHe: 'צללית מלאה',
+    descHe: 'המשכן כגוש אחד עם חריצי עמודים חתוכים בתוכו, והרכב חוצה את הבסיס. הכי קרוב למבנה האמיתי, אבל החריצים נסגרים ראשונים כשמקטינים.',
+    svg: `
+      <path d="M 84 148 L 428 148 L 428 186 L 410 186 L 410 320 L 428 320 L 428 352 L 84 352 L 84 320 L 102 320 L 102 186 L 84 186 Z" fill="${FG}"/>
+      <g fill="${BG}">${colonnade(126, 186, 260, 134, 6, 0.42)}</g>
+      ${car(256, 396, 232)}`,
+  },
+];
+
+const svg = v => `<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" fill="${BG}"/>${v.svg}</svg>`;
+
+const uri = v => `data:image/svg+xml;utf8,${encodeURIComponent(svg(v))}`;
+
+document.getElementById('opts').innerHTML = VARIANTS.map((v, i) => `
+  <section class="opt">
+    <div>
+      <h2>${i + 1}. ${v.nameHe}<span>${v.id}</span></h2>
+      <p>${v.descHe}</p>
+    </div>
+    <div>
+      <div class="sizes">
+        <div class="sz"><img class="ico r512" src="${uri(v)}" alt=""><em>512</em></div>
+        <div class="sz"><img class="ico r192" src="${uri(v)}" alt=""><em>192</em></div>
+        <div class="sz"><img class="ico r48"  src="${uri(v)}" alt=""><em>48</em></div>
+        <div class="sz"><img class="ico mask" src="${uri(v)}" alt=""><em>עיגול</em></div>
+      </div>
+      <div class="home" style="margin-top:16px">
+        <div class="cell"><img class="ico" src="${uri(v)}" alt=""><b>מסלול</b></div>
+      </div>
+    </div>
+  </section>`).join('');
+</script>
+</body>
+</html>
